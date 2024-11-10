@@ -2,4 +2,4 @@
 
 Vincent Wang - VincentWangVW<br/>
 Laith Al Khoury - laithalkhoury<br/>
-Xinni - xinnio<br/>
+Xinni Liu - xinnio<br/>
