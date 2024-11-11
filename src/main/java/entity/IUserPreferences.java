@@ -3,6 +3,7 @@ package entity;
 import java.util.HashSet;
 
 public interface IUserPreferences {
+
     /**
      * Adds a specific allergy to the user's allergy list.
      *
@@ -57,6 +58,7 @@ public interface IUserPreferences {
      *
      * @return a {@code HashSet<String>} containing the user's allergies.
      */
+
     HashSet<String> getAllergies();
 
 }
