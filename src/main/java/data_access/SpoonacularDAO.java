@@ -26,10 +26,10 @@ public class SpoonacularDAO {
 
     /**
      *
-     * @param Ingredients
-     * @param missingIngredients
-     * @return
-     * @throws IOException
+     * @param Ingredients the ingredients to search for
+     * @param missingIngredients the number of missing ingredients allowed
+     * @return the recipe IDs
+     * @throws IOException if the request fails
      */
     public ArrayList<Integer> getRecipeIDFromIngredients(ArrayList<String> Ingredients, int missingIngredients) throws IOException {
         String ingredients = String.join(",", Ingredients);
@@ -53,9 +53,9 @@ public class SpoonacularDAO {
 
     /**
      *
-     * @param recipeIDs
-     * @return
-     * @throws IOException
+     * @param recipeIDs the recipe IDs to get information for
+     * @return the recipe information
+     * @throws IOException if the request fails
      */
     public HashMap<Integer, ArrayList<String>> getRecipeInfoFromID(ArrayList<Integer> recipeIDs) throws IOException {
         HashMap<Integer, ArrayList<String>> recipeInfo = new HashMap<>();
@@ -78,7 +78,7 @@ public class SpoonacularDAO {
 
     /**
      *
-     * @param args
+     * @param args the arguments
      */
     // TODO GET RID OF THIS ------------------------- TETSING ONLY
     public static void main(String[] args) {
