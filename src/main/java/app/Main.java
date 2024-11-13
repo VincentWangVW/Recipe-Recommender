@@ -18,13 +18,18 @@ package app;
 //    }
 //}
 
+import data_access.InMemoryDAO;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.ViewModel;
 import interface_adapter.main.MainController;
 import interface_adapter.main.MainPresenter;
+import interface_adapter.season.SeasonController;
+import interface_adapter.season.SeasonPresenter;
 import interface_adapter.season.SeasonViewModel;
 import use_case.mainwindow.MainInteractor;
 import use_case.mainwindow.MainOutputBoundary;
+import use_case.season.SeasonInteractor;
+import use_case.season.SeasonOutputBoundary;
 import view.*;
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +37,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-
+        InMemoryDAO.gets_holiday();
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
         JFrame application = new JFrame("Recipe Recommendation");
@@ -70,6 +75,9 @@ public class Main {
         MainView mainView = new MainView();
         SeasonViewModel seasonViewModel=new SeasonViewModel();
         MainOutputBoundary mainOutputBoundary=new MainPresenter(viewModel,seasonViewModel);
+        SeasonOutputBoundary seasonOutputBoundary=new SeasonPresenter(viewModel);
+        SeasonInteractor seasonInteractor=new SeasonInteractor(seasonOutputBoundary);
+        SeasonController seasonController=new SeasonController(seasonInteractor);
         MainInteractor mainInteractor=new MainInteractor(mainOutputBoundary);
         MainController mainController=new MainController(mainInteractor);
         mainView.setMainController(mainController);
@@ -77,7 +85,7 @@ public class Main {
         views.add(mainView, "MAIN_SCREEN");
 
         SeasonView seasonView = new SeasonView();
-
+        seasonView.setSeasonController(seasonController);
         views.add(seasonView,"SEASON_SCREEN");
 
 
