@@ -1,35 +1,43 @@
 package view;
 import interface_adapter.ViewModel;
+import interface_adapter.main.MainController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainView extends JPanel implements ActionListener {
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
 
-    private final ViewModel viewModel;
+    private MainController mainController;
     private final JButton ingredients = new JButton("Ingredients");
     private final JButton user_info = new JButton("User Info");
     private final JButton season = new JButton("Season");
     private final JButton generate_recipe = new JButton("Generate Recipe");
-    public MainView(ViewModel viewModel) {
-        this.viewModel = viewModel;
-        JLabel title = new JLabel("Recipe Recommendation");
+    public MainView() {
+
+        JLabel title = new JLabel("<html><span style='color: #FF0000;'>Recipe</span> " +
+                "<span style='color: #0000FF;'>Recommendation</span></html>");
+        title.setFont(new Font("Arial", Font.BOLD, 24));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JPanel buttons = new JPanel();
+        this.add(title);
+        JPanel buttons = new JPanel(new GridLayout(4, 1, 10, 10));
+        buttons.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        customizeButton(ingredients);
+        customizeButton(user_info);
+        customizeButton(season);
+        customizeButton(generate_recipe);
         buttons.add(ingredients);
         buttons.add(user_info);
         buttons.add(season);
         buttons.add(generate_recipe);
-
         ingredients.addActionListener(this);
         user_info.addActionListener(this);
         season.addActionListener(this);
         generate_recipe.addActionListener(this);
-
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        this.add(title);
         this.add(buttons);
 
     }
@@ -39,14 +47,24 @@ public class MainView extends JPanel implements ActionListener {
      */
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(ingredients)) {
-            viewModel.setState(ViewModel.viewState.INGREDIENTS_SCREEN);
+
         } else if (evt.getSource().equals(user_info)) {
-            viewModel.setState(ViewModel.viewState.USER_INFO);
+
         } else if (evt.getSource().equals(season)) {
-            viewModel.setState(ViewModel.viewState.SEASON_SCREEN);
+            mainController.switch_to_SeasonView();
         } else if (evt.getSource().equals(generate_recipe)) {
-            viewModel.setState(ViewModel.viewState.GENERATE_RECIPES);
+
         }
     }
+    private void customizeButton(JButton button) {
+        button.setFont(new Font("Arial", Font.BOLD, 30));
+        button.setBackground(new Color(70, 130, 180));
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(30, 144, 255), 2), // 边框颜色
+                BorderFactory.createEmptyBorder(10, 10, 10, 10))); // 内边距
+    }
+
 
 }
