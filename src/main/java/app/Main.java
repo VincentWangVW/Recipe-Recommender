@@ -37,7 +37,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        InMemoryDAO.gets_holiday();
+
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
         JFrame application = new JFrame("Recipe Recommendation");

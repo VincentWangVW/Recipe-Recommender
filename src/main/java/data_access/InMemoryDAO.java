@@ -10,61 +10,46 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-public class InMemoryDAO  {
-
+public class InMemoryDAO implements SeasonDataAccessInterface  {
+    @Override
     public String get_date() {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 只获取年月日
         return sdf.format(date);
     }
 
-
-    public static String gets_holiday() {
+    @Override
+    public String get_holiday() {
         Date dates = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date1=sdf.format(dates);
         String country = "CA";
-        String year = "2023";//date1.substring(0,4);
-        String month = "01";//date1.substring(5,7);
-        String day ="01"; //date1.substring(8,10);
-        String apiKey = "c26c9672-4db9-49b3-a4e4-03b8d88da0ad"; // 替换为你的API密钥
-        String urlString = String.format("https://holidayapi.com/v1/holidays?country=%s&year=%s&key=%s&month=%s&day=%s",
-                country, year, apiKey,month,day);
+        String year = date1.substring(0,4);
+        String month = date1.substring(5,7);
+        String day =date1.substring(8,10);
+        String apiKey = "843b8d83c60d48f1b91cf5e5200bc72c";
+        String urlString = String.format("https://holidays.abstractapi.com/v1/?api_key=%s&country=%s&year=%s&month=%s&day=%s",
+                apiKey,country, year,month,day);
 
         try {
-            // 使用 HttpClient 发送请求
+
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(urlString))
                     .build();
 
-            // 获取响应
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-            // 输出响应体（调试用）
-            System.out.println("Response: " + response.body());
-
-            // 解析响应的JSON数据
-            JSONObject jsonResponse = new JSONObject(response.body());
-            JSONArray holidays = jsonResponse.getJSONArray("holidays");
-
-            // 输出假期信息
-            if (holidays.length() > 0) {
-                for (int i = 0; i < holidays.length(); i++) {
-                    JSONObject holiday = holidays.getJSONObject(i);
-                    String date = holiday.getString("date");
-                    String name = holiday.getString("name");
-                    System.out.println("Holiday: " + name + " on " + date);
-                }
+            if (response.body().equals("[]")) {
+                return "";
             } else {
-                System.out.println("No holidays found for this date.");
+                JSONArray jsonArray = new JSONArray(response.body());
+                return jsonArray.getJSONObject(0).getString("name");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return "Holiday check complete.";
+        return "";
     }
 
     }
