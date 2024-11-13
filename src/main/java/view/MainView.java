@@ -39,7 +39,6 @@ public class MainView extends JPanel implements ActionListener {
         season.addActionListener(this);
         generate_recipe.addActionListener(this);
         this.add(buttons);
-
     }
 
     /**
@@ -47,13 +46,16 @@ public class MainView extends JPanel implements ActionListener {
      */
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(ingredients)) {
-
-        } else if (evt.getSource().equals(user_info)) {
-
-        } else if (evt.getSource().equals(season)) {
+            // TODO
+        }
+        else if (evt.getSource().equals(user_info)) {
+            // TODO
+        }
+        else if (evt.getSource().equals(season)) {
             mainController.switch_to_SeasonView();
-        } else if (evt.getSource().equals(generate_recipe)) {
-
+        }
+        else if (evt.getSource().equals(generate_recipe)) {
+            mainController.switch_to_RecipeView();
         }
     }
     private void customizeButton(JButton button) {
@@ -65,6 +67,4 @@ public class MainView extends JPanel implements ActionListener {
                 BorderFactory.createLineBorder(new Color(30, 144, 255), 2), // 边框颜色
                 BorderFactory.createEmptyBorder(10, 10, 10, 10))); // 内边距
     }
-
-
 }

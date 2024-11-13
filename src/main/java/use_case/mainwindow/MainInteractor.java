@@ -2,16 +2,12 @@ package use_case.mainwindow;
 
 public class MainInteractor implements MainInputBoundary{
     public final MainOutputBoundary mainpresenter;
+
     public MainInteractor(MainOutputBoundary mainOutputBoundary){
         mainpresenter=mainOutputBoundary;
     }
     @Override
     public void switch_to_IngredientsView() {
-
-    }
-
-    @Override
-    public void switch_to_GenerateRecipeView() {
 
     }
 
@@ -23,5 +19,10 @@ public class MainInteractor implements MainInputBoundary{
     @Override
     public void switch_to_SeasonView() {
         mainpresenter.switch_to_SeasonView();
+    }
+
+    @Override
+    public void switch_to_RecipeView() {
+        mainpresenter.switch_to_RecipeView();
     }
 }
