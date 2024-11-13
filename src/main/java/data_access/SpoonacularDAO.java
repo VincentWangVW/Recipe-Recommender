@@ -11,6 +11,9 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * The DAO for the Spoonacular API.
+ */
 public class SpoonacularDAO {
     private static final String API_KEY = "0932dddc83804dd589d24608dc16182f";
     private static final String BASE_URL = "https://api.spoonacular.com/recipes/";
@@ -21,6 +24,13 @@ public class SpoonacularDAO {
         this.client = new OkHttpClient();
     }
 
+    /**
+     *
+     * @param Ingredients
+     * @param missingIngredients
+     * @return
+     * @throws IOException
+     */
     public ArrayList<Integer> getRecipeIDFromIngredients(ArrayList<String> Ingredients, int missingIngredients) throws IOException {
         String ingredients = String.join(",", Ingredients);
         String url = BASE_URL + "findByIngredients?ingredients=" + ingredients + "&number=10&apiKey=" + API_KEY;
@@ -41,6 +51,12 @@ public class SpoonacularDAO {
         }
     }
 
+    /**
+     *
+     * @param recipeIDs
+     * @return
+     * @throws IOException
+     */
     public HashMap<Integer, ArrayList<String>> getRecipeInfoFromID(ArrayList<Integer> recipeIDs) throws IOException {
         HashMap<Integer, ArrayList<String>> recipeInfo = new HashMap<>();
         for (int recipeID : recipeIDs) {
@@ -60,6 +76,11 @@ public class SpoonacularDAO {
         return recipeInfo;
     }
 
+    /**
+     *
+     * @param args
+     */
+    // TODO GET RID OF THIS ------------------------- TETSING ONLY
     public static void main(String[] args) {
         try {
             SpoonacularDAO client = new SpoonacularDAO();
