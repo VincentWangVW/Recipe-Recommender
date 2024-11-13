@@ -18,7 +18,13 @@ package app;
 //    }
 //}
 
+import interface_adapter.ViewManagerModel;
 import interface_adapter.ViewModel;
+import interface_adapter.main.MainController;
+import interface_adapter.main.MainPresenter;
+import interface_adapter.season.SeasonViewModel;
+import use_case.mainwindow.MainInteractor;
+import use_case.mainwindow.MainOutputBoundary;
 import view.*;
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +44,7 @@ public class Main {
         // will be changed by a presenter object that is reporting the
         // results from the use case. This is an observable, and will
         // be observed by the layout manager.
-        ViewModel viewModel = new ViewModel();
+        ViewManagerModel viewModel = new ViewManagerModel();
 
         /*
          The observer watching for changes in the userViewModel. It will
@@ -60,17 +66,20 @@ public class Main {
         application.setVisible(true);
     }
 
-    private static void createViewsAndAddToPanel(ViewModel viewModel, JPanel views) {
-        MainView mainView = new MainView(viewModel);
-        views.add(mainView, ViewManager.MAIN_SCREEN);
-        GenerateRecipeView generateRecipeView = new GenerateRecipeView(viewModel);
-        views.add(generateRecipeView, ViewManager.GENERATE_RECIPES);
-        IngredientsView ingredientsView = new IngredientsView(viewModel);
-        views.add(ingredientsView, ViewManager.INGREDIENTS_SCREEN);
-        SeasonView seasonView = new SeasonView(viewModel);
-        views.add(seasonView, ViewManager.SEASON_SCREEN);
-        UserInfoView userInfoView = new UserInfoView(viewModel);
-        views.add(userInfoView, ViewManager.USER_INFO);
+    private static void createViewsAndAddToPanel(ViewManagerModel viewModel, JPanel views) {
+        MainView mainView = new MainView();
+        SeasonViewModel seasonViewModel=new SeasonViewModel();
+        MainOutputBoundary mainOutputBoundary=new MainPresenter(viewModel,seasonViewModel);
+        MainInteractor mainInteractor=new MainInteractor(mainOutputBoundary);
+        MainController mainController=new MainController(mainInteractor);
+        mainView.setMainController(mainController);
+        mainView.setPreferredSize(new Dimension(400,400));
+        views.add(mainView, "MAIN_SCREEN");
+
+        SeasonView seasonView = new SeasonView();
+
+        views.add(seasonView,"SEASON_SCREEN");
+
 
 
     }
