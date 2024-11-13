@@ -1,10 +1,16 @@
 package view;
 import interface_adapter.ViewModel;
+import interface_adapter.season.SeasonController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-public class SeasonView extends JPanel {
+public class SeasonView extends JPanel implements ActionListener {
+    private SeasonController seasonController;
+    public void setSeasonController(SeasonController seasonController) {
+        this.seasonController = seasonController;
+    }
 
 
     private final JButton return_button = new JButton("Return");
@@ -18,7 +24,7 @@ public class SeasonView extends JPanel {
 
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+        return_button.addActionListener(this);
         this.add(title);
         this.add(buttons);
 
@@ -27,10 +33,10 @@ public class SeasonView extends JPanel {
     /**
      * React to a button click that results in evt.
      */
-//    public void actionPerformed(ActionEvent evt) {
-//        if (evt.getSource().equals(return_button)) {
-//            viewModel.setState(ViewModel.viewState.MAIN_SCREEN);
-//        }
-//    }
+    public void actionPerformed(ActionEvent evt) {
+        if (evt.getSource().equals(return_button)) {
+            seasonController.return_to_main();
+        }
+    }
 
 }
