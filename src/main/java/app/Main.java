@@ -84,7 +84,7 @@ public class Main {
         mainView.setPreferredSize(new Dimension(400,400));
         views.add(mainView, "MAIN_SCREEN");
 
-        SeasonView seasonView = new SeasonView();
+        SeasonView seasonView = new SeasonView(seasonViewModel);
         seasonView.setSeasonController(seasonController);
         views.add(seasonView,"SEASON_SCREEN");
 
