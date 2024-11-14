@@ -10,5 +10,5 @@ public interface RecipeFactory {
      * @param missingItems the missing items of the new recipe
      * @return the new recipe
      */
-    Recipe create(String name, String url, ArrayList<String> missingItems);
+    Recipe create(String name, String url, Integer missingItems);
 }

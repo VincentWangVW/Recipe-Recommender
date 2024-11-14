@@ -66,7 +66,7 @@ public class Main {
         seasonView.setPreferredSize(new Dimension(400, 400));
         views.add(seasonView, "SEASON_SCREEN");
 
-        RecipeView recipeView = new RecipeView();
+        RecipeView recipeView = new RecipeView(recipesViewModel);
         recipeView.setRecipesController(recipesController);
         recipeView.setPreferredSize(new Dimension(400, 400));
         views.add(recipeView, "RECIPES_SCREEN");

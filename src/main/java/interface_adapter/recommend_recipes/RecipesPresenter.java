@@ -4,6 +4,7 @@ import interface_adapter.ViewManagerModel;
 import use_case.recommend_recipes.RecipesOutputBoundary;
 import java.util.HashMap;
 import java.util.List;
+import data_access.SpoonacularDAO;
 
 public class RecipesPresenter implements RecipesOutputBoundary {
     private HashMap<Integer, List<String>> recipeInfo;
