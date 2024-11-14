@@ -61,7 +61,7 @@ public class Main {
         mainView.setPreferredSize(new Dimension(400, 400));
         views.add(mainView, "MAIN_SCREEN");
 
-        SeasonView seasonView = new SeasonView();
+        SeasonView seasonView = new SeasonView(seasonViewModel);
         seasonView.setSeasonController(seasonController);
         seasonView.setPreferredSize(new Dimension(400, 400));
         views.add(seasonView, "SEASON_SCREEN");
@@ -69,6 +69,6 @@ public class Main {
         RecipeView recipeView = new RecipeView();
         recipeView.setRecipesController(recipesController);
         recipeView.setPreferredSize(new Dimension(400, 400));
-        views.add(recipeView, "GENERATE_RECIPE_SCREEN");
+        views.add(recipeView, "RECIPES_SCREEN");
     }
 }
