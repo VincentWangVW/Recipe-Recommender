@@ -1,8 +1,6 @@
-package use_case.season;
+package use_case.recommend_season;
 
-import use_case.mainwindow.MainOutputBoundary;
-
-public class SeasonInteractor implements SeasonInputBoundary{
+public class SeasonInteractor implements SeasonInputBoundary {
     public final SeasonOutputBoundary seasonpresenter;
 
     public SeasonInteractor(SeasonOutputBoundary seasonpresenter) {

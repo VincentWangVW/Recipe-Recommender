@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 public class SeasonView extends JPanel implements ActionListener {
     private SeasonController seasonController;
     public void setSeasonController(SeasonController seasonController) {
@@ -21,13 +22,10 @@ public class SeasonView extends JPanel implements ActionListener {
         JPanel buttons = new JPanel();
         buttons.add(return_button);
 
-
-
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         return_button.addActionListener(this);
         this.add(title);
         this.add(buttons);
-
     }
 
     /**

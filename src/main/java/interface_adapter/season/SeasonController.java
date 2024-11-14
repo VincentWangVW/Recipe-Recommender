@@ -1,12 +1,14 @@
 package interface_adapter.season;
 
-import use_case.season.SeasonInputBoundary;
+import use_case.recommend_season.SeasonInputBoundary;
 
 public class SeasonController {
-    private final SeasonInputBoundary seasonInteractor;
+    private final SeasonInputBoundary seasonInputBoundary;
 
     public SeasonController(SeasonInputBoundary seasonInteractor) {
-        this.seasonInteractor = seasonInteractor;
+        this.seasonInputBoundary = seasonInteractor;
     }
-    public void return_to_main(){seasonInteractor.return_to_main();}
+    public void return_to_main() {
+        seasonInputBoundary.return_to_main();
+    }
 }

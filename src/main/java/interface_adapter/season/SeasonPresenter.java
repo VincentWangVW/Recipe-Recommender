@@ -1,7 +1,7 @@
 package interface_adapter.season;
 
 import interface_adapter.ViewManagerModel;
-import use_case.season.SeasonOutputBoundary;
+import use_case.recommend_season.SeasonOutputBoundary;
 
 public class SeasonPresenter implements SeasonOutputBoundary {
     private final ViewManagerModel viewManagerModel;

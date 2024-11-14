@@ -10,11 +10,12 @@ import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import interface_adapter.recommend_recipes.RecipesDataAccessInterface;
 
 /**
  * The DAO for the Spoonacular API.
  */
-public class SpoonacularDAO {
+public class SpoonacularDAO implements RecipesDataAccessInterface {
     private static final String API_KEY = "0932dddc83804dd589d24608dc16182f";
     private static final String BASE_URL = "https://api.spoonacular.com/recipes/";
 
@@ -26,14 +27,15 @@ public class SpoonacularDAO {
 
     /**
      *
-     * @param Ingredients the ingredients to search for
+     * @param ingredients the ingredients to search for
      * @param missingIngredients the number of missing ingredients allowed
-     * @return the recipe IDs
+     * @return the recipe information
      * @throws IOException if the request fails
      */
-    public ArrayList<Integer> getRecipeIDFromIngredients(ArrayList<String> Ingredients, int missingIngredients) throws IOException {
-        String ingredients = String.join(",", Ingredients);
-        String url = BASE_URL + "findByIngredients?ingredients=" + ingredients + "&number=10&apiKey=" + API_KEY;
+    public HashMap<Integer, ArrayList<String>> getRecipesFromIngredients(ArrayList<String> ingredients,
+                                                                         int missingIngredients) throws IOException {
+        String ingredientsStr = String.join(",", ingredients);
+        String url = BASE_URL + "findByIngredients?ingredients=" + ingredientsStr + "&number=10&apiKey=" + API_KEY;
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -47,17 +49,17 @@ public class SpoonacularDAO {
                     recipeIDs.add(recipe.getInt("id"));
                 }
             }
-            return recipeIDs;
+            return getRecipeInfoFromID(recipeIDs);
         }
     }
 
     /**
-     *
+     * Helper method to get recipe information from recipe IDs.
      * @param recipeIDs the recipe IDs to get information for
      * @return the recipe information
      * @throws IOException if the request fails
      */
-    public HashMap<Integer, ArrayList<String>> getRecipeInfoFromID(ArrayList<Integer> recipeIDs) throws IOException {
+    private HashMap<Integer, ArrayList<String>> getRecipeInfoFromID(ArrayList<Integer> recipeIDs) throws IOException {
         HashMap<Integer, ArrayList<String>> recipeInfo = new HashMap<>();
         for (int recipeID : recipeIDs) {
             String url = BASE_URL + recipeID + "/information?apiKey=" + API_KEY;
@@ -94,8 +96,8 @@ public class SpoonacularDAO {
 
 //            ingredients.add("carrots");
 //            ingredients.add("tomatoes");
-            ArrayList<Integer> recipeIDs = client.getRecipeIDFromIngredients(ingredients, 0);
-            HashMap<Integer, ArrayList<String>> recipeInfo = client.getRecipeInfoFromID(recipeIDs);
+
+            HashMap<Integer, ArrayList<String>> recipeInfo = client.getRecipesFromIngredients(ingredients, 0);
             for (int recipeID : recipeInfo.keySet()) {
                 System.out.println("Recipe ID: " + recipeID);
                 System.out.println("Recipe Title: " + recipeInfo.get(recipeID).get(0));
