@@ -1,10 +1,7 @@
 package view;
-import interface_adapter.ViewModel;
-import interface_adapter.season.SeasonController;
 
-import data_access.InMemoryDAO;
+import interface_adapter.season.SeasonController;
 import interface_adapter.season.SeasonViewModel;
-import interface_adapter.season.SeasonDataAccessInterface;
 
 import javax.swing.border.Border;
 import javax.swing.*;
@@ -19,11 +16,9 @@ public class SeasonView extends JPanel implements ActionListener {
     private final JLabel holidayLabel;
     private final JButton returnButton;
     private final SeasonViewModel seasonViewModel;
-    private final SeasonDataAccessInterface seasonDataAccessInterface;
 
     public SeasonView(SeasonViewModel seasonViewModel) {
         this.seasonViewModel = seasonViewModel;
-        this.seasonDataAccessInterface = new InMemoryDAO();
 
         // Title label with font and alignment
         JLabel titleLabel = new JLabel("Season");
@@ -38,21 +33,21 @@ public class SeasonView extends JPanel implements ActionListener {
         );
 
         // Date label with border
-        dateLabel = new JLabel("Today's Date: " + seasonDataAccessInterface.get_date());
+        dateLabel = new JLabel();
         dateLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         dateLabel.setBorder(labelBorder);  // Apply border
         this.add(Box.createRigidArea(new Dimension(0, 10)));
         this.add(dateLabel);
 
         // Season label with border
-        seasonLabel = new JLabel("Current Season: " + seasonDataAccessInterface.get_season());
+        seasonLabel = new JLabel();
         seasonLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         seasonLabel.setBorder(labelBorder);  // Apply border
         this.add(Box.createRigidArea(new Dimension(0, 10)));
         this.add(seasonLabel);
 
         // Holiday label with border
-        holidayLabel = new JLabel("Holiday: " + seasonDataAccessInterface.get_holiday());
+        holidayLabel = new JLabel();
         holidayLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         holidayLabel.setBorder(labelBorder);  // Apply border
         this.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -71,11 +66,15 @@ public class SeasonView extends JPanel implements ActionListener {
 
     public void setSeasonController(SeasonController seasonController) {
         this.seasonController = seasonController;
+        updateLabels();
     }
 
-    /**
-     * React to a button click that results in evt.
-     */
+    private void updateLabels() {
+        dateLabel.setText("Today's Date: " + seasonController.getDate());
+        seasonLabel.setText("Current Season: " + seasonController.getSeason());
+        holidayLabel.setText("Holiday: " + seasonController.getHoliday());
+    }
+
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(returnButton)) {
