@@ -1,6 +1,7 @@
 // src/main/java/app/Main.java
 package app;
 
+import data_access.InMemoryDAO;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.main.MainController;
 import interface_adapter.main.MainPresenter;
@@ -41,6 +42,7 @@ public class Main {
 
     private static void createViewsAndAddToPanel(ViewManagerModel viewModel, JPanel views) {
         MainView mainView = new MainView();
+        InMemoryDAO inMemoryDAO=new InMemoryDAO();
         SeasonViewModel seasonViewModel = new SeasonViewModel();
         RecipesViewModel recipesViewModel = new RecipesViewModel();
 
@@ -48,7 +50,7 @@ public class Main {
         SeasonOutputBoundary seasonOutputBoundary = new SeasonPresenter(viewModel);
         RecipesOutputBoundary recipesOutputBoundary = new RecipesPresenter(viewModel);
 
-        SeasonInteractor seasonInteractor = new SeasonInteractor(seasonOutputBoundary);
+        SeasonInteractor seasonInteractor = new SeasonInteractor(seasonOutputBoundary,inMemoryDAO);
         SeasonController seasonController = new SeasonController(seasonInteractor);
 
         MainInteractor mainInteractor = new MainInteractor(mainOutputBoundary);
