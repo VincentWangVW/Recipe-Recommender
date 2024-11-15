@@ -19,9 +19,10 @@ public class SeasonView extends JPanel implements ActionListener {
 
     public SeasonView(SeasonViewModel seasonViewModel) {
         this.seasonViewModel = seasonViewModel;
+        seasonViewModel.addPropertyChangeListener(evt -> updateLabels());
 
         // Title label with font and alignment
-        JLabel titleLabel = new JLabel("Season");
+        JLabel titleLabel = new JLabel(SeasonViewModel.TITLE_LABEL);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         this.add(titleLabel);
@@ -54,7 +55,7 @@ public class SeasonView extends JPanel implements ActionListener {
         this.add(holidayLabel);
 
         // Return button
-        returnButton = new JButton("Return");
+        returnButton = new JButton(SeasonViewModel.RETURN_BUTTON_LABEL);
         returnButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         returnButton.addActionListener(this);
         this.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -70,9 +71,9 @@ public class SeasonView extends JPanel implements ActionListener {
     }
 
     private void updateLabels() {
-        dateLabel.setText("Today's Date: " + seasonController.getDate());
-        seasonLabel.setText("Current Season: " + seasonController.getSeason());
-        holidayLabel.setText("Holiday: " + seasonController.getHoliday());
+        dateLabel.setText(SeasonViewModel.DATE_LABEL + seasonController.getDate());
+        seasonLabel.setText(SeasonViewModel.SEASON_LABEL + seasonController.getSeason());
+        holidayLabel.setText(SeasonViewModel.HOLIDAY_LABEL + seasonController.getHoliday());
     }
 
     @Override

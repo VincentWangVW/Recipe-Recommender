@@ -1,45 +1,37 @@
 package interface_adapter.recommend_recipes;
 
 import use_case.recommend_recipes.RecipesInputBoundary;
-import java.util.List;
 
 public class RecipesController {
-    private final RecipesInputBoundary inputBoundary;
+    private final RecipesInputBoundary recipesInputBoundary;
+    // TODO add input boundary for each use case
 
     public RecipesController(RecipesInputBoundary inputBoundary) {
-        this.inputBoundary = inputBoundary;
-    }
-
-    public void getRecipesFromIngredients(List<String> ingredients, int missingIngredients) {
-        inputBoundary.getRecipesFromIngredients(ingredients, missingIngredients);
+        this.recipesInputBoundary = inputBoundary;
+        // TODO add input boundary for each use case
     }
 
     public void return_to_main() {
-        inputBoundary.return_to_main();
+        recipesInputBoundary.return_to_main();
     }
 
-//    public void generateRecipes(boolean ingredients, boolean userInfo, boolean season, boolean holiday,
-//                                boolean drinkItem) {
-//        inputBoundary.generateRecipes(ingredients, userInfo, season, holiday, drinkItem);
-//    }
-
     // TODO also change this for each of the use cases
-    public void generateRecipes(boolean ingredients, boolean userInfo, boolean season, boolean holiday,
-                                boolean drinkItem) {
-        if (ingredients) {
-            inputBoundary.generateRecipesFromIngredients(ingredients);
+    public void generateRecipes(boolean followUserInfo, boolean isIngredients, boolean isSeason,
+                                boolean isHoliday, boolean isCustom) {
+        if (isIngredients) {
+            recipesInputBoundary.generateRecipesFromIngredients(followUserInfo);
         }
-        if (userInfo) {
-            inputBoundary.generateRecipesFromUserInfo(userInfo);
+        if (isSeason) {
+            // TODO change to season
+            recipesInputBoundary.generateRecipesFromSeason(followUserInfo);
         }
-        if (season) {
-            inputBoundary.generateRecipesFromSeason(season);
+        if (isHoliday) {
+            // TODO change to holiday
+            recipesInputBoundary.generateRecipesFromHoliday(followUserInfo);
         }
-        if (holiday) {
-            inputBoundary.generateRecipesFromHoliday(holiday);
-        }
-        if (drinkItem) {
-            inputBoundary.generateRecipesFromDrinkItem(drinkItem);
+        if (isCustom) {
+            // TODO change to custom
+            recipesInputBoundary.generateRecipesFromCustom(followUserInfo);
         }
     }
 }

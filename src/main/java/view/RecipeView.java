@@ -12,11 +12,8 @@ public class RecipeView extends JPanel implements ActionListener {
     private RecipesController recipesController;
     private final RecipesViewModel recipesViewModel;
     private final JButton returnButton;
-    private final JCheckBox ingredients;
+    private final JComboBox generationType;
     private final JCheckBox userInfo;
-    private final JCheckBox season;
-    private final JCheckBox holiday;
-    private final JCheckBox drinkItem;
     private final JButton generateButton;
 
     public RecipeView(RecipesViewModel recipesViewModel) {
@@ -28,29 +25,27 @@ public class RecipeView extends JPanel implements ActionListener {
         this.add(titleLabel);
 
         returnButton = new JButton("Return");
-        ingredients = new JCheckBox("Ingredients");
+        String[] recipeTypes = {"Ingredients", "Season", "Holiday", "Drink Item", "Custom"};
+        generationType = new JComboBox<>(recipeTypes);
+
+        // Add a custom text box that shows up if the dropdown selection is "Custom"
+        // TODO for custom recipe generation
+
         userInfo = new JCheckBox("User Info");
-        season = new JCheckBox("Season");
-        holiday = new JCheckBox("Holiday");
-        drinkItem = new JCheckBox("Drink Item");
         generateButton = new JButton("Generate Recipes");
 
         JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
-        ingredients.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        generationType.setMaximumSize(new Dimension(200, 30));
+        generationType.setAlignmentX(Component.CENTER_ALIGNMENT);
         userInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        season.setAlignmentX(Component.CENTER_ALIGNMENT);
-        holiday.setAlignmentX(Component.CENTER_ALIGNMENT);
-        drinkItem.setAlignmentX(Component.CENTER_ALIGNMENT);
         returnButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         generateButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        buttons.add(ingredients);
         buttons.add(userInfo);
-        buttons.add(season);
-        buttons.add(holiday);
-        buttons.add(drinkItem);
+        buttons.add(generationType);
         buttons.add(generateButton);
         buttons.add(returnButton);
 
@@ -69,12 +64,13 @@ public class RecipeView extends JPanel implements ActionListener {
             recipesController.return_to_main();
         }
         else if (evt.getSource().equals(generateButton)) {
+            String selectedType = (String) generationType.getSelectedItem();
             recipesController.generateRecipes(
-                    ingredients.isSelected(),
                     userInfo.isSelected(),
-                    season.isSelected(),
-                    holiday.isSelected(),
-                    drinkItem.isSelected()
+                    selectedType.equals("Ingredients"),
+                    selectedType.equals("Season"),
+                    selectedType.equals("Holiday"),
+                    selectedType.equals("Custom")
             );
         }
     }
