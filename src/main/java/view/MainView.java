@@ -46,7 +46,7 @@ public class MainView extends JPanel implements ActionListener {
      */
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(ingredients)) {
-            // TODO
+            mainController.switch_to_IngredientsView();
         }
         else if (evt.getSource().equals(user_info)) {
             // TODO

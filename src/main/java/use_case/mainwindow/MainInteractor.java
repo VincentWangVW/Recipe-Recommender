@@ -7,7 +7,7 @@ public class MainInteractor implements MainInputBoundary{
         mainpresenter=mainOutputBoundary;
     }
     @Override
-    public void switch_to_IngredientsView() {
+    public void switch_to_IngredientsView() { mainpresenter.switch_to_IngredientsView();
 
     }
 

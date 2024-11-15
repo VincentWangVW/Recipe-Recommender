@@ -15,4 +15,6 @@ public class MainController {
     public void switch_to_RecipeView() {
         mainInteractor.switch_to_RecipeView();
     }
+
+    public void switch_to_IngredientsView(){mainInteractor.switch_to_IngredientsView(); }
 }
