@@ -1,13 +1,11 @@
 package entity;
 
-import java.util.ArrayList;
-
 public class CommonRecipe implements Recipe {
     private final String name;
     private final String url;
-    private final ArrayList<String> missingItems;
+    private final Integer missingItems;
 
-    public CommonRecipe(String name, String url, ArrayList<String> missingItems) {
+    public CommonRecipe(String name, String url, Integer missingItems) {
         this.name = name;
         this.url = url;
         this.missingItems = missingItems;
@@ -24,7 +22,7 @@ public class CommonRecipe implements Recipe {
     }
 
     @Override
-    public ArrayList<String> getMissingItems() {
+    public Integer getMissingItems() {
         return missingItems;
     }
 

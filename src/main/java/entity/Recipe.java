@@ -1,7 +1,5 @@
 package entity;
 
-import java.util.ArrayList;
-
 public interface Recipe {
     /**
      * Returns the name of the recipe.
@@ -17,7 +15,8 @@ public interface Recipe {
 
     /**
      * Returns a list of missing items.
+     *
      * @return a list of missing items.
      */
-    ArrayList<String> getMissingItems();
+    Integer getMissingItems();
 }
