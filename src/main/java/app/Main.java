@@ -1,4 +1,3 @@
-// src/main/java/app/Main.java
 package app;
 
 import data_access.InMemoryDAO;

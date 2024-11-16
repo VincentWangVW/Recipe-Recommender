@@ -26,6 +26,7 @@ public class SeasonInteractor implements SeasonInputBoundary {
         return seasonpresenter.getSeason(inMemoryDAO.get_season());
     }
 
+    // TODO seperate this
     @Override
     public String getHoliday() {
         return seasonpresenter.getHoliday(inMemoryDAO.get_holiday());
