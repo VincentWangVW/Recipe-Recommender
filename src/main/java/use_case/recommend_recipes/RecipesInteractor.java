@@ -27,6 +27,12 @@ public class RecipesInteractor implements RecipesInputBoundary {
     @Override
     public void generateRecipesFromHoliday(boolean userInfo) {
         // Implementation
-        // TODO move to holiday
+        // TODO
+    }
+
+    @Override
+    public void generateRecipesFromCustom(boolean followUserInfo) {
+        // Implementation
+        // TODO
     }
 }
