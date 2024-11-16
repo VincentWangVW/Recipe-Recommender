@@ -32,6 +32,7 @@ public class RecipesInteractor implements RecipesInputBoundary {
 
     @Override
     public void generateRecipesFromCustom(boolean followUserInfo) {
-
+        // Implementation
+        // TODO
     }
 }
