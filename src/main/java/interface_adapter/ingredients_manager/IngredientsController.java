@@ -36,7 +36,7 @@ public class IngredientsController {
         for (Ingredient ingredient : localIngredientList) {
             if (ingredient.getName().equals(ingredientName)) {
                 int newQuantity = ingredient.getQuantity() + delta;
-                if (newQuantity <= 0) {
+                if (newQuantity <= 1) {
                     // Remove the ingredient if the new quantity is less than or equal to 0
                     localIngredientList.remove(ingredient);
                 } else {
