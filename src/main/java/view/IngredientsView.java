@@ -141,6 +141,12 @@ public class IngredientsView extends JPanel implements ActionListener {
                 }
             }
             updateIngredientList();
+            // Reselect the previously selected index
+            if (selectedIndex < ingredientListModel.getSize()) {
+                ingredientList.setSelectedIndex(selectedIndex);
+            } else if (ingredientListModel.getSize() > 0) {
+                ingredientList.setSelectedIndex(ingredientListModel.getSize() - 1);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "No ingredient selected.", "Error", JOptionPane.WARNING_MESSAGE);
         }

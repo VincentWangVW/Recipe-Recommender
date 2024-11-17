@@ -27,9 +27,9 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
 
     private final OkHttpClient client;
 
-    public SpoonacularDAO(RecipeFactory recipeFactory) {
+    public SpoonacularDAO() {
         this.client = new OkHttpClient();
-        this.recipeFactory = recipeFactory;
+        this.recipeFactory = new CommonRecipeFactory();
     }
 
     /**
@@ -52,7 +52,8 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
             for (int i = 0; i < recipes.length(); i++) {
                 JSONObject recipe = recipes.getJSONObject(i);
                 if (recipe.getInt("missedIngredientCount") <= missingIngredients) {
-                    recipeIDs.put(recipe.getInt("id"), recipe.getInt("missedIngredientCount"));
+                    recipeIDs.put(Integer.valueOf(recipe.getInt("id")),
+                            Integer.valueOf(recipe.getInt("missedIngredientCount")));
                 }
             }
             return getRecipeInfoFromID(recipeIDs);
@@ -79,7 +80,7 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
                 String responseBody = response.body().string();
                 JSONObject recipe = new JSONObject(responseBody);
                 recipeInfo.add(recipeFactory.create(recipe.getString("title"), recipe.getString("sourceUrl"),
-                        missedIngredients));
+                        Integer.valueOf(missedIngredients)));
             }
         }
         return recipeInfo;
@@ -91,7 +92,7 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
      */
     // TODO GET RID OF THIS ------------------------- TETSING ONLY
     public static void main(String[] args) {
-        SpoonacularDAO dao = new SpoonacularDAO(new CommonRecipeFactory());
+        SpoonacularDAO dao = new SpoonacularDAO();
         try {
             ArrayList<String> ingredients = new ArrayList<>();
             ingredients.add("apple");
