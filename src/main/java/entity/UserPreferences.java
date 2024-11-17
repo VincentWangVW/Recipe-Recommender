@@ -16,14 +16,17 @@ public class UserPreferences implements IUserPreferences{
     public boolean hasAlcohol() {
         return Alcohol;
     }
+
     @Override
     public int getLimit() {
         return limit;
     }
+
     @Override
     public HashSet<String> getDietaryRestrictions() {
         return dietaryRestrictions;
     }
+
     @Override
     public HashSet<String> getAllergies() {
         return allergies;
