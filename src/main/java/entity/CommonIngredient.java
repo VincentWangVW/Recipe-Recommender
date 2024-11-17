@@ -6,12 +6,10 @@ package entity;
 public class CommonIngredient implements Ingredient{
     private final String name;
     private final int amount;
-    private final String unit;
 
-    public CommonIngredient(String name, int amount, String unit) {
+    public CommonIngredient(String name, int amount) {
         this.name = name;
         this.amount = amount;
-        this.unit = unit;
     }
 
     @Override
@@ -22,10 +20,5 @@ public class CommonIngredient implements Ingredient{
     @Override
     public int getAmount() {
         return amount;
-    }
-
-    @Override
-    public String getUnit() {
-        return unit;
     }
 }
