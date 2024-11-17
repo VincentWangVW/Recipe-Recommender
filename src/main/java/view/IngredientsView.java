@@ -96,20 +96,18 @@ public class IngredientsView extends JPanel implements ActionListener {
         String quantityText = quantityInputField.getText().trim();
 
         if (ingredient.isEmpty() || quantityText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Both ingredient name and quantity must be " +
-                    "filled.", "Missing Input", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ingredient name and quantity must be filled.", "Missing Input", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
             int quantity = Integer.parseInt(quantityText);
             ingredientsController.addIngredient(ingredient, quantity);
-            ingredientListModel.addElement(ingredient + " - " + quantity);
+            updateIngredientList();
             ingredientInputField.setText(""); // Clear input fields
             quantityInputField.setText("");
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid integer for quantity.",
-                    "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter a valid integer for quantity.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -118,10 +116,9 @@ public class IngredientsView extends JPanel implements ActionListener {
         if (selectedIndex != -1) {
             String ingredient = ingredientListModel.getElementAt(selectedIndex).split(" - ")[0];
             ingredientsController.deleteIngredient(ingredient); // Controller handles logic
-            ingredientListModel.remove(selectedIndex); // Update UI
+            updateIngredientList();
         } else {
-            JOptionPane.showMessageDialog(this, "No ingredient selected.",
-                    "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No ingredient selected.", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -132,41 +129,40 @@ public class IngredientsView extends JPanel implements ActionListener {
             int newQuantity = ingredientsController.changeIngredientAmount(ingredient, delta);
 
             // If the quantity is 0 or below after the change
-            if (newQuantity < 0) {
-                int response = JOptionPane.showConfirmDialog(this,
-                        "The quantity of this ingredient is 0. Do you want to delete it?",
-                        "Delete Ingredient", JOptionPane.YES_NO_OPTION);
+            if (newQuantity < 1) {
+                int response = JOptionPane.showConfirmDialog(this, "The quantity of this ingredient is 1. Do you want to delete it?", "Delete Ingredient", JOptionPane.YES_NO_OPTION);
 
                 // If the user confirms, delete the ingredient
                 if (response == JOptionPane.YES_OPTION) {
                     ingredientsController.deleteIngredient(ingredient); // Delete ingredient
-                    ingredientListModel.remove(selectedIndex); // Remove from the UI list
                 } else {
                     // If user chooses not to delete, reset the quantity to 1 or another default value
                     ingredientsController.addIngredient(ingredient, 1); // Reset to 1 or other value
-                    ingredientListModel.set(selectedIndex, ingredient + " - 1"); // Update UI with new quantity
                 }
-            } else {
-                // Update the quantity without removing the ingredient
-                ingredientListModel.set(selectedIndex, ingredient + " - " + newQuantity);
             }
+            updateIngredientList();
         } else {
-            JOptionPane.showMessageDialog(this, "No ingredient selected.",
-                    "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No ingredient selected.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void updateIngredientList() {
+        ingredientListModel.clear();
+        for (String ingredient : ingredientsController.getIngredients()) {
+            ingredientListModel.addElement(ingredient);
         }
     }
 
     // highlighting ingredient with quantity 0
     private static class IngredientCellRenderer extends DefaultListCellRenderer {
         @Override
-        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
-                                                      boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
             // Check if the ingredient has a quantity of 0
             String text = (String) value;
             String[] parts = text.split(" - ");
-            int quantity = Integer.parseInt(parts[1].trim());
+            int quantity = Integer.parseInt(parts[1].split(" ")[0].trim());
 
             if (quantity == 0 && !isSelected) {
                 label.setBackground(new Color(255, 182, 193));  // Highlight with red background

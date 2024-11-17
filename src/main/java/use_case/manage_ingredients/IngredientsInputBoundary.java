@@ -4,5 +4,8 @@ import java.util.List;
 
 public interface IngredientsInputBoundary {
     void return_to_main();
-    // TODO you will need these for the different use cases
+    void addIngredient(String ingredientName, int quantity);
+    void deleteIngredient(String ingredientName);
+    int changeIngredientAmount(String ingredientName, int delta);
+    List<String> getIngredients();
 }
