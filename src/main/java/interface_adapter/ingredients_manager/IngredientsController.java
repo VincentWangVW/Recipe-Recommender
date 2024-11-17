@@ -31,6 +31,25 @@ public class IngredientsController {
         localIngredientList.removeIf(ingredient -> ingredient.getName().equals(ingredientName));
     }
 
+    // Change ingredient quantity (increase or decrease)
+    public int changeIngredientAmount(String ingredientName, int delta) {
+        for (Ingredient ingredient : localIngredientList) {
+            if (ingredient.getName().equals(ingredientName)) {
+                int newQuantity = ingredient.getQuantity() + delta;
+                if (newQuantity <= 0) {
+                    // Remove the ingredient if the new quantity is less than or equal to 0
+                    localIngredientList.remove(ingredient);
+                } else {
+                    // Update the quantity
+                    ingredient.setQuantity(newQuantity);
+                }
+                return newQuantity;
+            }
+        }
+        // If ingredient not found, return -1 to indicate failure
+        return -1;
+    }
+
     // Get list of ingredients in string format
     public List<String> getIngredients() {
         List<String> ingredientList = new ArrayList<>();

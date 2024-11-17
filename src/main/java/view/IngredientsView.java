@@ -13,10 +13,12 @@ public class IngredientsView extends JPanel implements ActionListener {
     private final DefaultListModel<String> ingredientListModel;
     private final JList<String> ingredientList;
     private final JTextField ingredientInputField;
-    private final JTextField amountInputField;  // Field for amount (integer)
+    private final JTextField quantityInputField;  // Field for quantity (integer)
     private final JButton addButton;
     private final JButton deleteButton;
     private final JButton returnButton;
+    private final JButton increaseButton;
+    private final JButton decreaseButton;
 
     public IngredientsView(IngredientsViewModel ingredientsViewModel) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -31,6 +33,7 @@ public class IngredientsView extends JPanel implements ActionListener {
         // Ingredient list
         ingredientListModel = new DefaultListModel<>();
         ingredientList = new JList<>(ingredientListModel);
+        ingredientList.setCellRenderer(new IngredientCellRenderer()); // Set custom renderer
         JScrollPane scrollPane = new JScrollPane(ingredientList);
         scrollPane.setPreferredSize(new Dimension(300, 150));
         this.add(scrollPane);
@@ -43,20 +46,24 @@ public class IngredientsView extends JPanel implements ActionListener {
         this.add(ingredientInputField);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        // Amount input field (for integer amount)
-        amountInputField = new JTextField();
-        amountInputField.setMaximumSize(new Dimension(300, 30));
-        amountInputField.setBorder(BorderFactory.createTitledBorder("Amount (integer)"));
-        this.add(amountInputField);
+        // Quantity input field (for integer quantity)
+        quantityInputField = new JTextField();
+        quantityInputField.setMaximumSize(new Dimension(300, 30));
+        quantityInputField.setBorder(BorderFactory.createTitledBorder("Quantity (integer)"));
+        this.add(quantityInputField);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
 
         // Buttons
         addButton = createButton("Add Ingredient", "add");
         deleteButton = createButton("Delete Selected", "delete");
         returnButton = createButton("Return to Main", "return");
+        increaseButton = createButton("+", "increment");
+        decreaseButton = createButton("-", "decrement");
 
         this.add(addButton);
         this.add(deleteButton);
+        this.add(increaseButton);
+        this.add(decreaseButton);
         this.add(returnButton);
         this.add(Box.createRigidArea(new Dimension(0, 20)));
     }
@@ -78,39 +85,98 @@ public class IngredientsView extends JPanel implements ActionListener {
         switch (e.getActionCommand()) {
             case "add" -> handleAddIngredient();
             case "delete" -> handleDeleteIngredient();
+            case "increment" -> changeIngredientQuantity(1);
+            case "decrement" -> changeIngredientQuantity(-1);
             case "return" -> ingredientsController.return_to_main();
         }
     }
 
     private void handleAddIngredient() {
         String ingredient = ingredientInputField.getText().trim();
-        String amountText = amountInputField.getText().trim();
+        String quantityText = quantityInputField.getText().trim();
 
-        if (ingredient.isEmpty() || amountText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Both ingredient name and amount must be filled.", "Missing Input", JOptionPane.WARNING_MESSAGE);
+        if (ingredient.isEmpty() || quantityText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Both ingredient name and quantity must be " +
+                    "filled.", "Missing Input", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
-            int amount = Integer.parseInt(amountText); // Parse amount as integer
-            ingredientsController.addIngredient(ingredient, amount); // Controller handles logic
-            ingredientListModel.addElement(ingredient + " - " + amount); // Update UI
+            int quantity = Integer.parseInt(quantityText);
+            ingredientsController.addIngredient(ingredient, quantity);
+            ingredientListModel.addElement(ingredient + " - " + quantity);
             ingredientInputField.setText(""); // Clear input fields
-            amountInputField.setText("");
+            quantityInputField.setText("");
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid integer for amount.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter a valid integer for quantity.",
+                    "Invalid Input", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void handleDeleteIngredient() {
         int selectedIndex = ingredientList.getSelectedIndex();
         if (selectedIndex != -1) {
-            String ingredient = ingredientListModel.getElementAt(selectedIndex);
+            String ingredient = ingredientListModel.getElementAt(selectedIndex).split(" - ")[0];
             ingredientsController.deleteIngredient(ingredient); // Controller handles logic
             ingredientListModel.remove(selectedIndex); // Update UI
         } else {
-            JOptionPane.showMessageDialog(this, "No ingredient selected.", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No ingredient selected.",
+                    "Error", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void changeIngredientQuantity(int delta) {
+        int selectedIndex = ingredientList.getSelectedIndex();
+        if (selectedIndex != -1) {
+            String ingredient = ingredientListModel.getElementAt(selectedIndex).split(" - ")[0];
+            int newQuantity = ingredientsController.changeIngredientAmount(ingredient, delta);
+
+            // If the quantity is 0 or below after the change
+            if (newQuantity < 0) {
+                int response = JOptionPane.showConfirmDialog(this,
+                        "The quantity of this ingredient is 0. Do you want to delete it?",
+                        "Delete Ingredient", JOptionPane.YES_NO_OPTION);
+
+                // If the user confirms, delete the ingredient
+                if (response == JOptionPane.YES_OPTION) {
+                    ingredientsController.deleteIngredient(ingredient); // Delete ingredient
+                    ingredientListModel.remove(selectedIndex); // Remove from the UI list
+                } else {
+                    // If user chooses not to delete, reset the quantity to 1 or another default value
+                    ingredientsController.addIngredient(ingredient, 1); // Reset to 1 or other value
+                    ingredientListModel.set(selectedIndex, ingredient + " - 1"); // Update UI with new quantity
+                }
+            } else {
+                // Update the quantity without removing the ingredient
+                ingredientListModel.set(selectedIndex, ingredient + " - " + newQuantity);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No ingredient selected.",
+                    "Error", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    // highlighting ingredient with quantity 0
+    private static class IngredientCellRenderer extends DefaultListCellRenderer {
+        @Override
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
+                                                      boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+            // Check if the ingredient has a quantity of 0
+            String text = (String) value;
+            String[] parts = text.split(" - ");
+            int quantity = Integer.parseInt(parts[1].trim());
+
+            if (quantity == 0 && !isSelected) {
+                label.setBackground(new Color(255, 182, 193));  // Highlight with red background
+                label.setForeground(Color.WHITE);
+            } else {
+                label.setBackground(isSelected ? list.getSelectionBackground() : list.getBackground());
+                label.setForeground(isSelected ? list.getSelectionForeground() : list.getForeground());
+            }
+
+            return label;
         }
     }
 }
-
