@@ -5,6 +5,7 @@ import entity.Recipe;
 import use_case.manage_ingredients.IngredientsInputBoundary;
 import entity.UserPreferences;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,19 +29,20 @@ public class CustomSearchInteractor implements CustomSearchInputBoundary {
     @Override
     public void performCustomSearch(boolean followUserInfo) {
         try {
-            // Step 1: Fetch user's ingredients
+            // Fetch user's ingredients
             List<String> ingredients = ingredientsInputBoundary.getIngredients()
                     .stream()
                     .map(s -> s.split(" - ")[0]) // Extract ingredient names
                     .collect(Collectors.toList());
 
-            // Step 2: Query recipes using the Spoonacular API
-            List<Recipe> recipes = spoonacularDAO.getRecipesFromIngredients(ingredients, 5);
+            // Query recipes using the Spoonacular API
+            List<Recipe> recipes = spoonacularDAO.getRecipesFromIngredients(new ArrayList<>(ingredients),
+                    5);
 
-            // Step 3: Filter recipes based on user preferences
+            // Filter recipes based on user preferences
             List<Recipe> filteredRecipes = filterRecipesByUserPreferences(recipes);
 
-            // Step 4: Pass the results to the output boundary
+            // Pass the results to the output boundary
             outputBoundary.presentCustomSearchResults(formatRecipes(filteredRecipes));
         } catch (Exception e) {
             // Handle errors and pass to output boundary
