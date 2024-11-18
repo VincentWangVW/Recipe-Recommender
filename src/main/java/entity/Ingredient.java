@@ -12,10 +12,4 @@ public interface Ingredient {
      * @return the amount of the ingredient.
      */
     int getAmount();
-
-    /**
-     * Returns the unit of the ingredient.
-     * @return the unit of the ingredient.
-     */
-    String getUnit();
 }
