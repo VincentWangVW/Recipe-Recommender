@@ -2,6 +2,9 @@ package app;
 
 import data_access.InMemoryDAO;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.generated_recipes.GeneratedController;
+import interface_adapter.generated_recipes.GeneratedPresenter;
+import interface_adapter.generated_recipes.GeneratedViewModel;
 import interface_adapter.ingredients_manager.*;
 import interface_adapter.main.MainController;
 import interface_adapter.main.MainPresenter;
@@ -13,6 +16,8 @@ import interface_adapter.season.SeasonPresenter;
 import interface_adapter.season.SeasonViewModel;
 import interface_adapter.ingredients_manager.IngredientsViewModel;
 
+import use_case.generated_manager.GeneratedInteractor;
+import use_case.generated_manager.GeneratedOutputBoundary;
 import use_case.mainwindow.MainInteractor;
 import use_case.mainwindow.MainOutputBoundary;
 import use_case.recommend_recipes.RecipesInteractor;
@@ -49,11 +54,14 @@ public class Main {
         SeasonViewModel seasonViewModel = new SeasonViewModel();
         RecipesViewModel recipesViewModel = new RecipesViewModel();
         IngredientsViewModel ingredientsViewModel = new IngredientsViewModel();
+        GeneratedViewModel generatedViewModel = new GeneratedViewModel();
 
-        MainOutputBoundary mainOutputBoundary = new MainPresenter(viewModel, seasonViewModel, recipesViewModel, ingredientsViewModel);
+        MainOutputBoundary mainOutputBoundary = new MainPresenter(viewModel, seasonViewModel, recipesViewModel,
+                ingredientsViewModel);
         SeasonOutputBoundary seasonOutputBoundary = new SeasonPresenter(viewModel);
         RecipesOutputBoundary recipesOutputBoundary = new RecipesPresenter(viewModel);
         IngredientsIOutputBoundary ingredientsOutputBoundary = new IngredientsPresenter(viewModel);
+        GeneratedOutputBoundary generatedOutputBoundary = new GeneratedPresenter(viewModel);
 
         SeasonInteractor seasonInteractor = new SeasonInteractor(seasonOutputBoundary, inMemoryDAO);
         SeasonController seasonController = new SeasonController(seasonInteractor);
@@ -61,11 +69,14 @@ public class Main {
         MainInteractor mainInteractor = new MainInteractor(mainOutputBoundary);
         MainController mainController = new MainController(mainInteractor);
 
+        IngredientsInteractor ingredientsInteractor = new IngredientsInteractor(ingredientsOutputBoundary);
+        IngredientsController ingredientsController = new IngredientsController(ingredientsInteractor);
+
         RecipesInteractor recipesInteractor = new RecipesInteractor(recipesOutputBoundary);
         RecipesController recipesController = new RecipesController(recipesInteractor);
 
-        IngredientsInteractor ingredientsInteractor = new IngredientsInteractor(ingredientsOutputBoundary);
-        IngredientsController ingredientsController = new IngredientsController(ingredientsInteractor);
+        GeneratedInteractor generatedInteractor = new GeneratedInteractor(generatedOutputBoundary, ingredientsInteractor);
+        GeneratedController generatedController = new GeneratedController(generatedInteractor);
 
         mainView.setMainController(mainController);
         mainView.setPreferredSize(new Dimension(400, 400));
@@ -85,5 +96,10 @@ public class Main {
         ingredientsView.setIngredientsController(ingredientsController);
         ingredientsView.setPreferredSize(new Dimension(400, 400));
         views.add(ingredientsView, "INGREDIENTS_SCREEN");
+
+        GeneratedRecipesView generatedRecipesView = new GeneratedRecipesView(generatedViewModel);
+        generatedRecipesView.setGeneratedController(generatedController);
+        generatedRecipesView.setPreferredSize(new Dimension(400, 400));
+        views.add(generatedRecipesView, "GENERATED_SCREEN");
     }
 }

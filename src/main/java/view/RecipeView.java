@@ -12,7 +12,7 @@ public class RecipeView extends JPanel implements ActionListener {
     private RecipesController recipesController;
     private final RecipesViewModel recipesViewModel;
     private final JButton returnButton;
-    private final JComboBox generationType;
+    private final JComboBox<String> generationType;
     private final JCheckBox userInfo;
     private final JButton generateButton;
 
@@ -27,9 +27,6 @@ public class RecipeView extends JPanel implements ActionListener {
         returnButton = new JButton("Return");
         String[] recipeTypes = {"Ingredients", "Season", "Holiday", "Drink Item", "Custom"};
         generationType = new JComboBox<>(recipeTypes);
-
-        // Add a custom text box that shows up if the dropdown selection is "Custom"
-        // TODO for custom recipe generation
 
         userInfo = new JCheckBox("User Info");
         generateButton = new JButton("Generate Recipes");
@@ -51,6 +48,7 @@ public class RecipeView extends JPanel implements ActionListener {
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         returnButton.addActionListener(this);
+        generateButton.addActionListener(this);
         this.add(buttons);
     }
 
@@ -62,16 +60,9 @@ public class RecipeView extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(returnButton)) {
             recipesController.return_to_main();
-        }
-        else if (evt.getSource().equals(generateButton)) {
+        } else if (evt.getSource().equals(generateButton)) {
             String selectedType = (String) generationType.getSelectedItem();
-            recipesController.generateRecipes(
-                    userInfo.isSelected(),
-                    selectedType.equals("Ingredients"),
-                    selectedType.equals("Season"),
-                    selectedType.equals("Holiday"),
-                    selectedType.equals("Custom")
-            );
+            recipesController.go_to_generated(selectedType, userInfo.isSelected());
         }
     }
 }

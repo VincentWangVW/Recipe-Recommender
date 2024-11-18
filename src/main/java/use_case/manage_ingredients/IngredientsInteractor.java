@@ -58,6 +58,14 @@ public class IngredientsInteractor implements IngredientsInputBoundary {
         return ingredientList;
     }
 
+    public ArrayList<String> getIngredientsNEW() {
+        ArrayList<String> ingredientList = new ArrayList<>();
+        for (Ingredient ingredient : localIngredientList) {
+            ingredientList.add(ingredient.getName());
+        }
+        return ingredientList;
+    }
+
     public void return_to_main() {
         outputBoundary.return_to_main();
     }

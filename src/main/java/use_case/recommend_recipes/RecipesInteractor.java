@@ -1,5 +1,12 @@
 package use_case.recommend_recipes;
 
+import data_access.SpoonacularDAO;
+import entity.Recipe;
+import use_case.manage_ingredients.IngredientsInteractor;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class RecipesInteractor implements RecipesInputBoundary {
     private final RecipesOutputBoundary outputBoundary;
 
@@ -13,26 +20,7 @@ public class RecipesInteractor implements RecipesInputBoundary {
     }
 
     @Override
-    public void generateRecipesFromIngredients(boolean userInfo) {
-        // Implementation
-        // TODO
-    }
-
-    @Override
-    public void generateRecipesFromSeason(boolean userInfo) {
-        // Implementation
-        // TODO move to season
-    }
-
-    @Override
-    public void generateRecipesFromHoliday(boolean userInfo) {
-        // Implementation
-        // TODO
-    }
-
-    @Override
-    public void generateRecipesFromCustom(boolean followUserInfo) {
-        // Implementation
-        // TODO
+    public void go_to_generated(String selectedType, boolean userInfo) {
+        outputBoundary.go_to_generated(selectedType, userInfo);
     }
 }
