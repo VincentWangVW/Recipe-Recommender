@@ -63,10 +63,28 @@ public class GeneratedRecipesView extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(returnButton)) {
             generatedController.return_to_main();
-        }
-        else if (evt.getSource().equals(generateButton)) {
+        } else if (evt.getSource().equals(generateButton)) {
             tableModel.setRowCount(0);
-            addRecipes(generatedController.generateRecipes());
+            try {
+                ArrayList<Recipe> recipes = generatedController.generateRecipes(); // Fetch recipes
+                if (recipes == null || recipes.isEmpty()) {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "No recipes found, try again.",
+                            "No Recipes Found",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                } else {
+                    addRecipes(recipes);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "An error occurred while generating recipes: " + e.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
         }
     }
 }
