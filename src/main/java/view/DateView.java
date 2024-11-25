@@ -1,7 +1,7 @@
 package view;
 
-import interface_adapter.season.SeasonController;
-import interface_adapter.season.SeasonViewModel;
+import interface_adapter.datescreen.DateController;
+import interface_adapter.datescreen.DateViewModel;
 
 import javax.swing.border.Border;
 import javax.swing.*;
@@ -9,20 +9,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SeasonView extends JPanel implements ActionListener {
-    private SeasonController seasonController;
+public class DateView extends JPanel implements ActionListener {
+    private DateController dateController;
     private final JLabel dateLabel;
     private final JLabel seasonLabel;
     private final JLabel holidayLabel;
     private final JButton returnButton;
-    private final SeasonViewModel seasonViewModel;
+    private final DateViewModel dateViewModel;
 
-    public SeasonView(SeasonViewModel seasonViewModel) {
-        this.seasonViewModel = seasonViewModel;
-        seasonViewModel.addPropertyChangeListener(evt -> updateLabels());
+    public DateView(DateViewModel dateViewModel) {
+        this.dateViewModel = dateViewModel;
+        dateViewModel.addPropertyChangeListener(evt -> updateLabels());
 
         // Title label with font and alignment
-        JLabel titleLabel = new JLabel(SeasonViewModel.TITLE_LABEL);
+        JLabel titleLabel = new JLabel(dateViewModel.TITLE_LABEL);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         this.add(titleLabel);
@@ -55,7 +55,7 @@ public class SeasonView extends JPanel implements ActionListener {
         this.add(holidayLabel);
 
         // Return button
-        returnButton = new JButton(SeasonViewModel.RETURN_BUTTON_LABEL);
+        returnButton = new JButton(dateViewModel.RETURN_BUTTON_LABEL);
         returnButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         returnButton.addActionListener(this);
         this.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -65,21 +65,21 @@ public class SeasonView extends JPanel implements ActionListener {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 
-    public void setSeasonController(SeasonController seasonController) {
-        this.seasonController = seasonController;
+    public void setDateController(DateController dateController) {
+        this.dateController = dateController;
         updateLabels();
     }
 
     private void updateLabels() {
-        dateLabel.setText(SeasonViewModel.DATE_LABEL + seasonController.getDate());
-        seasonLabel.setText(SeasonViewModel.SEASON_LABEL + seasonController.getSeason());
-        holidayLabel.setText(SeasonViewModel.HOLIDAY_LABEL + seasonController.getHoliday());
+        dateLabel.setText(dateViewModel.DATE_LABEL + dateController.getDate());
+        seasonLabel.setText(dateViewModel.SEASON_LABEL + dateController.getSeason());
+        holidayLabel.setText(dateViewModel.HOLIDAY_LABEL + dateController.getHoliday());
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(returnButton)) {
-            seasonController.return_to_main();
+            dateController.return_to_main();
         }
     }
 }
