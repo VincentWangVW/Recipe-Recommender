@@ -52,7 +52,7 @@ public class MainView extends JPanel implements ActionListener {
             // TODO
         }
         else if (evt.getSource().equals(date)) {
-            mainController.switch_to_SeasonView();
+            mainController.switch_to_DateView();
         }
         else if (evt.getSource().equals(generate_recipe)) {
             mainController.switch_to_RecipeView();
