@@ -75,7 +75,9 @@ public class Main {
         RecipesInteractor recipesInteractor = new RecipesInteractor(recipesOutputBoundary);
         RecipesController recipesController = new RecipesController(recipesInteractor);
 
-        GeneratedInteractor generatedInteractor = new GeneratedInteractor(generatedOutputBoundary, ingredientsInteractor);
+        GeneratedInteractor generatedInteractor = new GeneratedInteractor(generatedOutputBoundary,
+                ingredientsInteractor,
+                seasonInteractor);
         GeneratedController generatedController = new GeneratedController(generatedInteractor);
 
         mainView.setMainController(mainController);

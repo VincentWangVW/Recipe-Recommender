@@ -7,6 +7,9 @@ import okhttp3.Response;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,11 +27,14 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
     private static final String API_KEY = "0932dddc83804dd589d24608dc16182f";
     private static final String BASE_URL = "https://api.spoonacular.com/recipes/";
     private final RecipeFactory recipeFactory;
-
     private final OkHttpClient client;
 
     public SpoonacularDAO() {
-        this.client = new OkHttpClient();
+        this.client = new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .build();
         this.recipeFactory = new CommonRecipeFactory();
     }
 
@@ -87,25 +93,78 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
     }
 
     /**
+     * @param query the query to search for
+     * @return the recipe information
+     * @throws IOException if the request fails
+     */
+    public ArrayList<Recipe> getRecipesFromQuery(String query) throws IOException {
+        String url = BASE_URL + "complexSearch?query=" + query + "&number=100&apiKey=" + API_KEY;
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            String responseBody = response.body().string();
+            JSONArray recipes = new JSONObject(responseBody).getJSONArray("results");
+            List<Integer> recipeIDs = new ArrayList<>();
+            for (int i = 0; i < recipes.length(); i++) {
+                JSONObject recipe = recipes.getJSONObject(i);
+                recipeIDs.add(recipe.getInt("id"));
+            }
+            Collections.shuffle(recipeIDs);
+            ArrayList<Integer> selectedRecipeIDs = new ArrayList<>();
+            for (int i = 0; i < 10 && i < recipeIDs.size(); i++) {
+                selectedRecipeIDs.add(recipeIDs.get(i));
+            }
+            return getRecipeInfoFromIDQuery(selectedRecipeIDs);
+        }
+    }
+
+    private ArrayList<Recipe> getRecipeInfoFromIDQuery(ArrayList<Integer> recipeIDs) throws IOException {
+        ArrayList<Recipe> recipeInfo = new ArrayList<>();
+        for (int recipeID : recipeIDs) {
+            String url = BASE_URL + recipeID + "/information?apiKey=" + API_KEY;
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            try (Response response = client.newCall(request).execute()) {
+                String responseBody = response.body().string();
+                JSONObject recipe = new JSONObject(responseBody);
+                recipeInfo.add(recipeFactory.create(recipe.getString("title"), recipe.getString("sourceUrl"), 0));
+            }
+        }
+        return recipeInfo;
+    }
+
+    /**
      *
      * @param args the arguments
      */
     // TODO GET RID OF THIS ------------------------- TETSING ONLY
     public static void main(String[] args) {
         SpoonacularDAO dao = new SpoonacularDAO();
+//        try {
+//            ArrayList<String> ingredients = new ArrayList<>();
+//            ingredients.add("apple");
+//            ingredients.add("flour");
+//            ingredients.add("sugar");
+//            ingredients.add("butter");
+//            ingredients.add("oats");
+//            ingredients.add("cranberries");
+//            ArrayList<Recipe> recipes = dao.getRecipesFromIngredients(ingredients, 0);
+//            for (Recipe recipe : recipes) {
+//                System.out.println(recipe.getName());
+//                System.out.println(recipe.getUrl());
+//                System.out.println(recipe.getMissingItems());
+//            }
+//        }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
         try {
-            ArrayList<String> ingredients = new ArrayList<>();
-            ingredients.add("apple");
-            ingredients.add("flour");
-            ingredients.add("sugar");
-            ingredients.add("butter");
-            ingredients.add("oats");
-            ingredients.add("cranberries");
-            ArrayList<Recipe> recipes = dao.getRecipesFromIngredients(ingredients, 0);
+            ArrayList<Recipe> recipes = dao.getRecipesFromQuery("apple");
             for (Recipe recipe : recipes) {
                 System.out.println(recipe.getName());
                 System.out.println(recipe.getUrl());
-                System.out.println(recipe.getMissingItems());
             }
         }
         catch (IOException e) {
