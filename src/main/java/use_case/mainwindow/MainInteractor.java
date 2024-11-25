@@ -17,8 +17,8 @@ public class MainInteractor implements MainInputBoundary{
     }
 
     @Override
-    public void switch_to_SeasonView() {
-        mainpresenter.switch_to_SeasonView();
+    public void switch_to_DateView() {
+        mainpresenter.switch_to_DateView();
     }
 
     @Override

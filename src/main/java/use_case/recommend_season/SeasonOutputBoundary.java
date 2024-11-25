@@ -5,6 +5,4 @@ public interface SeasonOutputBoundary {
 
     String getDate(String date);
     String getSeason(String season);
-    // TODO seperate this
-    String getHoliday(String holiday);
 }

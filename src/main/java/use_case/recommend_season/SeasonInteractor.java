@@ -5,6 +5,7 @@ import data_access.InMemoryDAO;
 public class SeasonInteractor implements SeasonInputBoundary {
     public final SeasonOutputBoundary seasonpresenter;
     private final InMemoryDAO inMemoryDAO;
+
     public SeasonInteractor(SeasonOutputBoundary seasonpresenter, InMemoryDAO inMemoryDAO) {
         this.seasonpresenter = seasonpresenter;
         this.inMemoryDAO = inMemoryDAO;
@@ -23,11 +24,5 @@ public class SeasonInteractor implements SeasonInputBoundary {
     @Override
     public String getSeason() {
         return seasonpresenter.getSeason(inMemoryDAO.get_season());
-    }
-
-    // TODO seperate this
-    @Override
-    public String getHoliday() {
-        return seasonpresenter.getHoliday(inMemoryDAO.get_holiday());
     }
 }

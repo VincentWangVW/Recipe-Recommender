@@ -3,6 +3,7 @@ package use_case.generated_manager;
 import data_access.SpoonacularDAO;
 import entity.Recipe;
 import use_case.manage_ingredients.IngredientsInteractor;
+import use_case.recommend_holiday.HolidayInteractor;
 import use_case.recommend_season.SeasonInteractor;
 
 import java.io.IOException;
@@ -13,11 +14,13 @@ public class GeneratedInteractor implements GeneratedInputBoundary {
     private final IngredientsInteractor ingredientsInteractor;
     private final SeasonInteractor seasonInteractor;
     private final SpoonacularDAO spoonacularDAO;
+    private final HolidayInteractor holidayInteractor;
 
     public GeneratedInteractor(GeneratedOutputBoundary outputBoundary, IngredientsInteractor ingredientsInteractor,
-                               SeasonInteractor seasonInteractor) {
+                               SeasonInteractor seasonInteractor, HolidayInteractor holidayInteractor) {
         this.outputBoundary = outputBoundary;
         this.ingredientsInteractor = ingredientsInteractor;
+        this.holidayInteractor = holidayInteractor;
         this.spoonacularDAO = new SpoonacularDAO();
         this.seasonInteractor = seasonInteractor;
     }
@@ -56,7 +59,12 @@ public class GeneratedInteractor implements GeneratedInputBoundary {
                 }
             }
             case "Holiday" -> {
-                // TODO
+                try {
+                    String holiday = holidayInteractor.getHoliday();
+                    return spoonacularDAO.getRecipesFromQuery(holiday);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
             case "Custom" -> {
             }
