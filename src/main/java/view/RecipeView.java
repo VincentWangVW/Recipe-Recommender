@@ -25,7 +25,7 @@ public class RecipeView extends JPanel implements ActionListener {
         this.add(titleLabel);
 
         returnButton = new JButton("Return");
-        String[] recipeTypes = {"Ingredients", "Season", "Holiday", "Drink Item", "Custom"};
+        String[] recipeTypes = {"Ingredients", "Season", "Holiday", "Custom"};
         generationType = new JComboBox<>(recipeTypes);
 
         userInfo = new JCheckBox("User Info");
