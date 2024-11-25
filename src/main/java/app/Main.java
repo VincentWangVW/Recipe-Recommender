@@ -2,6 +2,8 @@ package app;
 
 import data_access.InMemoryDAO;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.datescreen.DateController;
+import interface_adapter.datescreen.DatePresenter;
 import interface_adapter.generated_recipes.GeneratedController;
 import interface_adapter.generated_recipes.GeneratedPresenter;
 import interface_adapter.generated_recipes.GeneratedViewModel;
@@ -11,15 +13,16 @@ import interface_adapter.main.MainPresenter;
 import interface_adapter.recommend_recipes.RecipesController;
 import interface_adapter.recommend_recipes.RecipesPresenter;
 import interface_adapter.recommend_recipes.RecipesViewModel;
-import interface_adapter.season.SeasonController;
-import interface_adapter.season.SeasonPresenter;
-import interface_adapter.season.SeasonViewModel;
+import interface_adapter.datescreen.DateController;
+import interface_adapter.datescreen.DateViewModel;
 import interface_adapter.ingredients_manager.IngredientsViewModel;
 
 import use_case.generated_manager.GeneratedInteractor;
 import use_case.generated_manager.GeneratedOutputBoundary;
 import use_case.mainwindow.MainInteractor;
 import use_case.mainwindow.MainOutputBoundary;
+import use_case.recommend_holiday.HolidayInteractor;
+import use_case.recommend_holiday.HolidayOutputBoundary;
 import use_case.recommend_recipes.RecipesInteractor;
 import use_case.recommend_recipes.RecipesOutputBoundary;
 import use_case.recommend_season.SeasonInteractor;
@@ -51,20 +54,22 @@ public class Main {
     private static void createViewsAndAddToPanel(ViewManagerModel viewModel, JPanel views) {
         MainView mainView = new MainView();
         InMemoryDAO inMemoryDAO = new InMemoryDAO();
-        SeasonViewModel seasonViewModel = new SeasonViewModel();
+        DateViewModel dateViewModel = new DateViewModel();
         RecipesViewModel recipesViewModel = new RecipesViewModel();
         IngredientsViewModel ingredientsViewModel = new IngredientsViewModel();
         GeneratedViewModel generatedViewModel = new GeneratedViewModel();
 
-        MainOutputBoundary mainOutputBoundary = new MainPresenter(viewModel, seasonViewModel, recipesViewModel,
+        MainOutputBoundary mainOutputBoundary = new MainPresenter(viewModel, dateViewModel, recipesViewModel,
                 ingredientsViewModel);
-        SeasonOutputBoundary seasonOutputBoundary = new SeasonPresenter(viewModel);
+        SeasonOutputBoundary seasonOutputBoundary = new DatePresenter(viewModel);
+        HolidayOutputBoundary holidayOutputBoundary = new DatePresenter(viewModel);
         RecipesOutputBoundary recipesOutputBoundary = new RecipesPresenter(viewModel);
         IngredientsIOutputBoundary ingredientsOutputBoundary = new IngredientsPresenter(viewModel);
         GeneratedOutputBoundary generatedOutputBoundary = new GeneratedPresenter(viewModel);
 
         SeasonInteractor seasonInteractor = new SeasonInteractor(seasonOutputBoundary, inMemoryDAO);
-        SeasonController seasonController = new SeasonController(seasonInteractor);
+        HolidayInteractor holidayInteractor = new HolidayInteractor(holidayOutputBoundary, inMemoryDAO);
+        DateController dateController = new DateController(seasonInteractor, holidayInteractor);
 
         MainInteractor mainInteractor = new MainInteractor(mainOutputBoundary);
         MainController mainController = new MainController(mainInteractor);
@@ -84,10 +89,10 @@ public class Main {
         mainView.setPreferredSize(new Dimension(400, 400));
         views.add(mainView, "MAIN_SCREEN");
 
-        SeasonView seasonView = new SeasonView(seasonViewModel);
-        seasonView.setSeasonController(seasonController);
-        seasonView.setPreferredSize(new Dimension(400, 400));
-        views.add(seasonView, "SEASON_SCREEN");
+        DateView dateView = new DateView(dateViewModel);
+        dateView.setDateController(dateController);
+        dateView.setPreferredSize(new Dimension(400, 400));
+        views.add(dateView, "DATE_SCREEN");
 
         RecipeView recipeView = new RecipeView(recipesViewModel);
         recipeView.setRecipesController(recipesController);
