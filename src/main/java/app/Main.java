@@ -82,7 +82,7 @@ public class Main {
 
         GeneratedInteractor generatedInteractor = new GeneratedInteractor(generatedOutputBoundary,
                 ingredientsInteractor,
-                seasonInteractor);
+                seasonInteractor, holidayInteractor);
         GeneratedController generatedController = new GeneratedController(generatedInteractor);
 
         mainView.setMainController(mainController);
