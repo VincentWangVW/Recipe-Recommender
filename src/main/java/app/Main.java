@@ -16,6 +16,9 @@ import interface_adapter.season.SeasonPresenter;
 import interface_adapter.season.SeasonViewModel;
 import interface_adapter.ingredients_manager.IngredientsViewModel;
 
+import interface_adapter.user_info.UserInfoController;
+import interface_adapter.user_info.UserInfoPresenter;
+import interface_adapter.user_info.UserInfoViewModel;
 import use_case.generated_manager.GeneratedInteractor;
 import use_case.generated_manager.GeneratedOutputBoundary;
 import use_case.mainwindow.MainInteractor;
@@ -27,6 +30,8 @@ import use_case.recommend_season.SeasonOutputBoundary;
 import use_case.manage_ingredients.IngredientsInteractor;
 import use_case.manage_ingredients.IngredientsIOutputBoundary;
 
+import use_case.user_info.UserInfoInteractor;
+import use_case.user_info.UserInfoOutputBoundary;
 import view.*;
 import javax.swing.*;
 import java.awt.*;
@@ -55,13 +60,15 @@ public class Main {
         RecipesViewModel recipesViewModel = new RecipesViewModel();
         IngredientsViewModel ingredientsViewModel = new IngredientsViewModel();
         GeneratedViewModel generatedViewModel = new GeneratedViewModel();
+        UserInfoViewModel userInfoViewModel = new UserInfoViewModel();
 
         MainOutputBoundary mainOutputBoundary = new MainPresenter(viewModel, seasonViewModel, recipesViewModel,
-                ingredientsViewModel);
+                ingredientsViewModel, userInfoViewModel);
         SeasonOutputBoundary seasonOutputBoundary = new SeasonPresenter(viewModel);
         RecipesOutputBoundary recipesOutputBoundary = new RecipesPresenter(viewModel);
         IngredientsIOutputBoundary ingredientsOutputBoundary = new IngredientsPresenter(viewModel);
         GeneratedOutputBoundary generatedOutputBoundary = new GeneratedPresenter(viewModel);
+        UserInfoOutputBoundary userInfoOutputBoundary = new UserInfoPresenter(viewModel);
 
         SeasonInteractor seasonInteractor = new SeasonInteractor(seasonOutputBoundary, inMemoryDAO);
         SeasonController seasonController = new SeasonController(seasonInteractor);
@@ -79,6 +86,9 @@ public class Main {
                 ingredientsInteractor,
                 seasonInteractor);
         GeneratedController generatedController = new GeneratedController(generatedInteractor);
+
+        UserInfoInteractor userInfoInteractor = new UserInfoInteractor(userInfoOutputBoundary);
+        UserInfoController userInfoController = new UserInfoController(userInfoInteractor);
 
         mainView.setMainController(mainController);
         mainView.setPreferredSize(new Dimension(400, 400));
@@ -103,5 +113,10 @@ public class Main {
         generatedRecipesView.setGeneratedController(generatedController);
         generatedRecipesView.setPreferredSize(new Dimension(400, 400));
         views.add(generatedRecipesView, "GENERATED_SCREEN");
+
+        UserInfoView userInfoView = new UserInfoView(userInfoViewModel);
+        userInfoView.setUserInfoController(userInfoController);
+        userInfoView.setPreferredSize(new Dimension(400, 400));
+        views.add(userInfoView, "USER_INFO_SCREEN");
     }
 }
