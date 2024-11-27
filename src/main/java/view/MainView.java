@@ -15,7 +15,7 @@ public class MainView extends JPanel implements ActionListener {
     private MainController mainController;
     private final JButton ingredients = new JButton("Ingredients");
     private final JButton user_info = new JButton("User Info");
-    private final JButton season = new JButton("Season");
+    private final JButton date = new JButton("Date Information");
     private final JButton generate_recipe = new JButton("Generate Recipe");
     public MainView() {
 
@@ -28,15 +28,15 @@ public class MainView extends JPanel implements ActionListener {
         buttons.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         customizeButton(ingredients);
         customizeButton(user_info);
-        customizeButton(season);
+        customizeButton(date);
         customizeButton(generate_recipe);
         buttons.add(ingredients);
         buttons.add(user_info);
-        buttons.add(season);
+        buttons.add(date);
         buttons.add(generate_recipe);
         ingredients.addActionListener(this);
         user_info.addActionListener(this);
-        season.addActionListener(this);
+        date.addActionListener(this);
         generate_recipe.addActionListener(this);
         this.add(buttons);
     }
@@ -51,8 +51,8 @@ public class MainView extends JPanel implements ActionListener {
         else if (evt.getSource().equals(user_info)) {
             mainController.switch_to_UserInfoView();
         }
-        else if (evt.getSource().equals(season)) {
-            mainController.switch_to_SeasonView();
+        else if (evt.getSource().equals(date)) {
+            mainController.switch_to_DateView();
         }
         else if (evt.getSource().equals(generate_recipe)) {
             mainController.switch_to_RecipeView();

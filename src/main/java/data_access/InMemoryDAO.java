@@ -1,6 +1,6 @@
 package data_access;
 
-import interface_adapter.season.SeasonDataAccessInterface;
+import interface_adapter.datescreen.DateDataAccessInterface;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -10,7 +10,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-public class InMemoryDAO implements SeasonDataAccessInterface  {
+public class InMemoryDAO implements DateDataAccessInterface  {
     @Override
     public String get_date() {
         Date date = new Date();

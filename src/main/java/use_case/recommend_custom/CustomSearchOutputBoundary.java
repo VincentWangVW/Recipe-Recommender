@@ -15,4 +15,6 @@ public interface CustomSearchOutputBoundary {
      * @param errorMessage The error message to be displayed.
      */
     void presentCustomSearchError(String errorMessage);
+
+    void returnToMain();
 }

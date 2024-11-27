@@ -1,13 +1,14 @@
-package interface_adapter.season;
+package interface_adapter.datescreen;
 
 import interface_adapter.ViewManagerModel;
+import use_case.recommend_holiday.HolidayOutputBoundary;
+import use_case.recommend_season.SeasonInputBoundary;
 import use_case.recommend_season.SeasonOutputBoundary;
-import data_access.InMemoryDAO;
 
-public class SeasonPresenter implements SeasonOutputBoundary {
+public class DatePresenter implements SeasonOutputBoundary, HolidayOutputBoundary {
     private final ViewManagerModel viewManagerModel;
 
-    public SeasonPresenter(ViewManagerModel viewManagerModel) {
+    public DatePresenter(ViewManagerModel viewManagerModel) {
         this.viewManagerModel = viewManagerModel;
     }
 

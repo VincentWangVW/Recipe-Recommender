@@ -1,8 +1,7 @@
-package interface_adapter.season;
+package interface_adapter.datescreen;
 import java.util.Date;
-public class SeasonState {
+public class DateState {
     private String season;
-    private String weather;
     private Date date;
     private String holiday;
     public String getSeason() {
@@ -11,14 +10,6 @@ public class SeasonState {
 
     public void setSeason(String season) {
         this.season = season;
-    }
-
-    public String getWeather() {
-        return weather;
-    }
-
-    public void setWeather(String weather) {
-        this.weather = weather;
     }
 
     public Date getDate() {

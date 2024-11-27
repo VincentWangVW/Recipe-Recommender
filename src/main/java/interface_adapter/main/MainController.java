@@ -8,8 +8,8 @@ public class MainController {
     public MainController(MainInputBoundary mainInteractor) {
         this.mainInteractor = mainInteractor;
     }
-    public void switch_to_SeasonView() {
-        mainInteractor.switch_to_SeasonView();
+    public void switch_to_DateView() {
+        mainInteractor.switch_to_DateView();
     }
 
     public void switch_to_RecipeView() {

@@ -1,12 +1,15 @@
-package interface_adapter.season;
+package interface_adapter.datescreen;
 
+import use_case.recommend_holiday.HolidayInputBoundary;
 import use_case.recommend_season.SeasonInputBoundary;
 
-public class SeasonController {
+public class DateController implements SeasonInputBoundary, HolidayInputBoundary {
     private final SeasonInputBoundary seasonInputBoundary;
+    private final HolidayInputBoundary holidayInputBoundary;
 
-    public SeasonController(SeasonInputBoundary seasonInteractor) {
+    public DateController(SeasonInputBoundary seasonInteractor, HolidayInputBoundary holidayInteractor) {
         this.seasonInputBoundary = seasonInteractor;
+        this.holidayInputBoundary = holidayInteractor;
     }
 
     public String getDate() {
@@ -18,7 +21,7 @@ public class SeasonController {
     }
 
     public String getHoliday() {
-        return seasonInputBoundary.getHoliday();
+        return holidayInputBoundary.getHoliday();
     }
 
     public void return_to_main() {
