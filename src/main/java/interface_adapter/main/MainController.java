@@ -17,4 +17,6 @@ public class MainController {
     }
 
     public void switch_to_IngredientsView(){mainInteractor.switch_to_IngredientsView(); }
+
+    public void switch_to_UserInfoView(){mainInteractor.switch_to_UserInfoView(); }
 }

@@ -49,7 +49,7 @@ public class MainView extends JPanel implements ActionListener {
             mainController.switch_to_IngredientsView();
         }
         else if (evt.getSource().equals(user_info)) {
-            // TODO
+            mainController.switch_to_UserInfoView();
         }
         else if (evt.getSource().equals(date)) {
             mainController.switch_to_DateView();
