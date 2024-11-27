@@ -1,7 +1,6 @@
 package interface_adapter.datescreen;
 
 import use_case.recommend_holiday.HolidayInputBoundary;
-import use_case.recommend_holiday.HolidayOutputBoundary;
 import use_case.recommend_season.SeasonInputBoundary;
 
 public class DateController implements SeasonInputBoundary, HolidayInputBoundary {

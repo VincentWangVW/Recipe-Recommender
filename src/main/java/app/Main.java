@@ -16,14 +16,11 @@ import interface_adapter.recommend_recipes.RecipesController;
 import interface_adapter.recommend_recipes.RecipesPresenter;
 import interface_adapter.recommend_recipes.RecipesViewModel;
 
-import interface_adapter.season.SeasonController;
-import interface_adapter.season.SeasonPresenter;
-import interface_adapter.season.SeasonViewModel;
+
 import interface_adapter.custom_search.CustomSearchController;
 import interface_adapter.custom_search.CustomSearchPresenter;
 import interface_adapter.custom_search.CustomSearchViewModel;
 
-import interface_adapter.datescreen.DateController;
 import interface_adapter.datescreen.DateViewModel;
 import interface_adapter.ingredients_manager.IngredientsViewModel;
 
@@ -127,7 +124,7 @@ public class Main {
         ingredientsView.setPreferredSize(new Dimension(400, 400));
         views.add(ingredientsView, "INGREDIENTS_SCREEN");
 
-        GeneratedRecipesView generatedRecipesView = new GeneratedRecipesView(generatedViewModel);
+        GeneratedRecipesView generatedRecipesView = new GeneratedRecipesView(generatedViewModel, holidayInteractor);
         generatedRecipesView.setGeneratedController(generatedController);
         generatedRecipesView.setPreferredSize(new Dimension(400, 400));
         views.add(generatedRecipesView, "GENERATED_SCREEN");

@@ -3,6 +3,7 @@ package view;
 import entity.Recipe;
 import interface_adapter.generated_recipes.GeneratedController;
 import interface_adapter.generated_recipes.GeneratedViewModel;
+import use_case.recommend_holiday.HolidayInteractor;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -18,9 +19,11 @@ public class GeneratedRecipesView extends JPanel implements ActionListener {
     private final JButton returnButton;
     private GeneratedViewModel generatedViewModel;
     private final JButton generateButton;
+    private final HolidayInteractor holidayInteractor;
 
-    public GeneratedRecipesView(GeneratedViewModel generatedViewModel) {
+    public GeneratedRecipesView(GeneratedViewModel generatedViewModel, HolidayInteractor holidayInteractor) {
         this.generatedViewModel = generatedViewModel;
+        this.holidayInteractor = holidayInteractor;
         setLayout(new BorderLayout());
 
         JLabel titleLabel = new JLabel("Recipes", SwingConstants.CENTER);
@@ -67,7 +70,17 @@ public class GeneratedRecipesView extends JPanel implements ActionListener {
             tableModel.setRowCount(0);
             try {
                 ArrayList<Recipe> recipes = generatedController.generateRecipes(); // Fetch recipes
-                if (recipes == null || recipes.isEmpty()) {
+
+                if (holidayInteractor.getHoliday().equals("No Holiday Today!")){
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "No holiday today!",
+                            "No Holiday",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                }
+
+                else if (recipes == null || recipes.isEmpty()) {
                     JOptionPane.showMessageDialog(
                             this,
                             "No recipes found, try again.",
