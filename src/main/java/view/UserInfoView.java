@@ -79,21 +79,30 @@ public class UserInfoView extends JPanel implements ActionListener {
         this.userInfoController = userInfoController;
     }
 
+    private void updateView() {
+        allergiesListModel.clear();
+        for (String allergy : userInfoController.getAllergies()) {
+            allergiesListModel.addElement(allergy);
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(addAllergyButton)) {
             String newAllergy = JOptionPane.showInputDialog(this, "Enter new allergy:");
             if (newAllergy != null && !newAllergy.trim().isEmpty()) {
-                allergiesListModel.addElement(newAllergy);
+                userInfoController.addAllergy(newAllergy);
             }
+            updateView();
         } else if (e.getSource().equals(deleteAllergyButton)) {
             int selectedIndex = allergiesList.getSelectedIndex();
             if (selectedIndex != -1) {
-                allergiesListModel.remove(selectedIndex);
+                userInfoController.deleteAllergy(allergiesListModel.get(selectedIndex));
             } else {
                 JOptionPane.showMessageDialog(this, "No allergy selected!", "Error",
                         JOptionPane.ERROR_MESSAGE);
             }
+            updateView();
         } else if (e.getSource().equals(returnButton)) {
             userInfoController.return_to_main();
         }

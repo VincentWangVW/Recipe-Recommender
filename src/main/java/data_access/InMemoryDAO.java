@@ -14,7 +14,7 @@ public class InMemoryDAO implements DateDataAccessInterface  {
     @Override
     public String get_date() {
         Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 只获取年月日
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(date);
     }
 
@@ -27,7 +27,7 @@ public class InMemoryDAO implements DateDataAccessInterface  {
         String year = date1.substring(0,4);
         String month = date1.substring(5,7);
         String day =date1.substring(8,10);
-        String apiKey = "843b8d83c60d48f1b91cf5e5200bc72c";
+        String apiKey = "843b8d83c60d48f1b91cf5e5200bc72c"; // 118d3a2c9c1e4d8f813ec6f7b9f84637
         String urlString = String.format("https://holidays.abstractapi.com/v1/?api_key=%s&country=%s&year=%s&month=%s&day=%s",
                 apiKey,country, year,month,day);
 
@@ -41,7 +41,8 @@ public class InMemoryDAO implements DateDataAccessInterface  {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.body().equals("[]")) {
                 return "No Holiday Today!";
-            } else {
+            }
+            else {
                 JSONArray jsonArray = new JSONArray(response.body());
                 if (jsonArray.getJSONObject(0).getString("name") != null) {
                     return jsonArray.getJSONObject(0).getString("name");
@@ -50,8 +51,8 @@ public class InMemoryDAO implements DateDataAccessInterface  {
                     return "No Holiday Today!";
                 }
             }
-
         } catch (Exception e) {
+            System.out.printf("Check API");
             e.printStackTrace();
         }
         return "No Holiday Today!";

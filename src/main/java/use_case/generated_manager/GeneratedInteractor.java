@@ -33,7 +33,7 @@ public class GeneratedInteractor implements GeneratedInputBoundary {
     @Override
     public ArrayList<Recipe> generateRecipes() {
         boolean userInfo = outputBoundary.getViewManagerModel().isUserInfo();
-        String selectedType = outputBoundary.getViewManagerModel().getSelectedType();
+        String selectedType = getGenerationType();
         ArrayList<String> ingredients = ingredientsInteractor.getIngredientsNEW();
 
         System.out.println("selectedType: " + selectedType);
@@ -60,7 +60,7 @@ public class GeneratedInteractor implements GeneratedInputBoundary {
             }
             case "Holiday" -> {
                 try {
-                    String holiday = holidayInteractor.getHoliday();
+                    String holiday = getHoliday();
                     return spoonacularDAO.getRecipesFromQuery(holiday);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -72,4 +72,16 @@ public class GeneratedInteractor implements GeneratedInputBoundary {
         }
         return null;
     }
+
+    @Override
+    public String getGenerationType() {
+        return outputBoundary.getViewManagerModel().getSelectedType();
+    }
+
+    @Override
+    public String getHoliday() {
+        return holidayInteractor.getHoliday();
+    }
+
+
 }

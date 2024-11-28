@@ -114,7 +114,7 @@ public class Main {
         ingredientsView.setPreferredSize(new Dimension(400, 400));
         views.add(ingredientsView, "INGREDIENTS_SCREEN");
 
-        GeneratedRecipesView generatedRecipesView = new GeneratedRecipesView(generatedViewModel, holidayInteractor);
+        GeneratedRecipesView generatedRecipesView = new GeneratedRecipesView(generatedViewModel);
         generatedRecipesView.setGeneratedController(generatedController);
         generatedRecipesView.setPreferredSize(new Dimension(400, 400));
         views.add(generatedRecipesView, "GENERATED_SCREEN");

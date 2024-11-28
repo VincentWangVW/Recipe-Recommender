@@ -8,4 +8,8 @@ public interface GeneratedInputBoundary {
     void return_to_main();
 
     ArrayList<Recipe> generateRecipes();
+
+    String getGenerationType();
+
+    String getHoliday();
 }

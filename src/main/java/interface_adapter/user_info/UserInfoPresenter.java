@@ -15,15 +15,6 @@ public class UserInfoPresenter implements UserInfoOutputBoundary {
     }
 
     @Override
-    public void presentAllergies(HashSet<String> allergies) {
-        this.allergies = allergies;
-    }
-
-    public HashSet<String> getAllergies() {
-        return allergies;
-    }
-
-    @Override
     public void return_to_main() {
         viewManagerModel.setState("MAIN_SCREEN");
         viewManagerModel.firePropertyChanged();
