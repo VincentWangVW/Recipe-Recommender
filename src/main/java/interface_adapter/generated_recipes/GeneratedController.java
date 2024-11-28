@@ -21,4 +21,12 @@ public class GeneratedController {
     public ArrayList<Recipe> generateRecipes() {
         return generatedInputBoundary.generateRecipes();
     }
+
+    public String getGenerationType() {
+        return generatedInputBoundary.getGenerationType();
+    }
+
+    public String getHoliday() {
+        return generatedInputBoundary.getHoliday();
+    }
 }

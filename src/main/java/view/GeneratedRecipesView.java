@@ -3,7 +3,6 @@ package view;
 import entity.Recipe;
 import interface_adapter.generated_recipes.GeneratedController;
 import interface_adapter.generated_recipes.GeneratedViewModel;
-import use_case.recommend_holiday.HolidayInteractor;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import static java.lang.Thread.sleep;
+
 public class GeneratedRecipesView extends JPanel implements ActionListener {
     private GeneratedController generatedController;
     private JTable recipesTable;
@@ -19,11 +20,9 @@ public class GeneratedRecipesView extends JPanel implements ActionListener {
     private final JButton returnButton;
     private GeneratedViewModel generatedViewModel;
     private final JButton generateButton;
-    private final HolidayInteractor holidayInteractor;
 
-    public GeneratedRecipesView(GeneratedViewModel generatedViewModel, HolidayInteractor holidayInteractor) {
+    public GeneratedRecipesView(GeneratedViewModel generatedViewModel) {
         this.generatedViewModel = generatedViewModel;
-        this.holidayInteractor = holidayInteractor;
         setLayout(new BorderLayout());
 
         JLabel titleLabel = new JLabel("Recipes", SwingConstants.CENTER);
@@ -69,12 +68,14 @@ public class GeneratedRecipesView extends JPanel implements ActionListener {
         } else if (evt.getSource().equals(generateButton)) {
             tableModel.setRowCount(0);
             try {
-                ArrayList<Recipe> recipes = generatedController.generateRecipes(); // Fetch recipes
+                ArrayList<Recipe> recipes = generatedController.generateRecipes();
+                sleep(1000); // fix for now bc we get 1 api call a second (hard to notice)
 
-                if (holidayInteractor.getHoliday().equals("No Holiday Today!")){
+                if (generatedController.getGenerationType().equals("Holiday") &&
+                        generatedController.getHoliday().equals("No Holiday Today!")) {
                     JOptionPane.showMessageDialog(
                             this,
-                            "No holiday today!",
+                            "No Holiday Today!",
                             "No Holiday",
                             JOptionPane.INFORMATION_MESSAGE
                     );
@@ -83,11 +84,13 @@ public class GeneratedRecipesView extends JPanel implements ActionListener {
                 else if (recipes == null || recipes.isEmpty()) {
                     JOptionPane.showMessageDialog(
                             this,
-                            "No recipes found, try again.",
+                            "No Recipes Found, Try Again.",
                             "No Recipes Found",
                             JOptionPane.INFORMATION_MESSAGE
                     );
-                } else {
+                }
+
+                else {
                     addRecipes(recipes);
                 }
             } catch (Exception e) {

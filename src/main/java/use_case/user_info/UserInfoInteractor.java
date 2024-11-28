@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserInfoInteractor implements UserInfoInputBoundary{
+public class UserInfoInteractor implements UserInfoInputBoundary {
     private final HashSet<String> allergies = new HashSet<>();
     private final UserInfoOutputBoundary outputBoundary;
     public UserInfoInteractor(UserInfoOutputBoundary outputBoundary) {
@@ -31,5 +31,10 @@ public class UserInfoInteractor implements UserInfoInputBoundary{
 
     public int changeShopAmount(int shopAmount) {
         return shopAmount;
+    }
+
+    @Override
+    public String[] getAllergies() {
+        return allergies.toArray(new String[0]);
     }
 }
