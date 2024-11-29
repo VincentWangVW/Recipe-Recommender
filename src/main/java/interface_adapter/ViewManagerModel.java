@@ -7,6 +7,7 @@ public class ViewManagerModel {
     private String state;
     private String selectedType;
     private boolean userInfo;
+    private String custom;
     private final PropertyChangeSupport support;
 
     public ViewManagerModel() {
@@ -28,12 +29,21 @@ public class ViewManagerModel {
         support.firePropertyChange("userInfo", null, this.userInfo);
     }
 
+    public void setCustom(String custom) {
+        this.custom = custom;
+        support.firePropertyChange("custom", null, custom);
+    }
+
     public String getSelectedType() {
         return selectedType;
     }
 
     public boolean isUserInfo() {
         return userInfo;
+    }
+
+    public String getCustom() {
+        return custom;
     }
 
     public void addPropertyChangeListener(PropertyChangeListener pcl) {

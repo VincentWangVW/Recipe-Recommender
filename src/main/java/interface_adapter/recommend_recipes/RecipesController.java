@@ -13,7 +13,11 @@ public class RecipesController {
         recipesInputBoundary.return_to_main();
     }
 
-    public void go_to_generated(String selectedType, boolean userInfo) {
-        recipesInputBoundary.go_to_generated(selectedType, userInfo);
+    public void go_to_generated(String selectedType, boolean userInfo, String custom) {
+        recipesInputBoundary.go_to_generated(selectedType, userInfo, custom);
+    }
+
+    public String getHoliday() {
+        return recipesInputBoundary.getHoliday();
     }
 }

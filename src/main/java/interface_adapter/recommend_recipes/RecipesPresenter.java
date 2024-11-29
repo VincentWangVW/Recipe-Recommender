@@ -15,10 +15,11 @@ public class RecipesPresenter implements RecipesOutputBoundary {
     }
 
     @Override
-    public void go_to_generated(String selectedType, boolean userInfo) {
+    public void go_to_generated(String selectedType, boolean userInfo, String custom) {
         viewManagerModel.setState("GENERATED_SCREEN");
         viewManagerModel.firePropertyChanged();
         viewManagerModel.setSelectedType(selectedType);
         viewManagerModel.setUserInfo(userInfo);
+        viewManagerModel.setCustom(custom);
     }
 }
