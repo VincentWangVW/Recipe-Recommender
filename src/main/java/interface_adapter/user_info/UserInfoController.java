@@ -24,4 +24,8 @@ public class UserInfoController {
     public String[] getAllergies() {
         return userInfoInputBoundary.getAllergies();
     }
+
+    public void changeShopAmount(int shopAmount) {
+        userInfoInputBoundary.changeShopAmount(shopAmount);
+    }
 }
