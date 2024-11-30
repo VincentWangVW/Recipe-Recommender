@@ -104,6 +104,18 @@ public class UserInfoView extends JPanel implements ActionListener {
             }
             updateView();
         } else if (e.getSource().equals(returnButton)) {
+            String shopAmountText = shopAmountTextField.getText();
+            if (!shopAmountText.trim().isEmpty()) {
+                try {
+                    Integer.parseInt(shopAmountText);
+                }
+                catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Shop amount must be an integer!", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                userInfoController.changeShopAmount(Integer.parseInt(shopAmountText));
+            }
             userInfoController.return_to_main();
         }
     }
