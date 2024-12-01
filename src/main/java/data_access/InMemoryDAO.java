@@ -2,7 +2,6 @@ package data_access;
 
 import interface_adapter.datescreen.DateDataAccessInterface;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -10,6 +9,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+
 public class InMemoryDAO implements DateDataAccessInterface  {
     @Override
     public String get_date() {
@@ -81,12 +81,5 @@ public class InMemoryDAO implements DateDataAccessInterface  {
         else {
             return "Winter";
         }
-    }
-
-    public static void main(String[] args) {
-        InMemoryDAO inMemoryDAO = new InMemoryDAO();
-        System.out.println(inMemoryDAO.get_date());
-        System.out.println(inMemoryDAO.get_holiday());
-        System.out.println(inMemoryDAO.get_season());
     }
 }

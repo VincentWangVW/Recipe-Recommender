@@ -24,19 +24,15 @@ import interface_adapter.user_info.UserInfoController;
 import interface_adapter.user_info.UserInfoPresenter;
 import interface_adapter.user_info.UserInfoViewModel;
 import use_case.generated_manager.GeneratedInteractor;
-import use_case.generated_manager.GeneratedOutputBoundary;
 import use_case.mainwindow.MainInteractor;
 import use_case.mainwindow.MainOutputBoundary;
+import use_case.recommend_custom.CustomSearchInputBoundary;
+import use_case.recommend_custom.CustomSearchInteractor;
 import use_case.recommend_holiday.HolidayInteractor;
-import use_case.recommend_holiday.HolidayOutputBoundary;
 import use_case.recommend_recipes.RecipesInteractor;
-import use_case.recommend_recipes.RecipesOutputBoundary;
 import use_case.recommend_season.SeasonInteractor;
-import use_case.recommend_season.SeasonOutputBoundary;
 import use_case.manage_ingredients.IngredientsInteractor;
-import use_case.manage_ingredients.IngredientsIOutputBoundary;
 import use_case.user_info.UserInfoInteractor;
-import use_case.user_info.UserInfoOutputBoundary;
 import view.*;
 
 public class AppBuilder {
@@ -54,6 +50,7 @@ public class AppBuilder {
     private IngredientsView ingredientsView;
     private GeneratedRecipesView generatedRecipesView;
     private UserInfoView userInfoView;
+    private IngredientsInteractor ingredientsInteractor;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -124,8 +121,9 @@ public class AppBuilder {
     }
 
     public AppBuilder addRecipeUseCase() {
+        HolidayInteractor holidayInteractor = new HolidayInteractor(new DatePresenter(viewManagerModel), inMemoryDAO);
         RecipesPresenter recipesPresenter = new RecipesPresenter(viewManagerModel);
-        RecipesInteractor recipesInteractor = new RecipesInteractor(recipesPresenter);
+        RecipesInteractor recipesInteractor = new RecipesInteractor(recipesPresenter, holidayInteractor);
         RecipesController recipesController = new RecipesController(recipesInteractor);
         recipeView.setRecipesController(recipesController);
         return this;
@@ -133,7 +131,7 @@ public class AppBuilder {
 
     public AppBuilder addIngredientsUseCase() {
         IngredientsPresenter ingredientsPresenter = new IngredientsPresenter(viewManagerModel);
-        IngredientsInteractor ingredientsInteractor = new IngredientsInteractor(ingredientsPresenter);
+        ingredientsInteractor = new IngredientsInteractor(ingredientsPresenter);
         IngredientsController ingredientsController = new IngredientsController(ingredientsInteractor);
         ingredientsView.setIngredientsController(ingredientsController);
         return this;
@@ -141,15 +139,15 @@ public class AppBuilder {
 
     public AppBuilder addGeneratedRecipesUseCase() {
         GeneratedPresenter generatedPresenter = new GeneratedPresenter(viewManagerModel);
-        IngredientsInteractor ingredientsInteractor = new IngredientsInteractor(new IngredientsPresenter(viewManagerModel));
         SeasonInteractor seasonInteractor = new SeasonInteractor(new DatePresenter(viewManagerModel), inMemoryDAO);
         HolidayInteractor holidayInteractor = new HolidayInteractor(new DatePresenter(viewManagerModel), inMemoryDAO);
-        GeneratedInteractor generatedInteractor = new GeneratedInteractor(generatedPresenter, ingredientsInteractor, seasonInteractor, holidayInteractor, userPreferences);
+        CustomSearchInteractor customSearchInteractor = new CustomSearchInteractor();
+        GeneratedInteractor generatedInteractor = new GeneratedInteractor(generatedPresenter, ingredientsInteractor,
+                                        seasonInteractor, holidayInteractor, customSearchInteractor, userPreferences);
         GeneratedController generatedController = new GeneratedController(generatedInteractor);
         generatedRecipesView.setGeneratedController(generatedController);
         return this;
     }
-
     public AppBuilder addUserInfoUseCase() {
         UserInfoPresenter userInfoPresenter = new UserInfoPresenter(viewManagerModel);
         UserInfoInteractor userInfoInteractor = new UserInfoInteractor(userInfoPresenter, userPreferences);

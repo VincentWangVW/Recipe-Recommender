@@ -25,22 +25,23 @@ public class GeneratedRecipesView extends JPanel implements ActionListener {
         this.generatedViewModel = generatedViewModel;
         setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Recipes", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel(generatedViewModel.TITLE_LABLE, SwingConstants.CENTER);
         titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
         add(titleLabel, BorderLayout.NORTH);
 
-        String[] columnNames = {"Name", "URL", "Missing Ingredients"};
+        String[] columnNames = {generatedViewModel.COLUMN_NAME_1, generatedViewModel.COLUMN_NAME_2,
+                generatedViewModel.COLUMN_NAME_3};
         tableModel = new DefaultTableModel(columnNames, 0);
         recipesTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(recipesTable);
         add(scrollPane, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
-        generateButton = new JButton("Generate Recipes");
+        generateButton = new JButton(generatedViewModel.GENERATE_BUTTON);
         generateButton.addActionListener(this);
         buttonPanel.add(generateButton);
 
-        returnButton = new JButton("Return");
+        returnButton = new JButton(generatedViewModel.RETURN_BUTTON);
         returnButton.addActionListener(this);
         buttonPanel.add(returnButton);
 
@@ -64,6 +65,7 @@ public class GeneratedRecipesView extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(returnButton)) {
+            tableModel.setRowCount(0);
             generatedController.return_to_main();
         } else if (evt.getSource().equals(generateButton)) {
             tableModel.setRowCount(0);
@@ -75,8 +77,8 @@ public class GeneratedRecipesView extends JPanel implements ActionListener {
                         generatedController.getHoliday().equals("No Holiday Today!")) {
                     JOptionPane.showMessageDialog(
                             this,
-                            "No Holiday Today!",
-                            "No Holiday",
+                            generatedViewModel.NO_HOLIDAY_TODAY,
+                            generatedViewModel.HOLIDAY_TITLE,
                             JOptionPane.INFORMATION_MESSAGE
                     );
                 }
@@ -84,8 +86,8 @@ public class GeneratedRecipesView extends JPanel implements ActionListener {
                 else if (recipes == null || recipes.isEmpty()) {
                     JOptionPane.showMessageDialog(
                             this,
-                            "No Recipes Found, Try Again.",
-                            "No Recipes Found",
+                            generatedViewModel.NO_RECIPES,
+                            generatedViewModel.NO_RECIPES_TITLE,
                             JOptionPane.INFORMATION_MESSAGE
                     );
                 }
@@ -96,8 +98,8 @@ public class GeneratedRecipesView extends JPanel implements ActionListener {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(
                         this,
-                        "An error occurred while generating recipes: " + e.getMessage(),
-                        "Error",
+                        generatedViewModel.ERROR_MESSAGE + e.getMessage(),
+                        generatedViewModel.ERROR_TITLE,
                         JOptionPane.ERROR_MESSAGE
                 );
             }
