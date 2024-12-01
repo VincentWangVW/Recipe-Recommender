@@ -24,7 +24,7 @@ public class IngredientsView extends JPanel implements ActionListener {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Title
-        JLabel titleLabel = new JLabel("Ingredients Manager");
+        JLabel titleLabel = new JLabel(ingredientsViewModel.TITLE);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(titleLabel);
@@ -42,23 +42,23 @@ public class IngredientsView extends JPanel implements ActionListener {
         // Ingredient name input field
         ingredientInputField = new JTextField();
         ingredientInputField.setMaximumSize(new Dimension(300, 30));
-        ingredientInputField.setBorder(BorderFactory.createTitledBorder("Ingredient Name"));
+        ingredientInputField.setBorder(BorderFactory.createTitledBorder(ingredientsViewModel.INGREDIENT_NAME));
         this.add(ingredientInputField);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
 
         // Quantity input field (for integer quantity)
         quantityInputField = new JTextField();
         quantityInputField.setMaximumSize(new Dimension(300, 30));
-        quantityInputField.setBorder(BorderFactory.createTitledBorder("Quantity (integer)"));
+        quantityInputField.setBorder(BorderFactory.createTitledBorder(ingredientsViewModel.QUANTITY));
         this.add(quantityInputField);
         this.add(Box.createRigidArea(new Dimension(0, 10)));
 
         // Buttons
-        addButton = createButton("Add Ingredient", "add");
-        deleteButton = createButton("Delete Selected", "delete");
-        returnButton = createButton("Return to Main", "return");
-        increaseButton = createButton("+", "increment");
-        decreaseButton = createButton("-", "decrement");
+        addButton = createButton(ingredientsViewModel.ADD_BUTTON, "add");
+        deleteButton = createButton(ingredientsViewModel.DELETE_BUTTON, "delete");
+        returnButton = createButton(ingredientsViewModel.RETURN_BUTTON, "return");
+        increaseButton = createButton(ingredientsViewModel.INCREASE_BUTTON, "increment");
+        decreaseButton = createButton(ingredientsViewModel.DECREASE_BUTTON, "decrement");
 
         this.add(addButton);
         this.add(deleteButton);
