@@ -1,7 +1,11 @@
 package interface_adapter.datescreen;
 
+import entity.Recipe;
+import entity.UserPreferences;
 import use_case.recommend_holiday.HolidayInputBoundary;
 import use_case.recommend_season.SeasonInputBoundary;
+
+import java.util.ArrayList;
 
 public class DateController implements SeasonInputBoundary, HolidayInputBoundary {
     private final SeasonInputBoundary seasonInputBoundary;
@@ -20,8 +24,18 @@ public class DateController implements SeasonInputBoundary, HolidayInputBoundary
         return seasonInputBoundary.getSeason();
     }
 
+    @Override
+    public ArrayList<Recipe> getRecipesFromSeason(UserPreferences userPreferences, boolean userInfo) {
+        return seasonInputBoundary.getRecipesFromSeason(userPreferences, userInfo);
+    }
+
     public String getHoliday() {
         return holidayInputBoundary.getHoliday();
+    }
+
+    @Override
+    public ArrayList<Recipe> getRecipeFromHoliday(UserPreferences userPreferences, boolean userInfo) {
+        return holidayInputBoundary.getRecipeFromHoliday(userPreferences, userInfo);
     }
 
     public void return_to_main() {

@@ -26,6 +26,8 @@ import interface_adapter.user_info.UserInfoViewModel;
 import use_case.generated_manager.GeneratedInteractor;
 import use_case.mainwindow.MainInteractor;
 import use_case.mainwindow.MainOutputBoundary;
+import use_case.recommend_custom.CustomSearchInputBoundary;
+import use_case.recommend_custom.CustomSearchInteractor;
 import use_case.recommend_holiday.HolidayInteractor;
 import use_case.recommend_recipes.RecipesInteractor;
 import use_case.recommend_season.SeasonInteractor;
@@ -139,7 +141,9 @@ public class AppBuilder {
         GeneratedPresenter generatedPresenter = new GeneratedPresenter(viewManagerModel);
         SeasonInteractor seasonInteractor = new SeasonInteractor(new DatePresenter(viewManagerModel), inMemoryDAO);
         HolidayInteractor holidayInteractor = new HolidayInteractor(new DatePresenter(viewManagerModel), inMemoryDAO);
-        GeneratedInteractor generatedInteractor = new GeneratedInteractor(generatedPresenter, ingredientsInteractor, seasonInteractor, holidayInteractor, userPreferences);
+        CustomSearchInteractor customSearchInteractor = new CustomSearchInteractor();
+        GeneratedInteractor generatedInteractor = new GeneratedInteractor(generatedPresenter, ingredientsInteractor,
+                                        seasonInteractor, holidayInteractor, customSearchInteractor, userPreferences);
         GeneratedController generatedController = new GeneratedController(generatedInteractor);
         generatedRecipesView.setGeneratedController(generatedController);
         return this;
