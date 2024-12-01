@@ -4,6 +4,7 @@ public class DateState {
     private String season;
     private Date date;
     private String holiday;
+
     public String getSeason() {
         return season;
     }
@@ -27,6 +28,4 @@ public class DateState {
     public void setHoliday(String holiday) {
         this.holiday = holiday;
     }
-
-
 }

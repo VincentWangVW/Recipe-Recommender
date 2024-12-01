@@ -19,6 +19,5 @@ public class HolidayInteractor implements HolidayInputBoundary {
     @Override
     public String getHoliday() {
         return holidaypresenter.getHoliday(inMemoryDAO.get_holiday());
-
     }
 }

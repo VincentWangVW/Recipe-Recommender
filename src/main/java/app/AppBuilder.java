@@ -24,19 +24,13 @@ import interface_adapter.user_info.UserInfoController;
 import interface_adapter.user_info.UserInfoPresenter;
 import interface_adapter.user_info.UserInfoViewModel;
 import use_case.generated_manager.GeneratedInteractor;
-import use_case.generated_manager.GeneratedOutputBoundary;
 import use_case.mainwindow.MainInteractor;
 import use_case.mainwindow.MainOutputBoundary;
 import use_case.recommend_holiday.HolidayInteractor;
-import use_case.recommend_holiday.HolidayOutputBoundary;
 import use_case.recommend_recipes.RecipesInteractor;
-import use_case.recommend_recipes.RecipesOutputBoundary;
 import use_case.recommend_season.SeasonInteractor;
-import use_case.recommend_season.SeasonOutputBoundary;
 import use_case.manage_ingredients.IngredientsInteractor;
-import use_case.manage_ingredients.IngredientsIOutputBoundary;
 import use_case.user_info.UserInfoInteractor;
-import use_case.user_info.UserInfoOutputBoundary;
 import view.*;
 
 public class AppBuilder {
@@ -124,8 +118,9 @@ public class AppBuilder {
     }
 
     public AppBuilder addRecipeUseCase() {
+        HolidayInteractor holidayInteractor = new HolidayInteractor(new DatePresenter(viewManagerModel), inMemoryDAO);
         RecipesPresenter recipesPresenter = new RecipesPresenter(viewManagerModel);
-        RecipesInteractor recipesInteractor = new RecipesInteractor(recipesPresenter);
+        RecipesInteractor recipesInteractor = new RecipesInteractor(recipesPresenter, holidayInteractor);
         RecipesController recipesController = new RecipesController(recipesInteractor);
         recipeView.setRecipesController(recipesController);
         return this;

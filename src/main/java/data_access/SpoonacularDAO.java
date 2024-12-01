@@ -173,48 +173,4 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
         }
         return recipeInfo;
     }
-
-    /**
-     *
-     * @param args the arguments
-     */
-    // TODO GET RID OF THIS ------------------------- TETSING ONLY
-    public static void main(String[] args) {
-        SpoonacularDAO dao = new SpoonacularDAO();
-        String[] fruits = {"pear"};
-        UserPreferences userPreferences = new UserPreferences(5, false, false, fruits);
-
-
-
-        try {
-            ArrayList<String> ingredients = new ArrayList<>();
-//            ingredients.add("apple");
-//            ingredients.add("flour");
-//            ingredients.add("sugar");
-//            ingredients.add("butter");
-//            ingredients.add("oats");
-//            ingredients.add("cranberries");
-            ArrayList<Recipe> recipes = dao.getRecipesFromIngredients(ingredients,  userPreferences);
-            for (Recipe recipe : recipes) {
-                System.out.println(recipe.getName());
-                System.out.println(recipe.getUrl());
-                System.out.println(recipe.getMissingItems());
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-//        try {
-//            ArrayList<Recipe> recipes = dao.getRecipesFromQuery("apple", userPreferences);
-//            for (Recipe recipe : recipes) {
-//                System.out.println(recipe.getName());
-//                System.out.println(recipe.getUrl());
-//            }
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-    }
 }
