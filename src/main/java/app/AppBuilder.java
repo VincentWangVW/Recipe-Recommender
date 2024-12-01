@@ -48,6 +48,7 @@ public class AppBuilder {
     private IngredientsView ingredientsView;
     private GeneratedRecipesView generatedRecipesView;
     private UserInfoView userInfoView;
+    private IngredientsInteractor ingredientsInteractor;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -128,7 +129,7 @@ public class AppBuilder {
 
     public AppBuilder addIngredientsUseCase() {
         IngredientsPresenter ingredientsPresenter = new IngredientsPresenter(viewManagerModel);
-        IngredientsInteractor ingredientsInteractor = new IngredientsInteractor(ingredientsPresenter);
+        ingredientsInteractor = new IngredientsInteractor(ingredientsPresenter);
         IngredientsController ingredientsController = new IngredientsController(ingredientsInteractor);
         ingredientsView.setIngredientsController(ingredientsController);
         return this;
@@ -136,7 +137,6 @@ public class AppBuilder {
 
     public AppBuilder addGeneratedRecipesUseCase() {
         GeneratedPresenter generatedPresenter = new GeneratedPresenter(viewManagerModel);
-        IngredientsInteractor ingredientsInteractor = new IngredientsInteractor(new IngredientsPresenter(viewManagerModel));
         SeasonInteractor seasonInteractor = new SeasonInteractor(new DatePresenter(viewManagerModel), inMemoryDAO);
         HolidayInteractor holidayInteractor = new HolidayInteractor(new DatePresenter(viewManagerModel), inMemoryDAO);
         GeneratedInteractor generatedInteractor = new GeneratedInteractor(generatedPresenter, ingredientsInteractor, seasonInteractor, holidayInteractor, userPreferences);
@@ -144,7 +144,6 @@ public class AppBuilder {
         generatedRecipesView.setGeneratedController(generatedController);
         return this;
     }
-
     public AppBuilder addUserInfoUseCase() {
         UserInfoPresenter userInfoPresenter = new UserInfoPresenter(viewManagerModel);
         UserInfoInteractor userInfoInteractor = new UserInfoInteractor(userInfoPresenter, userPreferences);

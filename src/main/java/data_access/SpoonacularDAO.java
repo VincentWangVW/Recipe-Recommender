@@ -173,4 +173,24 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
         }
         return recipeInfo;
     }
+
+    public static void main(String[] args) {
+        SpoonacularDAO dao = new SpoonacularDAO();
+        UserPreferences userPreferences = new UserPreferences(0, false, false, new String[0]);
+        try {
+            ArrayList<String> ingredients = new ArrayList<>();
+            ingredients.add("apple");
+            ingredients.add("oats");
+            ingredients.add("cranberries");
+            ingredients.add("sugar");
+            ingredients.add("flour");
+            ingredients.add("butter");
+            ArrayList<Recipe> recipes = dao.getRecipesFromIngredients(ingredients, userPreferences);
+            for (Recipe recipe : recipes) {
+                System.out.println(recipe.getName());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

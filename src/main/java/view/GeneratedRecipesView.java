@@ -65,6 +65,7 @@ public class GeneratedRecipesView extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(returnButton)) {
+            tableModel.setRowCount(0);
             generatedController.return_to_main();
         } else if (evt.getSource().equals(generateButton)) {
             tableModel.setRowCount(0);
