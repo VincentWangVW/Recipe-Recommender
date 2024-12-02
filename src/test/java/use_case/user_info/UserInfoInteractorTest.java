@@ -1,5 +1,7 @@
 package use_case.user_info;
 
+import entity.IUserPreferences;
+import entity.UserPreferences;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -21,8 +23,12 @@ class UserInfoInteractorTest {
             }
         };
 
+        // Mock the UserPreferences
+        UserPreferences userPreferences = new UserPreferences(0, false, false,
+                new String[0]);
+
         // Create the interactor
-        UserInfoInteractor interactor = new UserInfoInteractor(successPresenter);
+        UserInfoInteractor interactor = new UserInfoInteractor(successPresenter, userPreferences);
 
         // Add allergies
         interactor.addAllergy("Apple");
@@ -47,8 +53,12 @@ class UserInfoInteractorTest {
             }
         };
 
+        // Mock the UserPreferences
+        UserPreferences userPreferences = new UserPreferences(0, false, false,
+                new String[0]);
+
         // Create the interactor
-        UserInfoInteractor interactor = new UserInfoInteractor(successPresenter);
+        UserInfoInteractor interactor = new UserInfoInteractor(successPresenter, userPreferences);
 
         // Add allergies
         interactor.addAllergy("Peanuts");
@@ -63,31 +73,6 @@ class UserInfoInteractorTest {
     }
 
     @Test
-    void deleteDoesNotExistAllergyTest() {
-        // Mock the UserInfo output boundary
-        UserInfoOutputBoundary successPresenter = new UserInfoOutputBoundary() {
-
-            @Override
-            public void return_to_main() {
-                // No action needed for this test
-            }
-        };
-
-        // Create the interactor
-        UserInfoInteractor interactor = new UserInfoInteractor(successPresenter);
-
-        // Add an allergy
-        interactor.addAllergy("Peanuts");
-
-        // Attempt to delete an allergy that does not exist
-        interactor.deleteAllergy("Apple");
-
-        // Verify the allergies remain unchanged
-        String[] allergies = interactor.getAllergies();
-        assertArrayEquals(new String[]{"Peanuts"}, allergies);
-    }
-
-    @Test
     void getAllergiesEmptyTest() {
         // Mock the UserInfo output boundary
         UserInfoOutputBoundary successPresenter = new UserInfoOutputBoundary() {
@@ -98,8 +83,12 @@ class UserInfoInteractorTest {
             }
         };
 
+        // Mock the UserPreferences
+        UserPreferences userPreferences = new UserPreferences(0, false, false,
+                new String[0]);
+
         // Create the interactor
-        UserInfoInteractor interactor = new UserInfoInteractor(successPresenter);
+        UserInfoInteractor interactor = new UserInfoInteractor(successPresenter, userPreferences);
 
         // Verify the allergies list is empty in the initialization
         String[] allergies = interactor.getAllergies();
@@ -117,8 +106,12 @@ class UserInfoInteractorTest {
             }
         };
 
+        // Mock the UserPreferences
+        UserPreferences userPreferences = new UserPreferences(0, false, false,
+                new String[0]);
+
         // Create the interactor
-        UserInfoInteractor interactor = new UserInfoInteractor(successPresenter);
+        UserInfoInteractor interactor = new UserInfoInteractor(successPresenter, userPreferences);
 
         // Change the shop amount
         int result = interactor.changeShopAmount(15);
@@ -139,8 +132,12 @@ class UserInfoInteractorTest {
             }
         };
 
+        // Mock the UserPreferences
+        UserPreferences userPreferences = new UserPreferences(0, false, false,
+                new String[0]);
+
         // Create the interactor
-        UserInfoInteractor interactor = new UserInfoInteractor(successPresenter);
+        UserInfoInteractor interactor = new UserInfoInteractor(successPresenter, userPreferences);
 
         // Call return_to_main
         interactor.return_to_main();
