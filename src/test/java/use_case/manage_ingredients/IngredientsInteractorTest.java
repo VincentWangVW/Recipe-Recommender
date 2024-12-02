@@ -192,5 +192,23 @@ public class IngredientsInteractorTest {
         }
     }
 
+    @Test
+    public void testChangeIngredientAmountIngredientNotFound() {
+        // Add an ingredient to the list
+        ingredientsInteractor.addIngredient("Tomato", 5);
+
+        // Try to change an ingredient that doesn't exist (i.e., "Onion")
+        int newAmount = ingredientsInteractor.changeIngredientAmount("Onion", 3);
+
+        // Assert that the method returns -1, indicating that the ingredient was not found
+        assertEquals(-1, newAmount);
+
+        // Verify that the original ingredient ("Tomato") is still in the list with its original amount
+        List<String> ingredients = ingredientsInteractor.getIngredients();
+        assertEquals(1, ingredients.size());
+        assertEquals("Tomato - 5", ingredients.get(0));
+    }
+
+
 
 }
