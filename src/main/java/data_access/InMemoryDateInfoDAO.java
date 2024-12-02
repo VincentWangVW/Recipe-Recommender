@@ -10,7 +10,7 @@ import java.net.http.HttpResponse;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-public class InMemoryDAO implements DateDataAccessInterface  {
+public class InMemoryDateInfoDAO implements DateDataAccessInterface  {
     @Override
     public String get_date() {
         Date date = new Date();
