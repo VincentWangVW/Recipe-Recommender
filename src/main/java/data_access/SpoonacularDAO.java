@@ -25,7 +25,7 @@ import entity.CommonRecipeFactory;
  * The DAO for the Spoonacular API.
  */
 public class SpoonacularDAO implements RecipesDataAccessInterface {
-    private static final String API_KEY = "545260c1d16f42fcafa426a015ab14d6"; //"0932dddc83804dd589d24608dc16182f";
+    private static final String API_KEY = "0932dddc83804dd589d24608dc16182f"; //"";
     private static final String BASE_URL = "https://api.spoonacular.com/recipes/";
     private final RecipeFactory recipeFactory;
     private final OkHttpClient client;
@@ -45,7 +45,7 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
      * @throws IOException if the request fails
      */
     public ArrayList<Recipe> getRecipesFromIngredients(ArrayList<String> ingredients,
-                                                       UserPreferences userPreferences) throws IOException {
+                                                       UserPreferences userPreferences) {
         String ingredientsStr = String.join(",", ingredients);
         String url = BASE_URL + "findByIngredients?ingredients=" + ingredientsStr + "&number=100&apiKey=" + API_KEY;
         Request request = new Request.Builder()
@@ -64,6 +64,10 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
             }
             return getRecipeInfoFromID(recipeIDs, userPreferences);
         }
+        catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
     /**
@@ -73,7 +77,7 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
      * @return the recipe information
      * @throws IOException if the request fails
      */
-    private ArrayList<Recipe> getRecipeInfoFromID(HashMap<Integer, Integer> recipeIDs, UserPreferences userPreferences) throws IOException {
+    private ArrayList<Recipe> getRecipeInfoFromID(HashMap<Integer, Integer> recipeIDs, UserPreferences userPreferences) {
         ArrayList<Recipe> recipeInfo = new ArrayList<>();
         outerLoop:
         for (HashMap.Entry<Integer, Integer> entry : recipeIDs.entrySet()) {
@@ -108,6 +112,9 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
                 recipeInfo.add(recipeFactory.create(recipe.getString("title"), recipe.getString("sourceUrl"),
                         Integer.valueOf(missedIngredients)));
             }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return recipeInfo;
     }
@@ -117,7 +124,7 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
      * @return the recipe information
      * @throws IOException if the request fails
      */
-    public ArrayList<Recipe> getRecipesFromQuery(String query, UserPreferences userPreferences) throws IOException {
+    public ArrayList<Recipe> getRecipesFromQuery(String query, UserPreferences userPreferences) {
         String url = BASE_URL + "complexSearch?query=" + query + "&number=100&apiKey=" + API_KEY;
         Request request = new Request.Builder()
                 .url(url)
@@ -137,9 +144,13 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
             }
             return getRecipeInfoFromIDQuery(selectedRecipeIDs, userPreferences);
         }
+        catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
-    private ArrayList<Recipe> getRecipeInfoFromIDQuery(ArrayList<Integer> recipeIDs, UserPreferences userPreferences) throws IOException {
+    private ArrayList<Recipe> getRecipeInfoFromIDQuery(ArrayList<Integer> recipeIDs, UserPreferences userPreferences) {
         ArrayList<Recipe> recipeInfo = new ArrayList<>();
         outerLoop:
         for (int recipeID : recipeIDs) {
@@ -169,6 +180,9 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
                     }
                 }
                 recipeInfo.add(recipeFactory.create(recipe.getString("title"), recipe.getString("sourceUrl"), 0));
+            }
+            catch (IOException e) {
+                e.printStackTrace();
             }
         }
         return recipeInfo;
