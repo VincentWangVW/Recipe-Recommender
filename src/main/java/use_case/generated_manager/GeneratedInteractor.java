@@ -38,7 +38,7 @@ public class GeneratedInteractor implements GeneratedInputBoundary {
         boolean userInfo = outputBoundary.getViewManagerModel().isUserInfo();
         String selectedType = getGenerationType();
         String custom = outputBoundary.getViewManagerModel().getCustom();
-        ArrayList<String> ingredients = ingredientsInteractor.getIngredientsNEW();
+        ArrayList<String> ingredients = ingredientsInteractor.getIngredientsArray();
 
         switch (selectedType) {
             case "Ingredients" -> {
@@ -48,7 +48,7 @@ public class GeneratedInteractor implements GeneratedInputBoundary {
                 return seasonInteractor.getRecipesFromSeason(userPreferences, userInfo);
             }
             case "Holiday" -> {
-                return holidayInteractor.getRecipeFromHoliday(userPreferences, userInfo);
+                return holidayInteractor.getRecipesFromHoliday(userPreferences, userInfo);
             }
             case "Custom" -> {
                 return customSearchInteractor.getRecipesFromCustom(custom, userPreferences, userInfo);

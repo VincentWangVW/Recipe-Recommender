@@ -66,7 +66,7 @@ public class IngredientsInteractor implements IngredientsInputBoundary {
     }
 
     @Override
-    public ArrayList<String> getIngredientsNEW() {
+    public ArrayList<String> getIngredientsArray() {
         ArrayList<String> ingredientList = new ArrayList<>();
         for (Ingredient ingredient : localIngredientList) {
             ingredientList.add(ingredient.getName());

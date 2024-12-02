@@ -12,7 +12,7 @@ public interface IngredientsInputBoundary {
     void deleteIngredient(String ingredientName);
     int changeIngredientAmount(String ingredientName, int delta);
     List<String> getIngredients();
-    ArrayList<String> getIngredientsNEW();
+    ArrayList<String> getIngredientsArray();
     ArrayList<Recipe> getRecipesFromIngredients(ArrayList<String> ingredients, UserPreferences userPreferences,
                                                        boolean userInfo);
 }

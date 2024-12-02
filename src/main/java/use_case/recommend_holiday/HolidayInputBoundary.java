@@ -8,5 +8,5 @@ import java.util.ArrayList;
 public interface HolidayInputBoundary {
     void return_to_main();
     String getHoliday();
-    ArrayList<Recipe> getRecipeFromHoliday(UserPreferences userPreferences, boolean userInfo);
+    ArrayList<Recipe> getRecipesFromHoliday(UserPreferences userPreferences, boolean userInfo);
 }
