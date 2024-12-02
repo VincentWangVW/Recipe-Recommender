@@ -1,14 +1,14 @@
 package use_case.recommend_recipes;
 
-import data_access.InMemoryDAO;
+import use_case.recommend_holiday.HolidayInteractor;
 
 public class RecipesInteractor implements RecipesInputBoundary {
     private final RecipesOutputBoundary outputBoundary;
-    private final InMemoryDAO inMemoryDAO;
+    private final HolidayInteractor holidayInteractor;
 
-    public RecipesInteractor(RecipesOutputBoundary outputBoundary) {
+    public RecipesInteractor(RecipesOutputBoundary outputBoundary, HolidayInteractor holidayInteractor) {
         this.outputBoundary = outputBoundary;
-        this.inMemoryDAO = new InMemoryDAO();
+        this.holidayInteractor = holidayInteractor;
     }
 
     @Override
@@ -23,6 +23,6 @@ public class RecipesInteractor implements RecipesInputBoundary {
 
     @Override
     public String getHoliday() {
-        return inMemoryDAO.get_holiday();
+        return holidayInteractor.getHoliday();
     }
 }

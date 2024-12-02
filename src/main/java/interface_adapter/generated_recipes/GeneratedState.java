@@ -7,4 +7,5 @@ import java.util.ArrayList;
 public class GeneratedState {
     public void setGeneratedRecipes(ArrayList<Recipe> generatedRecipes) {
     }
+
 }

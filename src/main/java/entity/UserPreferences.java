@@ -1,55 +1,60 @@
 package entity;
-import java.util.HashSet;
 
 public class UserPreferences implements IUserPreferences{
-    private HashSet<String> allergies;
-    private HashSet<String> dietaryRestrictions;
-    private int limit;
-    private boolean Alcohol;
+    int missingIngredientsLimit;
+    boolean dairyFree;
+    boolean glutenFree;
+    String[] allergies;
 
-    public UserPreferences(HashSet<String> allergies, HashSet<String> dietaryRestrictions) {
+    public UserPreferences(int missingIngredientsLimit, boolean dairyFree, boolean glutenFree, String[] allergies) {
+        this.missingIngredientsLimit = missingIngredientsLimit;
+        this.dairyFree = dairyFree;
+        this.glutenFree = glutenFree;
         this.allergies = allergies;
-        this.dietaryRestrictions = dietaryRestrictions;
-
-    }
-    @Override
-    public boolean hasAlcohol() {
-        return Alcohol;
     }
 
     @Override
-    public int getLimit() {
-        return limit;
+    public int getMissingIngredientsLimit() {
+        return missingIngredientsLimit;
     }
 
     @Override
-    public HashSet<String> getDietaryRestrictions() {
-        return dietaryRestrictions;
+    public boolean getDairyFree() {
+        return dairyFree;
     }
 
     @Override
-    public HashSet<String> getAllergies() {
+    public boolean getGlutenFree() {
+        return glutenFree;
+    }
+
+    @Override
+    public String[] getAllergies() {
         return allergies;
     }
 
     @Override
-    public void add_allergies(String name) {
-        allergies.add(name);
+    public void addAllergy(String allergyName) {
+        String[] newAllergies = new String[allergies.length + 1];
+        System.arraycopy(allergies, 0, newAllergies, 0, allergies.length);
+        newAllergies[allergies.length] = allergyName;
+        allergies = newAllergies;
     }
 
     @Override
-    public void set_itemsToBuyLimit(int num) {
-        limit=num;
+    public void removeAllergy(String allergyName) {
+        String[] newAllergies = new String[allergies.length - 1];
+        int index = 0;
+        for (String allergy : allergies) {
+            if (!allergy.equals(allergyName)) {
+                newAllergies[index++] = allergy;
+            }
+        }
+        allergies = newAllergies;
     }
 
     @Override
-    public void add_dietaryRestrictions(String name) {
-        dietaryRestrictions.add(name);
+    public void setMissingIngredientsLimit(int shopAmount) {
+        missingIngredientsLimit = shopAmount;
     }
-
-    @Override
-    public void includeAlcohol(boolean include) {
-        Alcohol=include;
-    }
-
 }

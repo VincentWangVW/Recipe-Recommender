@@ -1,5 +1,9 @@
 package use_case.manage_ingredients;
 
+import entity.Recipe;
+import entity.UserPreferences;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public interface IngredientsInputBoundary {
@@ -8,4 +12,7 @@ public interface IngredientsInputBoundary {
     void deleteIngredient(String ingredientName);
     int changeIngredientAmount(String ingredientName, int delta);
     List<String> getIngredients();
+    ArrayList<String> getIngredientsNEW();
+    ArrayList<Recipe> getRecipesFromIngredients(ArrayList<String> ingredients, UserPreferences userPreferences,
+                                                       boolean userInfo);
 }

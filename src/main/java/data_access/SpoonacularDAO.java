@@ -1,5 +1,6 @@
 package data_access;
 
+import interface_adapter.recommend_recipes.RecipesDataAccessInterface;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -13,10 +14,10 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import interface_adapter.recommend_recipes.RecipesDataAccessInterface;
 
 import entity.Recipe;
 import entity.RecipeFactory;
+import entity.UserPreferences;
 
 import entity.CommonRecipeFactory;
 
@@ -24,7 +25,7 @@ import entity.CommonRecipeFactory;
  * The DAO for the Spoonacular API.
  */
 public class SpoonacularDAO implements RecipesDataAccessInterface {
-    private static final String API_KEY = "0932dddc83804dd589d24608dc16182f";
+    private static final String API_KEY = "545260c1d16f42fcafa426a015ab14d6"; //"0932dddc83804dd589d24608dc16182f";
     private static final String BASE_URL = "https://api.spoonacular.com/recipes/";
     private final RecipeFactory recipeFactory;
     private final OkHttpClient client;
@@ -40,14 +41,13 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
 
     /**
      * @param ingredients        the ingredients to search for
-     * @param missingIngredients the number of missing ingredients allowed
      * @return the recipe information
      * @throws IOException if the request fails
      */
     public ArrayList<Recipe> getRecipesFromIngredients(ArrayList<String> ingredients,
-                                                       int missingIngredients) throws IOException {
+                                                       UserPreferences userPreferences) throws IOException {
         String ingredientsStr = String.join(",", ingredients);
-        String url = BASE_URL + "findByIngredients?ingredients=" + ingredientsStr + "&number=10&apiKey=" + API_KEY;
+        String url = BASE_URL + "findByIngredients?ingredients=" + ingredientsStr + "&number=100&apiKey=" + API_KEY;
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -57,12 +57,12 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
             HashMap<Integer, Integer> recipeIDs = new HashMap<>();
             for (int i = 0; i < recipes.length(); i++) {
                 JSONObject recipe = recipes.getJSONObject(i);
-                if (recipe.getInt("missedIngredientCount") <= missingIngredients) {
+                if (recipe.getInt("missedIngredientCount") <= userPreferences.getMissingIngredientsLimit()) {
                     recipeIDs.put(Integer.valueOf(recipe.getInt("id")),
                             Integer.valueOf(recipe.getInt("missedIngredientCount")));
                 }
             }
-            return getRecipeInfoFromID(recipeIDs);
+            return getRecipeInfoFromID(recipeIDs, userPreferences);
         }
     }
 
@@ -73,10 +73,12 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
      * @return the recipe information
      * @throws IOException if the request fails
      */
-    private ArrayList<Recipe> getRecipeInfoFromID(HashMap<Integer, Integer> recipeIDs) throws IOException {
+    private ArrayList<Recipe> getRecipeInfoFromID(HashMap<Integer, Integer> recipeIDs, UserPreferences userPreferences) throws IOException {
         ArrayList<Recipe> recipeInfo = new ArrayList<>();
+        outerLoop:
         for (HashMap.Entry<Integer, Integer> entry : recipeIDs.entrySet()) {
             int recipeID = entry.getKey();
+            System.out.println(recipeID);
             int missedIngredients = entry.getValue();
             String url = BASE_URL + recipeID + "/information?apiKey=" + API_KEY;
             Request request = new Request.Builder()
@@ -85,6 +87,24 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
             try (Response response = client.newCall(request).execute()) {
                 String responseBody = response.body().string();
                 JSONObject recipe = new JSONObject(responseBody);
+                if (userPreferences.getDairyFree() && recipe.getBoolean("dairyFree")) {
+                    continue;
+                }
+                if (userPreferences.getGlutenFree() && recipe.getBoolean("glutenFree")) {
+                    continue;
+                }
+                if (userPreferences.getAllergies() != null) {
+                    JSONArray recipeAllergens = recipe.getJSONArray("extendedIngredients");
+                    for (int i = 0; i < recipeAllergens.length(); i++) {
+                        JSONObject allergen = recipeAllergens.getJSONObject(i);
+                        String allergenName = allergen.getString("name");
+                        for (String allergy : userPreferences.getAllergies()) {
+                            if (allergenName.toLowerCase().contains(allergy.toLowerCase())) {
+                                continue outerLoop;
+                            }
+                        }
+                    }
+                }
                 recipeInfo.add(recipeFactory.create(recipe.getString("title"), recipe.getString("sourceUrl"),
                         Integer.valueOf(missedIngredients)));
             }
@@ -97,7 +117,7 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
      * @return the recipe information
      * @throws IOException if the request fails
      */
-    public ArrayList<Recipe> getRecipesFromQuery(String query) throws IOException {
+    public ArrayList<Recipe> getRecipesFromQuery(String query, UserPreferences userPreferences) throws IOException {
         String url = BASE_URL + "complexSearch?query=" + query + "&number=100&apiKey=" + API_KEY;
         Request request = new Request.Builder()
                 .url(url)
@@ -115,12 +135,13 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
             for (int i = 0; i < 10 && i < recipeIDs.size(); i++) {
                 selectedRecipeIDs.add(recipeIDs.get(i));
             }
-            return getRecipeInfoFromIDQuery(selectedRecipeIDs);
+            return getRecipeInfoFromIDQuery(selectedRecipeIDs, userPreferences);
         }
     }
 
-    private ArrayList<Recipe> getRecipeInfoFromIDQuery(ArrayList<Integer> recipeIDs) throws IOException {
+    private ArrayList<Recipe> getRecipeInfoFromIDQuery(ArrayList<Integer> recipeIDs, UserPreferences userPreferences) throws IOException {
         ArrayList<Recipe> recipeInfo = new ArrayList<>();
+        outerLoop:
         for (int recipeID : recipeIDs) {
             String url = BASE_URL + recipeID + "/information?apiKey=" + API_KEY;
             Request request = new Request.Builder()
@@ -129,46 +150,27 @@ public class SpoonacularDAO implements RecipesDataAccessInterface {
             try (Response response = client.newCall(request).execute()) {
                 String responseBody = response.body().string();
                 JSONObject recipe = new JSONObject(responseBody);
+                if (userPreferences.getDairyFree() && recipe.getBoolean("dairyFree")) {
+                    continue;
+                }
+                if (userPreferences.getGlutenFree() && recipe.getBoolean("glutenFree")) {
+                    continue;
+                }
+                if (userPreferences.getAllergies() != null) {
+                    JSONArray recipeAllergens = recipe.getJSONArray("extendedIngredients");
+                    for (int i = 0; i < recipeAllergens.length(); i++) {
+                        JSONObject allergen = recipeAllergens.getJSONObject(i);
+                        String allergenName = allergen.getString("name");
+                        for (String allergy : userPreferences.getAllergies()) {
+                            if (allergenName.toLowerCase().contains(allergy.toLowerCase())) {
+                                continue outerLoop;
+                            }
+                        }
+                    }
+                }
                 recipeInfo.add(recipeFactory.create(recipe.getString("title"), recipe.getString("sourceUrl"), 0));
             }
         }
         return recipeInfo;
-    }
-
-    /**
-     *
-     * @param args the arguments
-     */
-    // TODO GET RID OF THIS ------------------------- TETSING ONLY
-    public static void main(String[] args) {
-        SpoonacularDAO dao = new SpoonacularDAO();
-//        try {
-//            ArrayList<String> ingredients = new ArrayList<>();
-//            ingredients.add("apple");
-//            ingredients.add("flour");
-//            ingredients.add("sugar");
-//            ingredients.add("butter");
-//            ingredients.add("oats");
-//            ingredients.add("cranberries");
-//            ArrayList<Recipe> recipes = dao.getRecipesFromIngredients(ingredients, 0);
-//            for (Recipe recipe : recipes) {
-//                System.out.println(recipe.getName());
-//                System.out.println(recipe.getUrl());
-//                System.out.println(recipe.getMissingItems());
-//            }
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        try {
-            ArrayList<Recipe> recipes = dao.getRecipesFromQuery("apple");
-            for (Recipe recipe : recipes) {
-                System.out.println(recipe.getName());
-                System.out.println(recipe.getUrl());
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

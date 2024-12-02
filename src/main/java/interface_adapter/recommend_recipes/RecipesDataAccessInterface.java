@@ -1,10 +1,13 @@
 package interface_adapter.recommend_recipes;
 
 import entity.Recipe;
+import entity.UserPreferences;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public interface RecipesDataAccessInterface {
-    public ArrayList<Recipe> getRecipesFromIngredients(ArrayList<String> ingredients,
-                                                       int missingIngredients) throws Exception;
+    ArrayList<Recipe> getRecipesFromIngredients(ArrayList<String> ingredients,
+                                                UserPreferences userPreferences) throws Exception;
+    ArrayList<Recipe> getRecipesFromQuery(String query, UserPreferences userPreferences) throws Exception;
 }

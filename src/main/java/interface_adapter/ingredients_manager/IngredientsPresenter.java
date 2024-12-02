@@ -14,12 +14,6 @@ public class IngredientsPresenter implements IngredientsIOutputBoundary {
         this.viewManagerModel = viewManagerModel;
     }
 
-    @Override
-    public void presentIngredients(HashMap<Integer, List<String>> ingredientsInfo) {
-        // Assign the incoming ingredient data to the instance variable
-        this.ingredientsInfo = ingredientsInfo;
-    }
-
     // Getter for ingredientsInfo
     public HashMap<Integer, List<String>> getIngredientsInfo() {
         return ingredientsInfo;

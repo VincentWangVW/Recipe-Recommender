@@ -1,28 +1,31 @@
 package use_case.generated_manager;
 
-import data_access.SpoonacularDAO;
 import entity.Recipe;
+import entity.UserPreferences;
 import use_case.manage_ingredients.IngredientsInteractor;
+import use_case.recommend_custom.CustomSearchInteractor;
 import use_case.recommend_holiday.HolidayInteractor;
 import use_case.recommend_season.SeasonInteractor;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class GeneratedInteractor implements GeneratedInputBoundary {
     private final GeneratedOutputBoundary outputBoundary;
     private final IngredientsInteractor ingredientsInteractor;
     private final SeasonInteractor seasonInteractor;
-    private final SpoonacularDAO spoonacularDAO;
     private final HolidayInteractor holidayInteractor;
+    private final CustomSearchInteractor customSearchInteractor;
+    private final UserPreferences userPreferences;
 
     public GeneratedInteractor(GeneratedOutputBoundary outputBoundary, IngredientsInteractor ingredientsInteractor,
-                               SeasonInteractor seasonInteractor, HolidayInteractor holidayInteractor) {
+                               SeasonInteractor seasonInteractor, HolidayInteractor holidayInteractor, CustomSearchInteractor customSearchInteractor,
+                               UserPreferences userPreferences) {
         this.outputBoundary = outputBoundary;
         this.ingredientsInteractor = ingredientsInteractor;
         this.holidayInteractor = holidayInteractor;
-        this.spoonacularDAO = new SpoonacularDAO();
         this.seasonInteractor = seasonInteractor;
+        this.customSearchInteractor = customSearchInteractor;
+        this.userPreferences = userPreferences;
     }
 
     @Override
@@ -37,44 +40,19 @@ public class GeneratedInteractor implements GeneratedInputBoundary {
         String custom = outputBoundary.getViewManagerModel().getCustom();
         ArrayList<String> ingredients = ingredientsInteractor.getIngredientsNEW();
 
-        System.out.println("selectedType: " + selectedType);
-        System.out.println("userInfo: " + userInfo);
-
-        if (userInfo) {
-            // TODO
-        }
         switch (selectedType) {
             case "Ingredients" -> {
-                try {
-                    return spoonacularDAO.getRecipesFromIngredients(ingredients, 0);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                return ingredientsInteractor.getRecipesFromIngredients(ingredients, userPreferences, userInfo);
             }
             case "Season" -> {
-                try {
-                    String season = seasonInteractor.getSeason();
-                    return spoonacularDAO.getRecipesFromQuery(season);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                return seasonInteractor.getRecipesFromSeason(userPreferences, userInfo);
             }
             case "Holiday" -> {
-                try {
-                    String holiday = getHoliday();
-                    return spoonacularDAO.getRecipesFromQuery(holiday);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                return holidayInteractor.getRecipeFromHoliday(userPreferences, userInfo);
             }
             case "Custom" -> {
-                try {
-                    return spoonacularDAO.getRecipesFromQuery(custom);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                return customSearchInteractor.getRecipesFromCustom(custom, userPreferences, userInfo);
             }
-            // TODO
         }
         return null;
     }
@@ -88,6 +66,4 @@ public class GeneratedInteractor implements GeneratedInputBoundary {
     public String getHoliday() {
         return holidayInteractor.getHoliday();
     }
-
-
 }
