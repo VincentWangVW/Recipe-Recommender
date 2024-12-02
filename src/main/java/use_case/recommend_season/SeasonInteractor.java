@@ -37,15 +37,12 @@ public class SeasonInteractor implements SeasonInputBoundary {
 
     @Override
     public ArrayList<Recipe> getRecipesFromSeason(UserPreferences userPreferences, boolean userInfo) {
-        try {
-            if (userInfo) {
-                return spoonacularDAO.getRecipesFromQuery(getSeason(), userPreferences);
-            }
-            else {
-                return spoonacularDAO.getRecipesFromQuery(getSeason(), nullPreferences);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (userInfo) {
+
+            return spoonacularDAO.getRecipesFromQuery(getSeason(), userPreferences);
+        }
+        else {
+            return spoonacularDAO.getRecipesFromQuery(getSeason(), nullPreferences);
         }
     }
 }
