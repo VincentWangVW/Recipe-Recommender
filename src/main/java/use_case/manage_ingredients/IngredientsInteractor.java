@@ -83,15 +83,11 @@ public class IngredientsInteractor implements IngredientsInputBoundary {
     public ArrayList<Recipe> getRecipesFromIngredients(ArrayList<String> ingredients, UserPreferences userPreferences,
                                                        boolean userInfo) {
         UserPreferences nullPreferences = new UserPreferences(0, false, false, new String[0]);
-        try {
             if (userInfo) {
                 return spoonacularDAO.getRecipesFromIngredients(ingredients, userPreferences);
             }
             else {
                 return spoonacularDAO.getRecipesFromIngredients(ingredients, nullPreferences);
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

@@ -31,15 +31,11 @@ public class HolidayInteractor implements HolidayInputBoundary {
 
     @Override
     public ArrayList<Recipe> getRecipeFromHoliday(UserPreferences userPreferences, boolean userInfo) {
-        try {
-            if (userInfo) {
-                return spoonacularDAO.getRecipesFromQuery(getHoliday(), userPreferences);
-            }
-            else {
-                return spoonacularDAO.getRecipesFromQuery(getHoliday(), nullPreferences);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (userInfo) {
+            return spoonacularDAO.getRecipesFromQuery(getHoliday(), userPreferences);
+        }
+        else {
+            return spoonacularDAO.getRecipesFromQuery(getHoliday(), nullPreferences);
         }
     }
 }
