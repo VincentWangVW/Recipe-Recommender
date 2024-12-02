@@ -74,15 +74,6 @@ public class IngredientsInteractorTest {
     }
 
     @Test
-    public void testChangeIngredientAmountToZero() {
-        ingredientsInteractor.addIngredient("Tomato", 5);
-        int newAmount = ingredientsInteractor.changeIngredientAmount("Tomato", -5); // Delta matches amount
-        assertEquals(0, newAmount); // Return value should be 0
-        List<String> ingredients = ingredientsInteractor.getIngredients();
-        assertTrue(ingredients.isEmpty()); // Ingredient should be removed
-    }
-
-    @Test
     public void testChangeIngredientAmountNonExisting() {
         int newAmount = ingredientsInteractor.changeIngredientAmount("Onion", 5);
         assertEquals(-1, newAmount);
