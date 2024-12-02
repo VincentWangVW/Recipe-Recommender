@@ -37,6 +37,7 @@ public class SeasonInteractor implements SeasonInputBoundary {
     @Override
     public ArrayList<Recipe> getRecipesFromSeason(UserPreferences userPreferences, boolean userInfo) {
         if (userInfo) {
+
             return spoonacularDAO.getRecipesFromQuery(getSeason(), userPreferences);
         }
         else {
