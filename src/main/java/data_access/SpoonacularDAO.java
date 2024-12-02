@@ -25,7 +25,7 @@ import entity.CommonRecipeFactory;
  * The DAO for the Spoonacular API.
  */
 public class SpoonacularDAO implements RecipesDataAccessInterface {
-    private static final String API_KEY = "182d96b32ec74e418884b6dfc015436b"; //"";
+    private static final String API_KEY = "d66d2965b6974f7a82df73c404b8bd0a"; //"";
     private static final String BASE_URL = "https://api.spoonacular.com/recipes/";
     private final RecipeFactory recipeFactory;
     private final OkHttpClient client;

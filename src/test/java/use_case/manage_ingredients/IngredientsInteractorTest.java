@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class IngredientsInteractorTest {
@@ -62,10 +61,10 @@ public class IngredientsInteractorTest {
     }
 
     @Test
-    public void testGetIngredientsNEW() {
+    public void testGetIngredientsArray() {
         ingredientsInteractor.addIngredient("Tomato", 5);
         ingredientsInteractor.addIngredient("Potato", 3);
-        List<String> ingredients = ingredientsInteractor.getIngredientsNEW();
+        List<String> ingredients = ingredientsInteractor.getIngredientsArray();
         assertTrue(ingredients.contains("Tomato"));
         assertTrue(ingredients.contains("Potato"));
     }

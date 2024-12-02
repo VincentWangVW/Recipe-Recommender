@@ -1,23 +1,22 @@
 package use_case.recommend_season;
 
-import data_access.InMemoryDAO;
+import data_access.InMemoryDateInfoDAO;
 import data_access.SpoonacularDAO;
 import entity.Recipe;
 import entity.UserPreferences;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class SeasonInteractor implements SeasonInputBoundary {
     public final SeasonOutputBoundary seasonpresenter;
-    private final InMemoryDAO inMemoryDAO;
+    private final InMemoryDateInfoDAO inMemoryDateInfoDAO;
     private final SpoonacularDAO spoonacularDAO;
     private final UserPreferences nullPreferences = new UserPreferences(0, false, false, new String[0]);
 
-    public SeasonInteractor(SeasonOutputBoundary seasonpresenter, InMemoryDAO inMemoryDAO) {
+    public SeasonInteractor(SeasonOutputBoundary seasonpresenter, InMemoryDateInfoDAO inMemoryDateInfoDAO, SpoonacularDAO spoonacularDAO) {
         this.seasonpresenter = seasonpresenter;
-        this.inMemoryDAO = inMemoryDAO;
-        this.spoonacularDAO = new SpoonacularDAO();
+        this.inMemoryDateInfoDAO = inMemoryDateInfoDAO;
+        this.spoonacularDAO = spoonacularDAO;
     }
 
     @Override
@@ -27,12 +26,12 @@ public class SeasonInteractor implements SeasonInputBoundary {
 
     @Override
     public String getDate() {
-        return seasonpresenter.getDate(inMemoryDAO.get_date());
+        return seasonpresenter.getDate(inMemoryDateInfoDAO.get_date());
     }
 
     @Override
     public String getSeason() {
-        return seasonpresenter.getSeason(inMemoryDAO.get_season());
+        return seasonpresenter.getSeason(inMemoryDateInfoDAO.get_season());
     }
 
     @Override

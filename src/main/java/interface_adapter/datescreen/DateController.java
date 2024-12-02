@@ -34,8 +34,8 @@ public class DateController implements SeasonInputBoundary, HolidayInputBoundary
     }
 
     @Override
-    public ArrayList<Recipe> getRecipeFromHoliday(UserPreferences userPreferences, boolean userInfo) {
-        return holidayInputBoundary.getRecipeFromHoliday(userPreferences, userInfo);
+    public ArrayList<Recipe> getRecipesFromHoliday(UserPreferences userPreferences, boolean userInfo) {
+        return holidayInputBoundary.getRecipesFromHoliday(userPreferences, userInfo);
     }
 
     public void return_to_main() {

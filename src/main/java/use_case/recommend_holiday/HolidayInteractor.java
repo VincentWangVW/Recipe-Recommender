@@ -1,6 +1,6 @@
 package use_case.recommend_holiday;
 
-import data_access.InMemoryDAO;
+import data_access.InMemoryDateInfoDAO;
 import data_access.SpoonacularDAO;
 import entity.Recipe;
 import entity.UserPreferences;
@@ -9,14 +9,15 @@ import java.util.ArrayList;
 
 public class HolidayInteractor implements HolidayInputBoundary {
     public final HolidayOutputBoundary holidaypresenter;
-    private final InMemoryDAO inMemoryDAO;
+    private final InMemoryDateInfoDAO inMemoryDateInfoDAO;
     private final SpoonacularDAO spoonacularDAO;
     private final UserPreferences nullPreferences = new UserPreferences(0, false, false, new String[0]);
 
-    public HolidayInteractor(HolidayOutputBoundary holidaypresenter, InMemoryDAO inMemoryDAO) {
+    public HolidayInteractor(HolidayOutputBoundary holidaypresenter, InMemoryDateInfoDAO inMemoryDateInfoDAO,
+                             SpoonacularDAO spoonacularDAO) {
         this.holidaypresenter = holidaypresenter;
-        this.inMemoryDAO = inMemoryDAO;
-        this.spoonacularDAO = new SpoonacularDAO();
+        this.inMemoryDateInfoDAO = inMemoryDateInfoDAO;
+        this.spoonacularDAO = spoonacularDAO;
     }
 
     @Override
@@ -26,11 +27,11 @@ public class HolidayInteractor implements HolidayInputBoundary {
 
     @Override
     public String getHoliday() {
-        return holidaypresenter.getHoliday(inMemoryDAO.get_holiday());
+        return holidaypresenter.getHoliday(inMemoryDateInfoDAO.get_holiday());
     }
 
     @Override
-    public ArrayList<Recipe> getRecipeFromHoliday(UserPreferences userPreferences, boolean userInfo) {
+    public ArrayList<Recipe> getRecipesFromHoliday(UserPreferences userPreferences, boolean userInfo) {
         if (userInfo) {
             return spoonacularDAO.getRecipesFromQuery(getHoliday(), userPreferences);
         }

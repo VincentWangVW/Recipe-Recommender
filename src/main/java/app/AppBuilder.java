@@ -4,7 +4,8 @@ import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-import data_access.InMemoryDAO;
+import data_access.InMemoryDateInfoDAO;
+import data_access.SpoonacularDAO;
 import entity.UserPreferences;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.datescreen.DateController;
@@ -26,7 +27,6 @@ import interface_adapter.user_info.UserInfoViewModel;
 import use_case.generated_manager.GeneratedInteractor;
 import use_case.mainwindow.MainInteractor;
 import use_case.mainwindow.MainOutputBoundary;
-import use_case.recommend_custom.CustomSearchInputBoundary;
 import use_case.recommend_custom.CustomSearchInteractor;
 import use_case.recommend_holiday.HolidayInteractor;
 import use_case.recommend_recipes.RecipesInteractor;
@@ -40,7 +40,8 @@ public class AppBuilder {
     private final CardLayout cardLayout = new CardLayout();
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
-    private final InMemoryDAO inMemoryDAO = new InMemoryDAO();
+    private final InMemoryDateInfoDAO inMemoryDateInfoDAO = new InMemoryDateInfoDAO();
+    private final SpoonacularDAO spoonacularDAO = new SpoonacularDAO();
     private final UserPreferences userPreferences = new UserPreferences(0, false, false, new String[0]);
     private final Dimension preferredSize = new Dimension(400, 400);
 
@@ -113,15 +114,15 @@ public class AppBuilder {
 
     public AppBuilder addDateUseCase() {
         DatePresenter datePresenter = new DatePresenter(viewManagerModel);
-        SeasonInteractor seasonInteractor = new SeasonInteractor(datePresenter, inMemoryDAO);
-        HolidayInteractor holidayInteractor = new HolidayInteractor(datePresenter, inMemoryDAO);
+        SeasonInteractor seasonInteractor = new SeasonInteractor(datePresenter, inMemoryDateInfoDAO, spoonacularDAO);
+        HolidayInteractor holidayInteractor = new HolidayInteractor(datePresenter, inMemoryDateInfoDAO, spoonacularDAO);
         DateController dateController = new DateController(seasonInteractor, holidayInteractor);
         dateView.setDateController(dateController);
         return this;
     }
 
     public AppBuilder addRecipeUseCase() {
-        HolidayInteractor holidayInteractor = new HolidayInteractor(new DatePresenter(viewManagerModel), inMemoryDAO);
+        HolidayInteractor holidayInteractor = new HolidayInteractor(new DatePresenter(viewManagerModel), inMemoryDateInfoDAO, spoonacularDAO);
         RecipesPresenter recipesPresenter = new RecipesPresenter(viewManagerModel);
         RecipesInteractor recipesInteractor = new RecipesInteractor(recipesPresenter, holidayInteractor);
         RecipesController recipesController = new RecipesController(recipesInteractor);
@@ -139,8 +140,8 @@ public class AppBuilder {
 
     public AppBuilder addGeneratedRecipesUseCase() {
         GeneratedPresenter generatedPresenter = new GeneratedPresenter(viewManagerModel);
-        SeasonInteractor seasonInteractor = new SeasonInteractor(new DatePresenter(viewManagerModel), inMemoryDAO);
-        HolidayInteractor holidayInteractor = new HolidayInteractor(new DatePresenter(viewManagerModel), inMemoryDAO);
+        SeasonInteractor seasonInteractor = new SeasonInteractor(new DatePresenter(viewManagerModel), inMemoryDateInfoDAO, spoonacularDAO);
+        HolidayInteractor holidayInteractor = new HolidayInteractor(new DatePresenter(viewManagerModel), inMemoryDateInfoDAO, spoonacularDAO);
         CustomSearchInteractor customSearchInteractor = new CustomSearchInteractor();
         GeneratedInteractor generatedInteractor = new GeneratedInteractor(generatedPresenter, ingredientsInteractor,
                                         seasonInteractor, holidayInteractor, customSearchInteractor, userPreferences);
