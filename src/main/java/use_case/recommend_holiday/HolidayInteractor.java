@@ -1,42 +1,55 @@
 package use_case.recommend_holiday;
 
+import java.util.ArrayList;
+
 import data_access.InMemoryDateInfoDAO;
 import data_access.SpoonacularDAO;
 import entity.Recipe;
 import entity.UserPreferences;
 
-import java.util.ArrayList;
-
+/**
+ * The HolidayInteractor class implements the HolidayInputBoundary interface
+ * and provides methods for holiday-based recipe recommendations.
+ */
 public class HolidayInteractor implements HolidayInputBoundary {
-    public final HolidayOutputBoundary holidaypresenter;
-    private final InMemoryDateInfoDAO inMemoryDateInfoDAO;
-    private final SpoonacularDAO spoonacularDAO;
+    private final HolidayOutputBoundary holidaypresenter;
+    private final InMemoryDateInfoDAO inMemoryDateInfoDao;
+    private final SpoonacularDAO spoonacularDao;
     private final UserPreferences nullPreferences = new UserPreferences(0, false, false, new String[0]);
 
-    public HolidayInteractor(HolidayOutputBoundary holidaypresenter, InMemoryDateInfoDAO inMemoryDateInfoDAO,
-                             SpoonacularDAO spoonacularDAO) {
+    /**
+     * Constructs a HolidayInteractor instance.
+     *
+     * @param holidaypresenter     The output boundary for presenting holiday information.
+     * @param inMemoryDateInfoDao  The DAO for retrieving date-related information.
+     * @param spoonacularDao       The DAO for interacting with the recipe database.
+     */
+    public HolidayInteractor(HolidayOutputBoundary holidaypresenter, InMemoryDateInfoDAO inMemoryDateInfoDao,
+                             SpoonacularDAO spoonacularDao) {
         this.holidaypresenter = holidaypresenter;
-        this.inMemoryDateInfoDAO = inMemoryDateInfoDAO;
-        this.spoonacularDAO = spoonacularDAO;
+        this.inMemoryDateInfoDao = inMemoryDateInfoDao;
+        this.spoonacularDao = spoonacularDao;
     }
 
     @Override
-    public void return_to_main() {
+    public void returnTomain() {
         holidaypresenter.return_to_main();
     }
 
     @Override
     public String getHoliday() {
-        return holidaypresenter.getHoliday(inMemoryDateInfoDAO.get_holiday());
+        return holidaypresenter.getHoliday(inMemoryDateInfoDao.get_holiday());
     }
 
     @Override
     public ArrayList<Recipe> getRecipesFromHoliday(UserPreferences userPreferences, boolean userInfo) {
+        final ArrayList<Recipe> recipes;
         if (userInfo) {
-            return spoonacularDAO.getRecipesFromQuery(getHoliday(), userPreferences);
+            recipes = spoonacularDao.getRecipesFromQuery(getHoliday(), userPreferences);
         }
         else {
-            return spoonacularDAO.getRecipesFromQuery(getHoliday(), nullPreferences);
+            recipes = spoonacularDao.getRecipesFromQuery(getHoliday(), nullPreferences);
         }
+        return recipes;
     }
 }

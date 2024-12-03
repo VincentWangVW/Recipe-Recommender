@@ -29,7 +29,7 @@ public class HolidayInteractorTest {
 
     @Test
     public void testReturnToMain() {
-        holidayInteractor.return_to_main();
+        holidayInteractor.returnTomain();
         assertTrue(holidayPresenter.returnToMainCalled);
     }
 
@@ -70,7 +70,7 @@ public class HolidayInteractorTest {
         private String holiday;
 
         @Override
-        public void return_to_main() {
+        public void returnTomain() {
             returnToMainCalled = true;
         }
 
