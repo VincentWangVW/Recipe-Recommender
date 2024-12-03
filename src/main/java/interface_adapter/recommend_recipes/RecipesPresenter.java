@@ -9,13 +9,13 @@ public class RecipesPresenter implements RecipesOutputBoundary {
     public RecipesPresenter(ViewManagerModel viewManagerModel) {
         this.viewManagerModel = viewManagerModel;
     }
-    public void return_to_main() {
+    public void returnTomain() {
         viewManagerModel.setState("MAIN_SCREEN");
         viewManagerModel.firePropertyChanged();
     }
 
     @Override
-    public void go_to_generated(String selectedType, boolean userInfo, String custom) {
+    public void goToGenerated(String selectedType, boolean userInfo, String custom) {
         viewManagerModel.setState("GENERATED_SCREEN");
         viewManagerModel.firePropertyChanged();
         viewManagerModel.setSelectedType(selectedType);

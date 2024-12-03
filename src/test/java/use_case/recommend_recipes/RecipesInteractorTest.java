@@ -24,7 +24,7 @@ public class RecipesInteractorTest {
 
     @Test
     public void testReturnToMain() {
-        recipesInteractor.return_to_main();
+        recipesInteractor.returnTomain();
         assertTrue(recipesPresenter.returnToMainCalled);
     }
 
@@ -33,7 +33,7 @@ public class RecipesInteractorTest {
         String selectedType = "Type";
         boolean userInfo = true;
         String custom = "Custom";
-        recipesInteractor.go_to_generated(selectedType, userInfo, custom);
+        recipesInteractor.goToGenerated(selectedType, userInfo, custom);
         assertEquals(selectedType, recipesPresenter.selectedType);
         assertEquals(userInfo, recipesPresenter.userInfo);
         assertEquals(custom, recipesPresenter.custom);
@@ -55,12 +55,12 @@ public class RecipesInteractorTest {
         String custom;
 
         @Override
-        public void return_to_main() {
+        public void returnTomain() {
             returnToMainCalled = true;
         }
 
         @Override
-        public void go_to_generated(String selectedType, boolean userInfo, String custom) {
+        public void goToGenerated(String selectedType, boolean userInfo, String custom) {
             this.selectedType = selectedType;
             this.userInfo = userInfo;
             this.custom = custom;
