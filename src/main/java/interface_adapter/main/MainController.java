@@ -9,14 +9,14 @@ public class MainController {
         this.mainInteractor = mainInteractor;
     }
     public void switch_to_DateView() {
-        mainInteractor.switch_to_DateView();
+        mainInteractor.switchToDateView();
     }
 
     public void switch_to_RecipeView() {
-        mainInteractor.switch_to_RecipeView();
+        mainInteractor.switchToRecipeView();
     }
 
-    public void switch_to_IngredientsView(){mainInteractor.switch_to_IngredientsView(); }
+    public void switch_to_IngredientsView(){mainInteractor.switchToIngredientsView(); }
 
-    public void switch_to_UserInfoView(){mainInteractor.switch_to_UserInfoView(); }
+    public void switch_to_UserInfoView(){mainInteractor.switchToUserInfoView(); }
 }

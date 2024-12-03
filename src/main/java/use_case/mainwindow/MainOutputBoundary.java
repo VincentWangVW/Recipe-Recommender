@@ -1,8 +1,27 @@
 package use_case.mainwindow;
 
+/**
+ * Interface defining the output boundary for the main window use case.
+ */
 public interface MainOutputBoundary {
-    void switch_to_IngredientsView();
-    void switch_to_UserInfoView();
-    void switch_to_DateView();
-    void switch_to_RecipeView();
+
+    /**
+     * Switches the view to the ingredients view.
+     */
+    void switchToIngredientsView();
+
+    /**
+     * Switches the view to the user info view.
+     */
+    void switchToUserInfoView();
+
+    /**
+     * Switches the view to the date view.
+     */
+    void switchToDateView();
+
+    /**
+     * Switches the view to the recipe view.
+     */
+    void switchToRecipeView();
 }
