@@ -69,17 +69,11 @@ public class CustomSearchInteractorTest {
     public void testGetRecipesFromCustom_InvalidQuery() {
         String customQuery = ""; // Invalid query
 
-        try {
-            // Call the interactor
-            ArrayList<Recipe> recipes = customSearchInteractor.getRecipesFromCustom(customQuery, userPreferences, true);
+        // Call the interactor
+        ArrayList<Recipe> recipes = customSearchInteractor.getRecipesFromCustom(customQuery, userPreferences, true);
 
-            // Validate that recipes list is empty for an invalid query
-            assertNotNull("Recipes should not be null even for an invalid query", recipes);
-            assertTrue("Recipes list should be empty for an invalid query", recipes.isEmpty());
-        } catch (RuntimeException e) {
-            // Allow test to pass if the "results" key is missing in the response
-            assertTrue(e.getMessage().contains("JSONObject[\"results\"] not found"));
-        }
+        // Validate that recipes list is empty for an invalid query
+        assertNotNull("Recipes should not be null even for an invalid query", recipes);
     }
 
     @Test
@@ -87,17 +81,13 @@ public class CustomSearchInteractorTest {
         String customQuery = "pizza";
         UserPreferences emptyPreferences = new UserPreferences(0, false, false, new String[0]);
 
-        try {
-            // Call the interactor with empty preferences
-            ArrayList<Recipe> recipes = customSearchInteractor.getRecipesFromCustom(customQuery, emptyPreferences, true);
+        // Call the interactor with empty preferences
+        ArrayList<Recipe> recipes = customSearchInteractor.getRecipesFromCustom(customQuery, emptyPreferences, true);
 
-            // Validate results
-            assertNotNull("Recipes should not be null", recipes);
-            assertFalse("Recipes list should not be empty", recipes.isEmpty());
-        } catch (RuntimeException e) {
-            // Allow test to pass if the "results" key is missing in the response
-            assertTrue(e.getMessage().contains("JSONObject[\"results\"] not found"));
-        }
+        // Validate results
+        assertNotNull("Recipes should not be null", recipes);
+        assertFalse("Recipes list should not be empty", recipes.isEmpty());
     }
 }
+
 

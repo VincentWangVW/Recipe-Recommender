@@ -16,15 +16,11 @@ public class CustomSearchInteractor implements CustomSearchInputBoundary {
 
     @Override
     public ArrayList<Recipe> getRecipesFromCustom(String custom, UserPreferences userPreferences, boolean userInfo) {
-        try {
-            if (userInfo) {
-                return spoonacularDAO.getRecipesFromQuery(custom, userPreferences);
-            }
-            else {
-                return spoonacularDAO.getRecipesFromQuery(custom, nullPreferences);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (userInfo) {
+            return spoonacularDAO.getRecipesFromQuery(custom, userPreferences);
+        }
+        else {
+            return spoonacularDAO.getRecipesFromQuery(custom, nullPreferences);
         }
     }
 }

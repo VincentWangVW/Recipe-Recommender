@@ -1,18 +1,14 @@
 package use_case.generated_manager;
 
-import data_access.InMemoryDAO;
 import entity.Recipe;
 import entity.UserPreferences;
 import interface_adapter.ViewManagerModel;
 import org.junit.Before;
 import org.junit.Test;
-import use_case.manage_ingredients.IngredientsIOutputBoundary;
 import use_case.manage_ingredients.IngredientsInteractor;
 import use_case.recommend_custom.CustomSearchInteractor;
 import use_case.recommend_holiday.HolidayInteractor;
-import use_case.recommend_holiday.HolidayOutputBoundary;
 import use_case.recommend_season.SeasonInteractor;
-import use_case.recommend_season.SeasonOutputBoundary;
 
 import java.util.ArrayList;
 
@@ -31,43 +27,14 @@ public class GeneratedInteractorTest {
     @Before
     public void setUp() {
         outputBoundary = new TestGeneratedOutputBoundary();
-        ingredientsInteractor = new TestIngredientsInteractor(new IngredientsIOutputBoundary() {
-            @Override
-            public void return_to_main() {
-                // Implement the method
-            }
-        });
-        seasonInteractor = new TestSeasonInteractor(new InMemoryDAO(), new SeasonOutputBoundary() {
-            @Override
-            public void return_to_main() {
-                // Implement the method
-            }
-
-            @Override
-            public String getDate(String date) {
-                return "";
-            }
-
-            @Override
-            public String getSeason(String season) {
-                return "";
-            }
-        });
-        holidayInteractor = new TestHolidayInteractor(new InMemoryDAO(), new HolidayOutputBoundary() {
-            @Override
-            public void return_to_main() {
-                // Implement the method
-            }
-
-            @Override
-            public String getHoliday(String holiday) {
-                return "";
-            }
-        });
+        ingredientsInteractor = new TestIngredientsInteractor();
+        seasonInteractor = new TestSeasonInteractor();
+        holidayInteractor = new TestHolidayInteractor();
         customSearchInteractor = new TestCustomSearchInteractor();
         userPreferences = new UserPreferences(5, true, true, new String[]{"nuts"});
 
-        generatedInteractor = new GeneratedInteractor(outputBoundary, ingredientsInteractor, seasonInteractor, holidayInteractor, customSearchInteractor, userPreferences);
+        generatedInteractor = new GeneratedInteractor(outputBoundary, ingredientsInteractor, seasonInteractor,
+                holidayInteractor, customSearchInteractor, userPreferences);
     }
 
     @Test
@@ -80,8 +47,6 @@ public class GeneratedInteractorTest {
     public void testGenerateRecipesWithIngredients() {
         outputBoundary.viewManagerModel.setSelectedType("Ingredients");
         outputBoundary.viewManagerModel.setUserInfo(true);
-        ingredientsInteractor.setIngredients(new ArrayList<>());
-        ingredientsInteractor.setRecipes(new ArrayList<>());
 
         ArrayList<Recipe> recipes = generatedInteractor.generateRecipes();
         assertNotNull(recipes);
@@ -92,7 +57,6 @@ public class GeneratedInteractorTest {
     public void testGenerateRecipesWithSeason() {
         outputBoundary.viewManagerModel.setSelectedType("Season");
         outputBoundary.viewManagerModel.setUserInfo(true);
-        seasonInteractor.setRecipes(new ArrayList<>());
 
         ArrayList<Recipe> recipes = generatedInteractor.generateRecipes();
         assertNotNull(recipes);
@@ -102,8 +66,7 @@ public class GeneratedInteractorTest {
     @Test
     public void testGenerateRecipesWithHoliday() {
         outputBoundary.viewManagerModel.setSelectedType("Holiday");
-        outputBoundary.viewManagerModel.setUserInfo(true);
-        holidayInteractor.setRecipes(new ArrayList<>());
+        outputBoundary.viewManagerModel.setUserInfo(false);
 
         ArrayList<Recipe> recipes = generatedInteractor.generateRecipes();
         assertNotNull(recipes);
@@ -115,7 +78,6 @@ public class GeneratedInteractorTest {
         outputBoundary.viewManagerModel.setSelectedType("Custom");
         outputBoundary.viewManagerModel.setUserInfo(true);
         outputBoundary.viewManagerModel.setCustom("custom");
-        customSearchInteractor.setRecipes(new ArrayList<>());
 
         ArrayList<Recipe> recipes = generatedInteractor.generateRecipes();
         assertNotNull(recipes);
@@ -195,63 +157,43 @@ public class GeneratedInteractorTest {
 
     private static class TestIngredientsInteractor extends IngredientsInteractor {
         private boolean getRecipesCalled = false;
-        private ArrayList<String> ingredients;
-        private ArrayList<Recipe> recipes;
 
-        public TestIngredientsInteractor(IngredientsIOutputBoundary outputBoundary) {
-            super(outputBoundary);
-        }
-
-        public void setIngredients(ArrayList<String> ingredients) {
-            this.ingredients = ingredients;
-        }
-
-        public void setRecipes(ArrayList<Recipe> recipes) {
-            this.recipes = recipes;
+        public TestIngredientsInteractor() {
+            super(null);
         }
 
         @Override
-        public ArrayList<String> getIngredientsNEW() {
-            return ingredients;
+        public ArrayList<String> getIngredientsArray() {
+            return new ArrayList<>();
         }
 
         @Override
         public ArrayList<Recipe> getRecipesFromIngredients(ArrayList<String> ingredients, UserPreferences userPreferences, boolean userInfo) {
             getRecipesCalled = true;
-            return recipes;
+            return new ArrayList<>();
         }
     }
 
     private static class TestSeasonInteractor extends SeasonInteractor {
         private boolean getRecipesCalled = false;
-        private ArrayList<Recipe> recipes;
 
-        public TestSeasonInteractor(InMemoryDAO dao, SeasonOutputBoundary outputBoundary) {
-            super(outputBoundary, dao);
-        }
-
-        public void setRecipes(ArrayList<Recipe> recipes) {
-            this.recipes = recipes;
+        public TestSeasonInteractor() {
+            super(null, null, null);
         }
 
         @Override
         public ArrayList<Recipe> getRecipesFromSeason(UserPreferences userPreferences, boolean userInfo) {
             getRecipesCalled = true;
-            return recipes;
+            return new ArrayList<>();
         }
     }
 
     private static class TestHolidayInteractor extends HolidayInteractor {
         private boolean getRecipesCalled = false;
-        private ArrayList<Recipe> recipes;
         private String holiday;
 
-        public TestHolidayInteractor(InMemoryDAO dao, HolidayOutputBoundary outputBoundary) {
-            super(outputBoundary, dao);
-        }
-
-        public void setRecipes(ArrayList<Recipe> recipes) {
-            this.recipes = recipes;
+        public TestHolidayInteractor() {
+            super(null, null, null);
         }
 
         public void setHoliday(String holiday) {
@@ -259,9 +201,9 @@ public class GeneratedInteractorTest {
         }
 
         @Override
-        public ArrayList<Recipe> getRecipeFromHoliday(UserPreferences userPreferences, boolean userInfo) {
+        public ArrayList<Recipe> getRecipesFromHoliday(UserPreferences userPreferences, boolean userInfo) {
             getRecipesCalled = true;
-            return recipes;
+            return new ArrayList<>();
         }
 
         @Override
@@ -272,16 +214,11 @@ public class GeneratedInteractorTest {
 
     private static class TestCustomSearchInteractor extends CustomSearchInteractor {
         private boolean getRecipesCalled = false;
-        private ArrayList<Recipe> recipes;
-
-        public void setRecipes(ArrayList<Recipe> recipes) {
-            this.recipes = recipes;
-        }
 
         @Override
         public ArrayList<Recipe> getRecipesFromCustom(String custom, UserPreferences userPreferences, boolean userInfo) {
             getRecipesCalled = true;
-            return recipes;
+            return new ArrayList<>();
         }
     }
 }

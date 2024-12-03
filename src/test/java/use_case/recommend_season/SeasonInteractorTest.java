@@ -1,6 +1,6 @@
 package use_case.recommend_season;
 
-import data_access.InMemoryDAO;
+import data_access.InMemoryDateInfoDAO;
 import data_access.SpoonacularDAO;
 import entity.Recipe;
 import entity.UserPreferences;
@@ -24,7 +24,7 @@ public class SeasonInteractorTest {
 
         inMemoryDAO = new TestInMemoryDAO();
         spoonacularDAO = new SpoonacularDAO();
-        seasonInteractor = new SeasonInteractor(seasonPresenter, inMemoryDAO);
+        seasonInteractor = new SeasonInteractor(seasonPresenter, inMemoryDAO, spoonacularDAO);
     }
 
     @Test
@@ -59,8 +59,8 @@ public class SeasonInteractorTest {
         String expectedSeason = "Fall";
         inMemoryDAO.setSeason(expectedSeason);
         seasonPresenter.setSeason(expectedSeason);
-        ArrayList<Recipe> actual=seasonInteractor.getRecipesFromSeason(userPreferences,true);
-        ArrayList<Recipe> empty=new ArrayList<>();
+        ArrayList<Recipe> actual = seasonInteractor.getRecipesFromSeason(userPreferences,true);
+        ArrayList<Recipe> empty = new ArrayList<>();
         assertNotEquals(empty,actual);
     }
     @Test
@@ -104,7 +104,7 @@ public class SeasonInteractorTest {
         }
     }
 
-    private static class TestInMemoryDAO extends InMemoryDAO {
+    private static class TestInMemoryDAO extends InMemoryDateInfoDAO {
         private String date;
         private String season;
 
