@@ -10,7 +10,7 @@ public class GeneratedPresenter implements GeneratedOutputBoundary {
         this.viewManagerModel = viewManagerModel;
     }
 
-    public void return_to_main() {
+    public void returnTomain() {
         viewManagerModel.setState("MAIN_SCREEN");
         viewManagerModel.firePropertyChanged();
     }

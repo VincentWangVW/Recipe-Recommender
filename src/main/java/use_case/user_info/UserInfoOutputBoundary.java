@@ -1,8 +1,12 @@
 package use_case.user_info;
 
-import java.util.List;
-import java.util.HashSet;
-
+/**
+ * Output boundary interface for managing user information.
+ */
 public interface UserInfoOutputBoundary {
-    void return_to_main();
+
+    /**
+     * Returns to the main menu or state.
+     */
+    void returnTomain();
 }

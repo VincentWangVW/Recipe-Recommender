@@ -13,7 +13,7 @@ public class DatePresenter implements SeasonOutputBoundary, HolidayOutputBoundar
     }
 
     @Override
-    public void return_to_main() {
+    public void returnTomain() {
         viewManagerModel.setState("MAIN_SCREEN");
         viewManagerModel.firePropertyChanged();
     }

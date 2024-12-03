@@ -17,25 +17,25 @@ public class MainInteractorTest {
 
     @Test
     public void testSwitchToIngredientsView() {
-        mainInteractor.switch_to_IngredientsView();
+        mainInteractor.switchToIngredientsView();
         assertTrue(mainOutputBoundary.ingredientsViewSwitched);
     }
 
     @Test
     public void testSwitchToUserInfoView() {
-        mainInteractor.switch_to_UserInfoView();
+        mainInteractor.switchToUserInfoView();
         assertTrue(mainOutputBoundary.userInfoViewSwitched);
     }
 
     @Test
     public void testSwitchToDateView() {
-        mainInteractor.switch_to_DateView();
+        mainInteractor.switchToDateView();
         assertTrue(mainOutputBoundary.dateViewSwitched);
     }
 
     @Test
     public void testSwitchToRecipeView() {
-        mainInteractor.switch_to_RecipeView();
+        mainInteractor.switchToRecipeView();
         assertTrue(mainOutputBoundary.recipeViewSwitched);
     }
 
@@ -46,22 +46,22 @@ public class MainInteractorTest {
         boolean recipeViewSwitched = false;
 
         @Override
-        public void switch_to_IngredientsView() {
+        public void switchToIngredientsView() {
             ingredientsViewSwitched = true;
         }
 
         @Override
-        public void switch_to_UserInfoView() {
+        public void switchToUserInfoView() {
             userInfoViewSwitched = true;
         }
 
         @Override
-        public void switch_to_DateView() {
+        public void switchToDateView() {
             dateViewSwitched = true;
         }
 
         @Override
-        public void switch_to_RecipeView() {
+        public void switchToRecipeView() {
             recipeViewSwitched = true;
         }
     }
