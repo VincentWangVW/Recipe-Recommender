@@ -1,36 +1,52 @@
 package use_case.manage_ingredients;
 
-import data_access.SpoonacularDAO;
-import entity.*;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import data_access.SpoonacularDAO;
+import entity.CommonIngredientFactory;
+import entity.Ingredient;
+import entity.IngredientFactory;
+import entity.Recipe;
+import entity.UserPreferences;
+
+/**
+ * The IngredientsInteractor class implements the IngredientsInputBoundary interface
+ * and provides methods to manage ingredients and retrieve recipes.
+ */
 public class IngredientsInteractor implements IngredientsInputBoundary {
     private final List<Ingredient> localIngredientList = new ArrayList<>();
-    private final IngredientsIOutputBoundary outputBoundary;
+    private final IngredientsOutputBoundary outputBoundary;
     private final IngredientFactory ingredientFactory;
-    private final SpoonacularDAO spoonacularDAO;
+    private final SpoonacularDAO spoonacularDao;
 
-    public IngredientsInteractor(IngredientsIOutputBoundary outputBoundary) {
+    /**
+     * Constructs an IngredientsInteractor instance with the specified output boundary.
+     *
+     * @param outputBoundary The output boundary to interact with the user interface.
+     */
+    public IngredientsInteractor(IngredientsOutputBoundary outputBoundary) {
         this.outputBoundary = outputBoundary;
         this.ingredientFactory = new CommonIngredientFactory();
-        this.spoonacularDAO = new SpoonacularDAO();
+        this.spoonacularDao = new SpoonacularDAO();
     }
 
     @Override
     public void addIngredient(String ingredientName, int quantity) {
+        boolean ingredientExists = false;
         for (Ingredient ingredient : localIngredientList) {
             if (ingredient.getName().equals(ingredientName)) {
-                int newAmount = ingredient.getAmount() + quantity;
+                final int newAmount = ingredient.getAmount() + quantity;
                 localIngredientList.remove(ingredient);
                 localIngredientList.add(ingredientFactory.create(ingredientName, newAmount));
-                return;
+                ingredientExists = true;
+                break;
             }
         }
-        Ingredient newIngredient = ingredientFactory.create(ingredientName, quantity);
-        localIngredientList.add(newIngredient);
+        if (!ingredientExists) {
+            final Ingredient newIngredient = ingredientFactory.create(ingredientName, quantity);
+            localIngredientList.add(newIngredient);
+        }
     }
 
     @Override
@@ -40,25 +56,27 @@ public class IngredientsInteractor implements IngredientsInputBoundary {
 
     @Override
     public int changeIngredientAmount(String ingredientName, int delta) {
+        int newAmount = -1;
         for (int i = 0; i < localIngredientList.size(); i++) {
-            Ingredient ingredient = localIngredientList.get(i);
+            final Ingredient ingredient = localIngredientList.get(i);
             if (ingredient.getName().equals(ingredientName)) {
-                int newAmount = ingredient.getAmount() + delta;
+                newAmount = ingredient.getAmount() + delta;
                 if (newAmount < 0) {
                     localIngredientList.remove(i);
-                } else {
+                }
+                else {
                     localIngredientList.remove(i);
                     localIngredientList.add(ingredientFactory.create(ingredientName, newAmount));
                 }
-                return newAmount;
+                break;
             }
         }
-        return -1;
+        return newAmount;
     }
 
     @Override
     public List<String> getIngredients() {
-        List<String> ingredientList = new ArrayList<>();
+        final List<String> ingredientList = new ArrayList<>();
         for (Ingredient ingredient : localIngredientList) {
             ingredientList.add(ingredient.getName() + " - " + ingredient.getAmount());
         }
@@ -67,7 +85,7 @@ public class IngredientsInteractor implements IngredientsInputBoundary {
 
     @Override
     public ArrayList<String> getIngredientsArray() {
-        ArrayList<String> ingredientList = new ArrayList<>();
+        final ArrayList<String> ingredientList = new ArrayList<>();
         for (Ingredient ingredient : localIngredientList) {
             ingredientList.add(ingredient.getName());
         }
@@ -75,19 +93,21 @@ public class IngredientsInteractor implements IngredientsInputBoundary {
     }
 
     @Override
-    public void return_to_main() {
-        outputBoundary.return_to_main();
+    public void returnTomain() {
+        outputBoundary.returnTomain();
     }
 
     @Override
-    public ArrayList<Recipe> getRecipesFromIngredients(ArrayList<String> ingredients, UserPreferences userPreferences,
-                                                       boolean userInfo) {
-        UserPreferences nullPreferences = new UserPreferences(0, false, false, new String[0]);
-            if (userInfo) {
-                return spoonacularDAO.getRecipesFromIngredients(ingredients, userPreferences);
-            }
-            else {
-                return spoonacularDAO.getRecipesFromIngredients(ingredients, nullPreferences);
-            }
+    public ArrayList<Recipe> getRecipesFromIngredients(ArrayList<String> ingredients,
+                                                       UserPreferences userPreferences, boolean userInfo) {
+        final UserPreferences nullPreferences = new UserPreferences(0, false, false, new String[0]);
+        final ArrayList<Recipe> recipes;
+        if (userInfo) {
+            recipes = spoonacularDao.getRecipesFromIngredients(ingredients, userPreferences);
+        }
+        else {
+            recipes = spoonacularDao.getRecipesFromIngredients(ingredients, nullPreferences);
+        }
+        return recipes;
     }
 }
