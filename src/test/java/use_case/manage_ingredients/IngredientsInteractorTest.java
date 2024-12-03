@@ -93,7 +93,7 @@ public class IngredientsInteractorTest {
     public void testGetIngredientsNEW() {
         ingredientsInteractor.addIngredient("Tomato", 5);
         ingredientsInteractor.addIngredient("Onion", 3);
-        ArrayList<String> ingredients = ingredientsInteractor.getIngredientsNEW();
+        ArrayList<String> ingredients = ingredientsInteractor.getIngredientsArray();
         assertEquals(2, ingredients.size());
         assertTrue(ingredients.contains("Tomato"));
         assertTrue(ingredients.contains("Onion"));
