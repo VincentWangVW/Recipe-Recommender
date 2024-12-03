@@ -18,7 +18,7 @@ public class UserInfoController {
     }
 
     public void return_to_main() {
-        userInfoInputBoundary.returnTomain();
+        userInfoInputBoundary.return_to_main();
     }
 
     public String[] getAllergies() {

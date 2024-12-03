@@ -101,7 +101,7 @@ public class IngredientsInteractorTest {
 
     @Test
     public void testReturnToMain() {
-        ingredientsInteractor.returnTomain();
+        ingredientsInteractor.return_to_main();
         assertTrue(outputBoundary.returnToMainCalled);
     }
 
@@ -130,11 +130,11 @@ public class IngredientsInteractorTest {
         }
     }
 
-    private static class TestOutputBoundary implements IngredientsOutputBoundary {
+    private static class TestOutputBoundary implements IngredientsIOutputBoundary {
         boolean returnToMainCalled = false;
 
         @Override
-        public void returnTomain() {
+        public void return_to_main() {
             returnToMainCalled = true;
         }
     }

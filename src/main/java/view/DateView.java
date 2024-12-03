@@ -79,7 +79,7 @@ public class DateView extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(returnButton)) {
-            dateController.returnTomain();
+            dateController.return_to_main();
         }
     }
 }

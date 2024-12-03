@@ -29,7 +29,7 @@ public class SeasonInteractorTest {
 
     @Test
     public void testReturnToMain() {
-        seasonInteractor.returnTomain();
+        seasonInteractor.return_to_main();
         assertTrue(seasonPresenter.returnToMainCalled);
     }
 
@@ -81,7 +81,7 @@ public class SeasonInteractorTest {
         private String season;
 
         @Override
-        public void returnTomain() {
+        public void return_to_main() {
             returnToMainCalled = true;
         }
 

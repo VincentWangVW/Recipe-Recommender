@@ -25,25 +25,25 @@ public class MainPresenter implements MainOutputBoundary {
     }
 
     @Override
-    public void switchToIngredientsView() {
+    public void switch_to_IngredientsView() {
         viewManagerModel.setState(ingredientsViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
     @Override
-    public void switchToUserInfoView() {
+    public void switch_to_UserInfoView() {
         viewManagerModel.setState(userInfoViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
     @Override
-    public void switchToDateView() {
+    public void switch_to_DateView() {
         viewManagerModel.setState(dateViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
     @Override
-    public void switchToRecipeView() {
+    public void switch_to_RecipeView() {
         viewManagerModel.setState(recipeViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

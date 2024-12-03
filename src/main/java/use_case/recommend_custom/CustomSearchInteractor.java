@@ -1,36 +1,26 @@
 package use_case.recommend_custom;
 
-import java.util.ArrayList;
-
 import data_access.SpoonacularDAO;
 import entity.Recipe;
 import entity.UserPreferences;
 
-/**
- * The CustomSearchInteractor class implements the CustomSearchInputBoundary interface
- * and provides methods to retrieve recipes based on a custom query.
- */
+import java.util.ArrayList;
+
 public class CustomSearchInteractor implements CustomSearchInputBoundary {
-    private final SpoonacularDAO spoonacularDao;
+    private final SpoonacularDAO spoonacularDAO;
     private final UserPreferences nullPreferences = new UserPreferences(0, false, false, new String[0]);
 
-    /**
-     * Constructs a CustomSearchInteractor instance.
-     */
     public CustomSearchInteractor() {
-
-        this.spoonacularDao = new SpoonacularDAO();
+        this.spoonacularDAO = new SpoonacularDAO();
     }
 
     @Override
     public ArrayList<Recipe> getRecipesFromCustom(String custom, UserPreferences userPreferences, boolean userInfo) {
-        final ArrayList<Recipe> recipes;
         if (userInfo) {
-            recipes = spoonacularDao.getRecipesFromQuery(custom, userPreferences);
+            return spoonacularDAO.getRecipesFromQuery(custom, userPreferences);
         }
         else {
-            recipes = spoonacularDao.getRecipesFromQuery(custom, nullPreferences);
+            return spoonacularDAO.getRecipesFromQuery(custom, nullPreferences);
         }
-        return recipes;
     }
 }

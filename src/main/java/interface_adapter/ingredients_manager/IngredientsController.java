@@ -27,6 +27,6 @@ public class IngredientsController {
     }
 
     public void return_to_main() {
-        ingredientsInteractor.returnTomain();
+        ingredientsInteractor.return_to_main();
     }
 }

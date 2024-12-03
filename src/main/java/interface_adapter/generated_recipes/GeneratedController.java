@@ -15,7 +15,7 @@ public class GeneratedController {
     }
 
     public void return_to_main() {
-        generatedInputBoundary.returnTomain();
+        generatedInputBoundary.return_to_main();
     }
 
     public ArrayList<Recipe> generateRecipes() {
