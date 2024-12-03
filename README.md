@@ -2,6 +2,22 @@
 
 ## Table of Contents
 
+1. [Authors](#authors)  
+2. [Summary](#summary)  
+3. [Installation Instructions](#installation-instructions)  
+   - [Prerequisites](#prerequisites)  
+   - [Clone the Repository](#clone-the-repository)  
+   - [Running the Application](#running-the-application)  
+   - [Notes](#notes)  
+4. [Instructions on App Usage](#instructions-on-app-usage)  
+5. [Feedback](#feedback)  
+6. [Known Errors](#known-errors)  
+7. [Contributing](#contributing)  
+   - [How to Contribute](#how-to-contribute)  
+   - [Merge Request Guidelines](#merge-request-guidelines)  
+8. [License](#license)  
+
+
 ## Authors
 
 Vincent Wang - VincentWangVW<br/>
@@ -72,6 +88,10 @@ From pressing the "Generate Recipes" button, you will then be brought to the las
 ## Feedback
 
 If wanting to give feedback or rating the app, please fill out this form: https://forms.gle/tBkVdRL5jiMKvqyA6.
+
+## Known Errors
+
+Hard to run all tests at once because of API Limits.
 
 ## Contributing
 
