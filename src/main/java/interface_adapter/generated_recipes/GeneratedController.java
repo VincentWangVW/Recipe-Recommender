@@ -1,12 +1,15 @@
-// src/main/java/interface_adapter/generated_recipes/GeneratedController.java
 package interface_adapter.generated_recipes;
-
-import entity.Recipe;
-import interface_adapter.recommend_recipes.RecipesController;
-import use_case.generated_manager.GeneratedInputBoundary;
 
 import java.util.ArrayList;
 
+import entity.Recipe;
+import use_case.generated_manager.GeneratedInputBoundary;
+
+/**
+ * Controller class for handling actions related to generated recipes.
+ * This class acts as a mediator between the view and the use case layer
+ * for generating recipes, retrieving holidays, and managing navigation.
+ */
 public class GeneratedController {
     private final GeneratedInputBoundary generatedInputBoundary;
 
@@ -14,10 +17,18 @@ public class GeneratedController {
         this.generatedInputBoundary = inputBoundary;
     }
 
-    public void return_to_main() {
+    /**
+     * Returns to the main screen.
+     */
+    public void returnTomain() {
         generatedInputBoundary.returnTomain();
     }
 
+    /**
+     * Generates recipes based on the current generation type.
+     *
+     * @return A list of generated recipes.
+     */
     public ArrayList<Recipe> generateRecipes() {
         return generatedInputBoundary.generateRecipes();
     }

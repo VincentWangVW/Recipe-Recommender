@@ -1,9 +1,9 @@
 package interface_adapter.generated_recipes;
 
+import java.util.ArrayList;
+
 import entity.Recipe;
 import interface_adapter.ViewModel;
-
-import java.util.ArrayList;
 
 public class GeneratedViewModel extends ViewModel<GeneratedState> {
     public final String TITLE_LABLE = "Recipes";
