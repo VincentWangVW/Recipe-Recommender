@@ -1,5 +1,10 @@
 package interface_adapter.datescreen;
+
 import java.util.Date;
+
+/**
+ * Represents the state of a date-related object, including season, date, and holiday information.
+ */
 public class DateState {
     private String season;
     private Date date;

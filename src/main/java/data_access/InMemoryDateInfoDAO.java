@@ -12,14 +12,14 @@ import java.text.SimpleDateFormat;
 
 public class InMemoryDateInfoDAO implements DateDataAccessInterface  {
     @Override
-    public String get_date() {
+    public String getDate() {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(date);
     }
 
     @Override
-    public String get_holiday() {
+    public String getHoliday() {
         Date dates = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date1=sdf.format(dates);
@@ -59,7 +59,7 @@ public class InMemoryDateInfoDAO implements DateDataAccessInterface  {
     }
 
     @Override
-    public String get_season() {
+    public String getSeason() {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
         String date1 = sdf.format(date);

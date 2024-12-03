@@ -2,6 +2,9 @@ package interface_adapter.datescreen;
 
 import interface_adapter.ViewModel;
 
+/**
+ * ViewModel class for managing the state and labels for the Date Screen.
+ */
 public class DateViewModel extends ViewModel<DateState> {
     public final String TITLE_LABEL = "Date Information";
     public final String RETURN_BUTTON_LABEL = "Return";

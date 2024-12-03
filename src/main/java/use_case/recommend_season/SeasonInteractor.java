@@ -39,12 +39,12 @@ public class SeasonInteractor implements SeasonInputBoundary {
 
     @Override
     public String getDate() {
-        return seasonpresenter.getDate(inMemoryDateInfoDao.get_date());
+        return seasonpresenter.getDate(inMemoryDateInfoDao.getDate());
     }
 
     @Override
     public String getSeason() {
-        return seasonpresenter.getSeason(inMemoryDateInfoDao.get_season());
+        return seasonpresenter.getSeason(inMemoryDateInfoDao.getSeason());
     }
 
     @Override
