@@ -39,7 +39,7 @@ public class GeneratedInteractorTest {
 
     @Test
     public void testReturnToMain() {
-        generatedInteractor.return_to_main();
+        generatedInteractor.returnTomain();
         assertTrue(outputBoundary.returnToMainCalled);
     }
 
@@ -112,7 +112,7 @@ public class GeneratedInteractorTest {
         TestViewManagerModel viewManagerModel = new TestViewManagerModel();
 
         @Override
-        public void return_to_main() {
+        public void returnTomain() {
             returnToMainCalled = true;
         }
 
