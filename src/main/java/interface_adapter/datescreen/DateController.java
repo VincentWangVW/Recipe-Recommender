@@ -38,7 +38,7 @@ public class DateController implements SeasonInputBoundary, HolidayInputBoundary
         return holidayInputBoundary.getRecipesFromHoliday(userPreferences, userInfo);
     }
 
-    public void return_to_main() {
-        seasonInputBoundary.return_to_main();
+    public void returnTomain() {
+        seasonInputBoundary.returnTomain();
     }
 }
