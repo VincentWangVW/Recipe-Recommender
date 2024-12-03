@@ -87,7 +87,7 @@ public class IngredientsView extends JPanel implements ActionListener {
             case "delete" -> handleDeleteIngredient();
             case "increment" -> changeIngredientQuantity(1);
             case "decrement" -> changeIngredientQuantity(-1);
-            case "return" -> ingredientsController.return_to_main();
+            case "return" -> ingredientsController.returnTomain();
         }
     }
 

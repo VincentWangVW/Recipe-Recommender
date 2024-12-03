@@ -109,12 +109,12 @@ public class SeasonInteractorTest {
         private String season;
 
         @Override
-        public String get_date() {
+        public String getDate() {
             return date;
         }
 
         @Override
-        public String get_season() {
+        public String getSeason() {
             return season;
         }
 

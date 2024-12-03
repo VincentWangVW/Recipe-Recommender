@@ -1,21 +1,26 @@
 package interface_adapter.ingredients_manager;
 
+import java.util.List;
+import java.util.Map;
+
 import interface_adapter.ViewManagerModel;
 import use_case.manage_ingredients.IngredientsOutputBoundary;
 
-import java.util.HashMap;
-import java.util.List;
-
+/**
+ * Presenter for managing ingredients-related data and actions.
+ * Implements the IngredientsOutputBoundary interface to communicate
+ * with the view layer while maintaining separation of concerns.
+ */
 public class IngredientsPresenter implements IngredientsOutputBoundary {
-    private HashMap<Integer, List<String>> ingredientsInfo; // Stores ingredient data
-    private final ViewManagerModel viewManagerModel;        // Reference to manage view state
+    private Map<Integer, List<String>> ingredientsInfo;
+    private final ViewManagerModel viewManagerModel;
 
     public IngredientsPresenter(ViewManagerModel viewManagerModel) {
         this.viewManagerModel = viewManagerModel;
     }
 
     // Getter for ingredientsInfo
-    public HashMap<Integer, List<String>> getIngredientsInfo() {
+    public Map<Integer, List<String>> getIngredientsInfo() {
         return ingredientsInfo;
     }
 

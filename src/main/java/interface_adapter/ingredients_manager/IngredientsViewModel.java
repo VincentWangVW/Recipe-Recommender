@@ -2,6 +2,10 @@ package interface_adapter.ingredients_manager;
 
 import interface_adapter.ViewModel;
 
+/**
+ * Represents the view model for the Ingredients Manager screen.
+ * Stores labels and state information for the UI.
+ */
 public class IngredientsViewModel extends ViewModel<IngredientsState> {
     public final String TITLE = "Ingredients Manager";
     public final String INGREDIENT_NAME = "Ingredient Name";

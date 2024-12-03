@@ -88,7 +88,7 @@ public class HolidayInteractorTest {
         private String holiday;
 
         @Override
-        public String get_holiday() {
+        public String getHoliday() {
             return holiday;
         }
 
