@@ -10,11 +10,11 @@ public class RecipesController {
     }
 
     public void return_to_main() {
-        recipesInputBoundary.return_to_main();
+        recipesInputBoundary.returnTomain();
     }
 
     public void go_to_generated(String selectedType, boolean userInfo, String custom) {
-        recipesInputBoundary.go_to_generated(selectedType, userInfo, custom);
+        recipesInputBoundary.goToGenerated(selectedType, userInfo, custom);
     }
 
     public String getHoliday() {

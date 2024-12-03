@@ -19,21 +19,21 @@ public class MainInteractor implements MainInputBoundary {
 
     @Override
     public void switchToIngredientsView() {
-        mainpresenter.switch_to_IngredientsView();
+        mainpresenter.switchToIngredientsView();
     }
 
     @Override
     public void switchToUserInfoView() {
-        mainpresenter.switch_to_UserInfoView();
+        mainpresenter.switchToUserInfoView();
     }
 
     @Override
     public void switchToDateView() {
-        mainpresenter.switch_to_DateView();
+        mainpresenter.switchToDateView();
     }
 
     @Override
     public void switchToRecipeView() {
-        mainpresenter.switch_to_RecipeView();
+        mainpresenter.switchToRecipeView();
     }
 }

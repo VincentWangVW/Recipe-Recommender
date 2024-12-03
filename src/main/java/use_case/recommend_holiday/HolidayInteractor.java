@@ -33,7 +33,7 @@ public class HolidayInteractor implements HolidayInputBoundary {
 
     @Override
     public void returnTomain() {
-        holidaypresenter.return_to_main();
+        holidaypresenter.returnTomain();
     }
 
     @Override

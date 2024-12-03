@@ -23,12 +23,12 @@ public class RecipesInteractor implements RecipesInputBoundary {
 
     @Override
     public void returnTomain() {
-        outputBoundary.return_to_main();
+        outputBoundary.returnTomain();
     }
 
     @Override
     public void goToGenerated(String selectedType, boolean userInfo, String custom) {
-        outputBoundary.go_to_generated(selectedType, userInfo, custom);
+        outputBoundary.goToGenerated(selectedType, userInfo, custom);
     }
 
     @Override
