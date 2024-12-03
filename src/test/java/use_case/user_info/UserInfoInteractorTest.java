@@ -18,7 +18,7 @@ class UserInfoInteractorTest {
         UserInfoOutputBoundary successPresenter = new UserInfoOutputBoundary() {
 
             @Override
-            public void return_to_main() {
+            public void returnTomain() {
                 // No action needed for this test
             }
         };
@@ -48,7 +48,7 @@ class UserInfoInteractorTest {
         UserInfoOutputBoundary successPresenter = new UserInfoOutputBoundary() {
 
             @Override
-            public void return_to_main() {
+            public void returnTomain() {
                 // No action needed for this test
             }
         };
@@ -78,7 +78,7 @@ class UserInfoInteractorTest {
         UserInfoOutputBoundary successPresenter = new UserInfoOutputBoundary() {
 
             @Override
-            public void return_to_main() {
+            public void returnTomain() {
                 // No action needed for this test
             }
         };
@@ -101,7 +101,7 @@ class UserInfoInteractorTest {
         UserInfoOutputBoundary successPresenter = new UserInfoOutputBoundary() {
 
             @Override
-            public void return_to_main() {
+            public void returnTomain() {
                 // No action needed for this test
             }
         };
@@ -127,7 +127,7 @@ class UserInfoInteractorTest {
         UserInfoOutputBoundary successPresenter = new UserInfoOutputBoundary() {
 
             @Override
-            public void return_to_main() {
+            public void returnTomain() {
                 mainReturned = true;
             }
         };
@@ -140,7 +140,7 @@ class UserInfoInteractorTest {
         UserInfoInteractor interactor = new UserInfoInteractor(successPresenter, userPreferences);
 
         // Call return_to_main
-        interactor.return_to_main();
+        interactor.returnTomain();
 
         // Verify return_to_main was executed
         assertTrue(mainReturned);
