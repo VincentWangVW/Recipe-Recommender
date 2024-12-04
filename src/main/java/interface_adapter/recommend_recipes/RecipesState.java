@@ -1,17 +1,21 @@
 package interface_adapter.recommend_recipes;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+/**
+ * The RecipesState class manages the state of recipes and related information.
+ * It stores the recipe information and any associated error messages.
+ */
 public class RecipesState {
-    private HashMap<Integer, List<String>> recipeInfo;
+    private Map<Integer, List<String>> recipeInfo;
     private String errorMessage;
 
-    public HashMap<Integer, List<String>> getRecipeInfo() {
+    public Map<Integer, List<String>> getRecipeInfo() {
         return recipeInfo;
     }
 
-    public void setRecipeInfo(HashMap<Integer, List<String>> recipeInfo) {
+    public void setRecipeInfo(Map<Integer, List<String>> recipeInfo) {
         this.recipeInfo = recipeInfo;
     }
 }
