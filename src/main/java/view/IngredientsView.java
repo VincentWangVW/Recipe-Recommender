@@ -23,6 +23,13 @@ import javax.swing.JTextField;
 import interface_adapter.ingredients_manager.IngredientsController;
 import interface_adapter.ingredients_manager.IngredientsViewModel;
 
+/**
+ * The view for managing ingredients in the application.
+ * This class manages the UI components for adding, deleting, and changing the quantity of ingredients.
+ * It also displays the list of ingredients currently managed.
+ * The user can interact with the view by adding, deleting, and changing the quantity of ingredients.
+ * The view communicates with the IngredientsController to handle user actions.
+ */
 public class IngredientsView extends JPanel implements ActionListener {
     private static final int TITLE_FONT_SIZE = 18;
     private static final int RIGID_AREA_HEIGHT_20 = 20;
@@ -93,6 +100,12 @@ public class IngredientsView extends JPanel implements ActionListener {
         this.add(Box.createRigidArea(new Dimension(0, RIGID_AREA_HEIGHT_20)));
     }
 
+    /**
+     *  Creates a button with the specified text and action command.
+     * @param text
+     * @param actionCommand
+     * @return
+     */
     private JButton createButton(String text, String actionCommand) {
         final JButton button = new JButton(text);
         button.setActionCommand(actionCommand);
@@ -101,10 +114,18 @@ public class IngredientsView extends JPanel implements ActionListener {
         return button;
     }
 
+    /**
+     * Sets the controller for the ingredients view.
+     * @param controller the controller for managing the ingredients view
+     */
     public void setIngredientsController(IngredientsController controller) {
         this.ingredientsController = controller;
     }
 
+    /**
+     * Handles the action events for the buttons in the view.
+     * @param e the action event to handle
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
@@ -116,6 +137,9 @@ public class IngredientsView extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Handles the addition of an ingredient to the list.
+     */
     private void handleAddIngredient() {
         final String ingredient = ingredientInputField.getText().trim();
         final String quantityText = quantityInputField.getText().trim();
@@ -140,6 +164,9 @@ public class IngredientsView extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Handles the deletion of an ingredient from the list.
+     */
     private void handleDeleteIngredient() {
         final int selectedIndex = ingredientList.getSelectedIndex();
         if (selectedIndex != -1) {
@@ -153,6 +180,11 @@ public class IngredientsView extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Changes the quantity of the selected ingredient by the specified delta.
+     * If the quantity is 0 or below after the change, the user is prompted to delete the ingredient.
+     * @param delta the amount to adjust the quantity by (positive to increase, negative to decrease)
+     */
     private void changeIngredientQuantity(int delta) {
         final int selectedIndex = ingredientList.getSelectedIndex();
         if (selectedIndex != -1) {
@@ -189,6 +221,9 @@ public class IngredientsView extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Updates the list of ingredients displayed in the view.
+     */
     private void updateIngredientList() {
         ingredientListModel.clear();
         for (String ingredient : ingredientsController.getIngredients()) {
@@ -196,7 +231,10 @@ public class IngredientsView extends JPanel implements ActionListener {
         }
     }
 
-    // highlighting ingredient with quantity 0
+    /**
+     * Custom cell renderer for the ingredient list.
+     * Highlights ingredients with a quantity of 0.
+     */
     final class IngredientCellRenderer extends DefaultListCellRenderer {
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,

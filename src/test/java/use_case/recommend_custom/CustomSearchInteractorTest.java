@@ -9,11 +9,19 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test class for CustomSearchInteractor.
+ * This class tests the methods in the CustomSearchInteractor class.
+ * The methods tested are getRecipesFromCustom.
+ * The test cases include valid and invalid queries, with and without user preferences.
+ */
 public class CustomSearchInteractorTest {
-
     private CustomSearchInteractor customSearchInteractor;
     private UserPreferences userPreferences;
 
+    /**
+     * Set up the test environment.
+     */
     @Before
     public void setUp() {
         customSearchInteractor = new CustomSearchInteractor();
@@ -21,6 +29,9 @@ public class CustomSearchInteractorTest {
         userPreferences = new UserPreferences(3, true, false, new String[]{"nuts"});
     }
 
+    /**
+     * Test the getRecipesFromCustom method.
+     */
     @Test
     public void testGetRecipesFromCustom_WithPreferences() {
         String customQuery = "pasta";
@@ -43,6 +54,9 @@ public class CustomSearchInteractorTest {
         }
     }
 
+    /**
+     * Test the getRecipesFromCustom method without user preferences.
+     */
     @Test
     public void testGetRecipesFromCustom_WithoutPreferences() {
         String customQuery = "salad";
@@ -65,6 +79,9 @@ public class CustomSearchInteractorTest {
         }
     }
 
+    /**
+     * Test the getRecipesFromCustom method with an invalid query.
+     */
     @Test
     public void testGetRecipesFromCustom_InvalidQuery() {
         String customQuery = ""; // Invalid query
@@ -76,6 +93,9 @@ public class CustomSearchInteractorTest {
         assertNotNull("Recipes should not be null even for an invalid query", recipes);
     }
 
+    /**
+     * Test the getRecipesFromCustom method with an empty query.
+     */
     @Test
     public void testGetRecipesFromCustom_EmptyPreferences() {
         String customQuery = "pizza";
@@ -89,5 +109,3 @@ public class CustomSearchInteractorTest {
         assertFalse("Recipes list should not be empty", recipes.isEmpty());
     }
 }
-
-

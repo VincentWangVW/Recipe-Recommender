@@ -7,10 +7,17 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for UserInfoInteractor.
+ * This class tests the methods in the UserInfoInteractor class.
+ * The methods tested are addAllergy, deleteAllergy, getAllergies, changeShopAmount, and returnTomain.
+ */
 class UserInfoInteractorTest {
-
     private boolean mainReturned = false;
 
+    /**
+     * Test the addAllergy, deleteAllergy, and getAllergies methods.
+     */
     @Test
     void addAllergyTest() {
         // Mock the UserInfo output boundary
@@ -41,6 +48,9 @@ class UserInfoInteractorTest {
         assertArrayEquals(new String[]{"Apple", "Fish", "Peanuts", "Watermelon"}, allergies);
     }
 
+    /**
+     * Test the deleteAllergy method.
+     */
     @Test
     void deleteAllergyTest() {
         // Mock the UserInfo output boundary
@@ -71,6 +81,9 @@ class UserInfoInteractorTest {
         assertArrayEquals(new String[]{"Watermelon"}, allergies);
     }
 
+    /**
+     * Test the getAllergies method when the allergies list is empty.
+     */
     @Test
     void getAllergiesEmptyTest() {
         // Mock the UserInfo output boundary
@@ -94,6 +107,9 @@ class UserInfoInteractorTest {
         assertArrayEquals(new String[0], allergies);
     }
 
+    /**
+     * Test the changeShopAmount method.
+     */
     @Test
     void changeShopAmountTest() {
         // Mock the UserInfo output boundary
@@ -120,6 +136,9 @@ class UserInfoInteractorTest {
         assertEquals(30, result);
     }
 
+    /**
+     * Test the returnToMain method.
+     */
     @Test
     void returnToMainTest() {
         // Mock the UserInfo output boundary

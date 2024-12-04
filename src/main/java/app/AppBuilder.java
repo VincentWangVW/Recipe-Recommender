@@ -45,6 +45,9 @@ import view.RecipeView;
 import view.UserInfoView;
 import view.ViewManager;
 
+/**
+ * Builder class to build the application.
+ */
 public class AppBuilder {
     private final JPanel cardPanel = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
@@ -63,6 +66,9 @@ public class AppBuilder {
     private UserInfoView userInfoView;
     private IngredientsInteractor ingredientsInteractor;
 
+    /**
+     * Constructs an {@code AppBuilder} instance.
+     */
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
@@ -205,7 +211,7 @@ public class AppBuilder {
         final CustomSearchInteractor customSearchInteractor = new CustomSearchInteractor();
         final GeneratedInteractor generatedInteractor = new GeneratedInteractor(generatedPresenter,
                 ingredientsInteractor,
-                                        seasonInteractor, holidayInteractor, customSearchInteractor, userPreferences);
+                seasonInteractor, holidayInteractor, customSearchInteractor, userPreferences);
         final GeneratedController generatedController = new GeneratedController(generatedInteractor);
         generatedRecipesView.setGeneratedController(generatedController);
         return this;

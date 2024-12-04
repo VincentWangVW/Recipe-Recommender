@@ -18,6 +18,9 @@ import javax.swing.border.Border;
 import interface_adapter.datescreen.DateController;
 import interface_adapter.datescreen.DateViewModel;
 
+/**
+ * The view for the date screen, which displays the current date, season, and holiday.
+ */
 public class DateView extends JPanel implements ActionListener {
     private static final int EIGHTEEN = 18;
     private static final int TEN = 10;

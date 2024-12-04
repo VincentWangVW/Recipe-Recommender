@@ -14,6 +14,10 @@ import javax.swing.JPanel;
 
 import interface_adapter.main.MainController;
 
+/**
+ * The main view for the application.
+ * This class manages the UI components for the main screen and handles user actions.
+ */
 public class MainView extends JPanel implements ActionListener {
     private static final int TITLE_FONT_SIZE = 24;
     private static final int BUTTON_FONT_SIZE = 30;

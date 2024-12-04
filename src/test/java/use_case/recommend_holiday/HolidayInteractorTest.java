@@ -11,14 +11,20 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test class for HolidayInteractor.
+ * This class tests the methods in the HolidayInteractor class.
+ * The methods tested are returnToMain, getHoliday, getRecipesFromHoliday.
+ */
 public class HolidayInteractorTest {
-
     private TestHolidayOutputBoundary holidayPresenter;
     private TestInMemoryDateInfoDao inMemoryDAO;
     private HolidayInteractor holidayInteractor;
     private SpoonacularDao spoonacularDAO;
 
-
+    /**
+     * Set up the test environment.
+     */
     @Before
     public void setUp() {
         holidayPresenter = new TestHolidayOutputBoundary();
@@ -27,12 +33,18 @@ public class HolidayInteractorTest {
         holidayInteractor = new HolidayInteractor(holidayPresenter, inMemoryDAO, spoonacularDAO);
     }
 
+    /**
+     * Test the returnToMain method.
+     */
     @Test
     public void testReturnToMain() {
         holidayInteractor.returnTomain();
         assertTrue(holidayPresenter.returnToMainCalled);
     }
 
+    /**
+     * Test the getHoliday method.
+     */
     @Test
     public void testGetHoliday() {
         String expectedHoliday = "Christmas";
@@ -42,6 +54,10 @@ public class HolidayInteractorTest {
         String actualHoliday = holidayInteractor.getHoliday();
         assertEquals(expectedHoliday, actualHoliday);
     }
+
+    /**
+     * Test the getRecipesFromHoliday method.
+     */
     @Test public void testGetRecipesFromHolidayTrue() {
         UserPreferences userPreferences = new UserPreferences(10, true, false,
                 new String[0]);
@@ -53,6 +69,9 @@ public class HolidayInteractorTest {
         assertNotEquals(empty, actual);
     }
 
+    /**
+     * Test the getRecipesFromHoliday method.
+     */
     @Test public void testGetRecipesFromHolidayFalse() {
 
         UserPreferences userPreferences = new UserPreferences(0, false, false,
@@ -65,6 +84,9 @@ public class HolidayInteractorTest {
         assertNotEquals(empty, actual);
     }
 
+    /**
+     * Test the getRecipesFromHoliday method.
+     */
     private static class TestHolidayOutputBoundary implements HolidayOutputBoundary {
         boolean returnToMainCalled = false;
         private String holiday;
@@ -84,6 +106,9 @@ public class HolidayInteractorTest {
         }
     }
 
+    /**
+     * Test class for InMemoryDateInfoDao.
+     */
     private static class TestInMemoryDateInfoDao extends InMemoryDateInfoDao {
         private String holiday;
 

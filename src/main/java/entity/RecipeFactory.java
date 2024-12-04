@@ -1,5 +1,8 @@
 package entity;
 
+/**
+ * Factory for creating Recipe objects.
+ */
 public interface RecipeFactory {
     /**
      * Creates a new Recipe.

@@ -1,5 +1,8 @@
 package entity;
 
+/**
+ * Represents an ingredient in a recipe.
+ */
 public interface Ingredient {
     /**
      * Returns the name of the ingredient.
