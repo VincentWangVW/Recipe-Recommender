@@ -1,6 +1,5 @@
 package use_case.user_info;
 
-import entity.IUserPreferences;
 import entity.UserPreferences;
 import org.junit.jupiter.api.Test;
 

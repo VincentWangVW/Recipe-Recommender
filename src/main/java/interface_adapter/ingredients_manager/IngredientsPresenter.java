@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import interface_adapter.ViewManagerModel;
-import use_case.manage_ingredients.IngredientsIOutputBoundary;
+import use_case.manage_ingredients.IngredientsOutputBoundary;
 
 /**
  * The presenter responsible for managing the ingredients view.
  * This class interacts with the ViewManagerModel to update the UI state and
  * handle the ingredients data by implementing the IngredientsIOutputBoundary interface.
  */
-public class IngredientsPresenter implements IngredientsIOutputBoundary {
+public class IngredientsPresenter implements IngredientsOutputBoundary {
     // Stores ingredient data
     private HashMap<Integer, List<String>> ingredientsInfo;
     // Reference to manage view state
@@ -39,7 +39,7 @@ public class IngredientsPresenter implements IngredientsIOutputBoundary {
      * This method is called when the user opts to return to the main screen.
      */
     @Override
-    public void return_to_main() {
+    public void returnTomain() {
         // Return to the main screen by updating the ViewManagerModel
         viewManagerModel.setState("MAIN_SCREEN");
         viewManagerModel.firePropertyChanged();

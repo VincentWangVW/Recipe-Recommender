@@ -3,7 +3,7 @@ package entity;
 /**
  * Represents an ingredient in a recipe.
  */
-public class CommonIngredient implements Ingredient{
+public class CommonIngredient implements Ingredient {
     private final String name;
     private final int amount;
 

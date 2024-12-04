@@ -23,7 +23,7 @@ public class GeneratedPresenter implements GeneratedOutputBoundary {
     /**
      * Navigates back to the main screen by updating the view manager's state.
      */
-    public void return_to_main() {
+    public void returnTomain() {
         viewManagerModel.setState("MAIN_SCREEN");
         viewManagerModel.firePropertyChanged();
     }

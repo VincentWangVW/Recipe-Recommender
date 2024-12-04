@@ -21,28 +21,28 @@ public class MainController {
     /**
      * Switches the view to the DateView.
      */
-    public void switch_to_DateView() {
-        mainInteractor.switch_to_DateView();
+    public void switchToDateView() {
+        mainInteractor.switchToDateView();
     }
 
     /**
      * Switches the view to the RecipeView.
      */
-    public void switch_to_RecipeView() {
-        mainInteractor.switch_to_RecipeView();
+    public void switchToRecipeView() {
+        mainInteractor.switchToRecipeView();
     }
 
     /**
      * Switches the view to the IngredientsView.
      */
-    public void switch_to_IngredientsView() {
-        mainInteractor.switch_to_IngredientsView();
+    public void switchToIngredientsView() {
+        mainInteractor.switchToIngredientsView();
     }
 
     /**
      * Switches the view to the UserInfoView.
      */
-    public void switch_to_UserInfoView() {
-        mainInteractor.switch_to_UserInfoView();
+    public void switchToUserInfoView() {
+        mainInteractor.switchToUserInfoView();
     }
 }

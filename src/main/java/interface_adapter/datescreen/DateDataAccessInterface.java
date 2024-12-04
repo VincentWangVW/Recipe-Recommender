@@ -11,19 +11,19 @@ public interface DateDataAccessInterface {
      *
      * @return the current date in "yyyy-MM-dd" format
      */
-    String get_date();
+    String getDate();
 
     /**
      * Retrieves the holiday for the current date.
      *
      * @return the name of the holiday, or "No Holiday Today!" if none exists
      */
-    String get_holiday();
+    String getHoliday();
 
     /**
      * Retrieves the current season based on the date.
      *
      * @return the current season as a string (e.g., "Winter", "Spring")
      */
-    String get_season();
+    String getSeason();
 }

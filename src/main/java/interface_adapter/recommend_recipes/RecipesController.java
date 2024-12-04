@@ -22,7 +22,7 @@ public class RecipesController {
      * Returns to the main screen.
      * This method delegates the action to the RecipesInputBoundary.
      */
-    public void return_to_main() {
+    public void returnTomain() {
         recipesInputBoundary.returnTomain();
     }
 
@@ -33,7 +33,7 @@ public class RecipesController {
      * @param userInfo A flag indicating if user information should be used.
      * @param custom Custom information related to recipe generation.
      */
-    public void go_to_generated(String selectedType, boolean userInfo, String custom) {
+    public void goToGenerated(String selectedType, boolean userInfo, String custom) {
         recipesInputBoundary.goToGenerated(selectedType, userInfo, custom);
     }
 

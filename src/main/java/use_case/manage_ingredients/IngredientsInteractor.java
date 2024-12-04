@@ -3,7 +3,7 @@ package use_case.manage_ingredients;
 import java.util.ArrayList;
 import java.util.List;
 
-import data_access.SpoonacularDAO;
+import data_access.SpoonacularDao;
 import entity.CommonIngredientFactory;
 import entity.Ingredient;
 import entity.IngredientFactory;
@@ -18,7 +18,7 @@ public class IngredientsInteractor implements IngredientsInputBoundary {
     private final List<Ingredient> localIngredientList = new ArrayList<>();
     private final IngredientsOutputBoundary outputBoundary;
     private final IngredientFactory ingredientFactory;
-    private final SpoonacularDAO spoonacularDao;
+    private final SpoonacularDao spoonacularDao;
 
     /**
      * Constructs an IngredientsInteractor instance with the specified output boundary.
@@ -28,7 +28,7 @@ public class IngredientsInteractor implements IngredientsInputBoundary {
     public IngredientsInteractor(IngredientsOutputBoundary outputBoundary) {
         this.outputBoundary = outputBoundary;
         this.ingredientFactory = new CommonIngredientFactory();
-        this.spoonacularDao = new SpoonacularDAO();
+        this.spoonacularDao = new SpoonacularDao();
     }
 
     @Override

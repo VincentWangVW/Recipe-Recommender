@@ -80,7 +80,7 @@ public class DateController implements SeasonInputBoundary, HolidayInputBoundary
     /**
      * Returns the user to the main screen.
      */
-    public void return_to_main() {
-        seasonInputBoundary.return_to_main();
+    public void returnTomain() {
+        seasonInputBoundary.returnTomain();
     }
 }

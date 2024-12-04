@@ -24,7 +24,7 @@ public class RecipesPresenter implements RecipesOutputBoundary {
      * Returns to the main screen by updating the ViewManagerModel.
      * This method is called when the user wishes to navigate back to the main screen.
      */
-    public void return_to_main() {
+    public void returnTomain() {
         viewManagerModel.setState("MAIN_SCREEN");
         viewManagerModel.firePropertyChanged();
     }
@@ -37,7 +37,7 @@ public class RecipesPresenter implements RecipesOutputBoundary {
      * @param custom A custom string that may influence the recipe generation.
      */
     @Override
-    public void go_to_generated(String selectedType, boolean userInfo, String custom) {
+    public void goToGenerated(String selectedType, boolean userInfo, String custom) {
         viewManagerModel.setState("GENERATED_SCREEN");
         viewManagerModel.firePropertyChanged();
         viewManagerModel.setSelectedType(selectedType);

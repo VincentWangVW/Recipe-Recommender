@@ -26,7 +26,7 @@ public class GeneratedController {
     /**
      * Navigates back to the main screen.
      */
-    public void return_to_main() {
+    public void returnTomain() {
         generatedInputBoundary.returnTomain();
     }
 
