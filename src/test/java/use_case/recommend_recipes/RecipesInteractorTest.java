@@ -9,12 +9,19 @@ import use_case.recommend_holiday.HolidayOutputBoundary;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test class for RecipesInteractor.
+ * This class tests the methods in the RecipesInteractor class.
+ * The methods tested are returnToMain, goToGenerated, and getHoliday.
+ */
 public class RecipesInteractorTest {
-
     private TestRecipesOutputBoundary recipesPresenter;
     private TestHolidayInteractor holidayInteractor;
     private RecipesInteractor recipesInteractor;
 
+    /**
+     * Set up the test environment.
+     */
     @Before
     public void setUp() {
         recipesPresenter = new TestRecipesOutputBoundary();
@@ -22,12 +29,18 @@ public class RecipesInteractorTest {
         recipesInteractor = new RecipesInteractor(recipesPresenter, holidayInteractor);
     }
 
+    /**
+     * Test the returnToMain method.
+     */
     @Test
     public void testReturnToMain() {
         recipesInteractor.returnTomain();
         assertTrue(recipesPresenter.returnToMainCalled);
     }
 
+    /**
+     * Test the goToGenerated method.
+     */
     @Test
     public void testGoToGenerated() {
         String selectedType = "Type";
@@ -39,6 +52,9 @@ public class RecipesInteractorTest {
         assertEquals(custom, recipesPresenter.custom);
     }
 
+    /**
+     * Test the getHoliday method.
+     */
     @Test
     public void testGetHoliday() {
         String expectedHoliday = "Christmas";
@@ -48,6 +64,10 @@ public class RecipesInteractorTest {
         assertEquals(expectedHoliday, actualHoliday);
     }
 
+    /**
+     * TestRecipesOutputBoundary is a test class that implements the RecipesOutputBoundary interface.
+     * This class is used to test the RecipesInteractor class.
+     */
     private static class TestRecipesOutputBoundary implements RecipesOutputBoundary {
         boolean returnToMainCalled = false;
         String selectedType;
@@ -67,6 +87,10 @@ public class RecipesInteractorTest {
         }
     }
 
+    /**
+     * TestHolidayInteractor is a test class that extends the HolidayInteractor class.
+     * This class is used to test the RecipesInteractor class.
+     */
     private static class TestHolidayInteractor extends HolidayInteractor {
         private String holiday;
 

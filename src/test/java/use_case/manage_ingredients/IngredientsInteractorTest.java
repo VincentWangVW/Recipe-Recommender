@@ -10,17 +10,29 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test class for IngredientsInteractor.
+ * This class tests the methods in the IngredientsInteractor class.
+ * The methods tested are addIngredient, deleteIngredient, changeIngredientAmount, getIngredients, getIngredientsArray,
+ * returnToMain, getRecipesFromIngredients, addIngredientExistingWithUpdate, changeIngredientAmountToNegativeRemovesIngredient,
+ * deleteIngredientFromEmptyList, changeIngredientAmountEmptyList, IOExceptionInGetRecipesFromIngredients, changeIngredientAmountIngredientNotFound.
+ */
 public class IngredientsInteractorTest {
-
     private TestOutputBoundary outputBoundary;
     private IngredientsInteractor ingredientsInteractor;
 
+    /**
+     * Set up the test environment.
+     */
     @Before
     public void setUp() {
         outputBoundary = new TestOutputBoundary();
         ingredientsInteractor = new IngredientsInteractor(outputBoundary);
     }
 
+    /**
+     * Test the addIngredient method.
+     */
     @Test
     public void testAddIngredientNew() {
         ingredientsInteractor.addIngredient("Tomato", 5);
@@ -29,6 +41,9 @@ public class IngredientsInteractorTest {
         assertEquals("Tomato - 5", ingredients.get(0));
     }
 
+    /**
+     * Test the addIngredient method with an existing ingredient.
+     */
     @Test
     public void testAddIngredientExisting() {
         ingredientsInteractor.addIngredient("Tomato", 5);
@@ -38,6 +53,9 @@ public class IngredientsInteractorTest {
         assertEquals("Tomato - 8", ingredients.get(0));
     }
 
+    /**
+     * Test the deleteIngredient method with an existing ingredient.
+     */
     @Test
     public void testDeleteIngredientExisting() {
         ingredientsInteractor.addIngredient("Tomato", 5);
@@ -46,6 +64,9 @@ public class IngredientsInteractorTest {
         assertTrue(ingredients.isEmpty());
     }
 
+    /**
+     * Test the deleteIngredient method with a non-existing ingredient.
+     */
     @Test
     public void testDeleteIngredientNonExisting() {
         ingredientsInteractor.addIngredient("Tomato", 5);
@@ -55,6 +76,9 @@ public class IngredientsInteractorTest {
         assertEquals("Tomato - 5", ingredients.get(0));
     }
 
+    /**
+     * Test the changeIngredientAmount method.
+     */
     @Test
     public void testChangeIngredientAmountIncrease() {
         ingredientsInteractor.addIngredient("Tomato", 5);
@@ -64,6 +88,9 @@ public class IngredientsInteractorTest {
         assertEquals("Tomato - 8", ingredients.get(0));
     }
 
+    /**
+     * Test the changeIngredientAmount method with a decrease.
+     */
     @Test
     public void testChangeIngredientAmountDecrease() {
         ingredientsInteractor.addIngredient("Tomato", 5);
@@ -73,12 +100,18 @@ public class IngredientsInteractorTest {
         assertEquals("Tomato - 2", ingredients.get(0));
     }
 
+    /**
+     * Test the changeIngredientAmount method with a non-existing ingredient.
+     */
     @Test
     public void testChangeIngredientAmountNonExisting() {
         int newAmount = ingredientsInteractor.changeIngredientAmount("Onion", 5);
         assertEquals(-1, newAmount);
     }
 
+    /**
+     * Test the getIngredients method.
+     */
     @Test
     public void testGetIngredients() {
         ingredientsInteractor.addIngredient("Tomato", 5);
@@ -89,6 +122,9 @@ public class IngredientsInteractorTest {
         assertTrue(ingredients.contains("Onion - 3"));
     }
 
+    /**
+     * Test the getIngredientsArray method.
+     */
     @Test
     public void testGetIngredientsNEW() {
         ingredientsInteractor.addIngredient("Tomato", 5);
@@ -99,12 +135,18 @@ public class IngredientsInteractorTest {
         assertTrue(ingredients.contains("Onion"));
     }
 
+    /**
+     * Test the returnToMain method.
+     */
     @Test
     public void testReturnToMain() {
         ingredientsInteractor.returnTomain();
         assertTrue(outputBoundary.returnToMainCalled);
     }
 
+    /**
+     * Test the getRecipesFromIngredients method.
+     */
     @Test
     public void testGetRecipesFromIngredientsWithUserInfo() {
         ArrayList<String> ingredients = new ArrayList<>();
@@ -118,6 +160,9 @@ public class IngredientsInteractorTest {
         }
     }
 
+    /**
+     * Test the getRecipesFromIngredients method without user info.
+     */
     @Test
     public void testGetRecipesFromIngredientsWithoutUserInfo() {
         ArrayList<String> ingredients = new ArrayList<>();
@@ -130,6 +175,9 @@ public class IngredientsInteractorTest {
         }
     }
 
+    /**
+     * Test the getRecipesFromIngredients method with an empty list of ingredients.
+     */
     private static class TestOutputBoundary implements IngredientsOutputBoundary {
         boolean returnToMainCalled = false;
 
@@ -139,6 +187,9 @@ public class IngredientsInteractorTest {
         }
     }
 
+    /**
+     * Test the addIngredient method with an existing ingredient and an update.
+     */
     @Test
     public void testAddIngredientExistingWithUpdate() {
         ingredientsInteractor.addIngredient("Tomato", 5);
@@ -148,6 +199,9 @@ public class IngredientsInteractorTest {
         assertEquals("Tomato - 7", ingredients.get(0));
     }
 
+    /**
+     * Test the changeIngredientAmount method with a negative amount that removes the ingredient.
+     */
     @Test
     public void testChangeIngredientAmountToNegativeRemovesIngredient() {
         ingredientsInteractor.addIngredient("Tomato", 5);
@@ -157,6 +211,9 @@ public class IngredientsInteractorTest {
         assertTrue(ingredients.isEmpty()); // Ingredient should be removed
     }
 
+    /**
+     * Test the deleteIngredient method with an empty list.
+     */
     @Test
     public void testDeleteIngredientFromEmptyList() {
         ingredientsInteractor.deleteIngredient("Onion"); // Deleting non-existent from empty list
@@ -164,12 +221,18 @@ public class IngredientsInteractorTest {
         assertTrue(ingredients.isEmpty());
     }
 
+    /**
+     * Test the changeIngredientAmount method with an empty list.
+     */
     @Test
     public void testChangeIngredientAmountEmptyList() {
         int newAmount = ingredientsInteractor.changeIngredientAmount("Tomato", 5); // Non-existent
         assertEquals(-1, newAmount);
     }
 
+    /**
+     * Test the getRecipesFromIngredients method with an IOException.
+     */
     @Test
     public void testIOExceptionInGetRecipesFromIngredients() {
         ArrayList<String> ingredients = new ArrayList<>();
@@ -192,6 +255,9 @@ public class IngredientsInteractorTest {
         }
     }
 
+    /**
+     * Test the changeIngredientAmount method with an ingredient that is not found.
+     */
     @Test
     public void testChangeIngredientAmountIngredientNotFound() {
         // Add an ingredient to the list
@@ -208,7 +274,4 @@ public class IngredientsInteractorTest {
         assertEquals(1, ingredients.size());
         assertEquals("Tomato - 5", ingredients.get(0));
     }
-
-
-
 }

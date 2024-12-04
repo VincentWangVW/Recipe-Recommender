@@ -14,6 +14,11 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test class for GeneratedInteractor.
+ * This class tests the methods in the GeneratedInteractor class.
+ * The methods tested are returnToMain, generateRecipes, getGenerationType, getHoliday, and getRecipesFromCustom.
+ */
 public class GeneratedInteractorTest {
 
     private TestGeneratedOutputBoundary outputBoundary;
@@ -24,6 +29,9 @@ public class GeneratedInteractorTest {
     private UserPreferences userPreferences;
     private GeneratedInteractor generatedInteractor;
 
+    /**
+     * Set up the test environment.
+     */
     @Before
     public void setUp() {
         outputBoundary = new TestGeneratedOutputBoundary();
@@ -37,12 +45,18 @@ public class GeneratedInteractorTest {
                 holidayInteractor, customSearchInteractor, userPreferences);
     }
 
+    /**
+     * Test the returnToMain method.
+     */
     @Test
     public void testReturnToMain() {
         generatedInteractor.returnTomain();
         assertTrue(outputBoundary.returnToMainCalled);
     }
 
+    /**
+     * Test the generateRecipes method.
+     */
     @Test
     public void testGenerateRecipesWithIngredients() {
         outputBoundary.viewManagerModel.setSelectedType("Ingredients");
@@ -53,6 +67,9 @@ public class GeneratedInteractorTest {
         assertTrue(ingredientsInteractor.getRecipesCalled);
     }
 
+    /**
+     * Test the generateRecipes method.
+     */
     @Test
     public void testGenerateRecipesWithSeason() {
         outputBoundary.viewManagerModel.setSelectedType("Season");
@@ -63,6 +80,9 @@ public class GeneratedInteractorTest {
         assertTrue(seasonInteractor.getRecipesCalled);
     }
 
+    /**
+     * Test the generateRecipes method.
+     */
     @Test
     public void testGenerateRecipesWithHoliday() {
         outputBoundary.viewManagerModel.setSelectedType("Holiday");
@@ -73,6 +93,9 @@ public class GeneratedInteractorTest {
         assertTrue(holidayInteractor.getRecipesCalled);
     }
 
+    /**
+     * Test the generateRecipes method.
+     */
     @Test
     public void testGenerateRecipesWithCustom() {
         outputBoundary.viewManagerModel.setSelectedType("Custom");
@@ -84,6 +107,9 @@ public class GeneratedInteractorTest {
         assertTrue(customSearchInteractor.getRecipesCalled);
     }
 
+    /**
+     * Test the generateRecipes method with no type selected.
+     */
     @Test
     public void testGetGenerationType() {
         outputBoundary.viewManagerModel.setSelectedType("Ingredients");
@@ -91,6 +117,9 @@ public class GeneratedInteractorTest {
         assertEquals("Ingredients", type);
     }
 
+    /**
+     * Test the generateRecipes method with no type selected.
+     */
     @Test
     public void testGenerateRecipesWithInvalidType() {
         outputBoundary.viewManagerModel.setSelectedType("InvalidType");
@@ -100,6 +129,9 @@ public class GeneratedInteractorTest {
         assertNull(recipes);
     }
 
+    /**
+     * Test the getHoliday method.
+     */
     @Test
     public void testGetHoliday() {
         holidayInteractor.setHoliday("Christmas");
@@ -107,6 +139,9 @@ public class GeneratedInteractorTest {
         assertEquals("Christmas", holiday);
     }
 
+    /**
+     * Test the getRecipesFromCustom method.
+     */
     private static class TestGeneratedOutputBoundary implements GeneratedOutputBoundary {
         boolean returnToMainCalled = false;
         TestViewManagerModel viewManagerModel = new TestViewManagerModel();
@@ -122,6 +157,9 @@ public class GeneratedInteractorTest {
         }
     }
 
+    /**
+     * Test class for ViewManagerModel.
+     */
     private static class TestViewManagerModel extends ViewManagerModel {
         private String selectedType;
         private boolean userInfo;
@@ -155,6 +193,9 @@ public class GeneratedInteractorTest {
         }
     }
 
+    /**
+     * Test class for IngredientsInteractor.
+     */
     private static class TestIngredientsInteractor extends IngredientsInteractor {
         private boolean getRecipesCalled = false;
 
@@ -174,6 +215,9 @@ public class GeneratedInteractorTest {
         }
     }
 
+    /**
+     * Test class for SeasonInteractor.
+     */
     private static class TestSeasonInteractor extends SeasonInteractor {
         private boolean getRecipesCalled = false;
 
@@ -188,6 +232,9 @@ public class GeneratedInteractorTest {
         }
     }
 
+    /**
+     * Test class for HolidayInteractor.
+     */
     private static class TestHolidayInteractor extends HolidayInteractor {
         private boolean getRecipesCalled = false;
         private String holiday;
@@ -212,6 +259,9 @@ public class GeneratedInteractorTest {
         }
     }
 
+    /**
+     * Test class for CustomSearchInteractor.
+     */
     private static class TestCustomSearchInteractor extends CustomSearchInteractor {
         private boolean getRecipesCalled = false;
 
