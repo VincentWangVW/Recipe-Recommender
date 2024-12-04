@@ -22,6 +22,9 @@ import javax.swing.JTextField;
 import interface_adapter.user_info.UserInfoController;
 import interface_adapter.user_info.UserInfoViewModel;
 
+/**
+ * The view for the user information screen, which displays user information and allows the user to modify it.
+ */
 public class UserInfoView extends JPanel implements ActionListener {
     private static final int BORDER_GAP = 10;
     private static final int TITLE_FONT_SIZE = 18;
@@ -41,6 +44,11 @@ public class UserInfoView extends JPanel implements ActionListener {
     private final JButton returnButton;
     private final UserInfoViewModel userInfoViewModel;
 
+    /**
+     * Constructs a new UserInfoView with the specified view model.
+     *
+     * @param userInfoViewModel the view model for the user information screen
+     */
     public UserInfoView(UserInfoViewModel userInfoViewModel) {
         this.userInfoViewModel = userInfoViewModel;
         this.setLayout(new BorderLayout(BORDER_GAP, BORDER_GAP));
@@ -99,10 +107,18 @@ public class UserInfoView extends JPanel implements ActionListener {
         this.add(actionButtonPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Sets the controller for the user information view.
+     *
+     * @param userInfoController the controller for managing the user information view
+     */
     public void setUserInfoController(UserInfoController userInfoController) {
         this.userInfoController = userInfoController;
     }
 
+    /**
+     * Updates the view with the current user information.
+     */
     private void updateView() {
         allergiesListModel.clear();
         for (String allergy : userInfoController.getAllergies()) {
@@ -110,6 +126,12 @@ public class UserInfoView extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Sets the user information in the view model and updates the view.
+     * This method should be called when the view is first displayed.
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(addAllergyButton)) {
