@@ -1,5 +1,8 @@
 package entity;
 
+/**
+ * Represents the user's preferences.
+ */
 public interface InterfaceUserPreferences {
     /**
      * Returns the limit of missing ingredients.
