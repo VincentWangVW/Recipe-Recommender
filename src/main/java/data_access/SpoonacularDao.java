@@ -23,7 +23,7 @@ import okhttp3.Response;
  * The DAO for the Spoonacular API.
  */
 public class SpoonacularDao implements RecipesDataAccessInterface {
-    private static final String API_KEY = "d66d2965b6974f7a82df73c404b8bd0a";
+    private static final String API_KEY = "182d96b32ec74e418884b6dfc015436b";
     private static final String BASE_URL = "https://api.spoonacular.com/recipes/";
     private static final int TIMEOUT_SECONDS = 30;
     private static final int MAX_RECIPES = 100;
