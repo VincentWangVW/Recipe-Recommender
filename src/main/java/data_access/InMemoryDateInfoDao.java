@@ -12,10 +12,14 @@ import org.json.JSONArray;
 
 import interface_adapter.datescreen.DateDataAccessInterface;
 
+/**
+ * This class is an implementation of the DateDataAccessInterface that provides
+ * the current date, holiday, and season.
+ */
 public class InMemoryDateInfoDao implements DateDataAccessInterface {
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String HOLIDAY_API_URL_TEMPLATE = "https://holidays.abstractapi.com/v1/?api_key="
-           + "%s&country=%s&year=%s&month=%s&day=%s";
+            + "%s&country=%s&year=%s&month=%s&day=%s";
     private static final String COUNTRY_CODE = "CA";
     private static final String NO_HOLIDAY_MESSAGE = "No Holiday Today!";
     private static final String API_KEY = "843b8d83c60d48f1b91cf5e5200bc72c";
@@ -40,6 +44,10 @@ public class InMemoryDateInfoDao implements DateDataAccessInterface {
     private static final int FALL_END_MONTH = 10;
     private static final int FALL_END_DAY = 21;
 
+    /**
+     * Returns the current date in the format "yyyy-MM-dd".
+     * @return the current date.
+     */
     @Override
     public String getDate() {
         final Date date = new Date();
@@ -47,6 +55,10 @@ public class InMemoryDateInfoDao implements DateDataAccessInterface {
         return sdf.format(date);
     }
 
+    /**
+     * Returns the holiday for the current date.
+     * @return the holiday for the current date.
+     */
     @Override
     public String getHoliday() {
         final Date dates = new Date();
@@ -82,6 +94,10 @@ public class InMemoryDateInfoDao implements DateDataAccessInterface {
         return holiday;
     }
 
+    /**
+     * Returns the season for the current date.
+     * @return the season for the current date.
+     */
     @Override
     public String getSeason() {
         final Date date = new Date();
