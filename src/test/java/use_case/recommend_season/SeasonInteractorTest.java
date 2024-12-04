@@ -1,7 +1,7 @@
 package use_case.recommend_season;
 
-import data_access.InMemoryDateInfoDAO;
-import data_access.SpoonacularDAO;
+import data_access.InMemoryDateInfoDao;
+import data_access.SpoonacularDao;
 import entity.Recipe;
 import entity.UserPreferences;
 import org.junit.Before;
@@ -14,16 +14,16 @@ import static org.junit.Assert.*;
 public class SeasonInteractorTest {
 
     private TestSeasonOutputBoundary seasonPresenter;
-    private TestInMemoryDAO inMemoryDAO;
+    private TestInMemoryDao inMemoryDAO;
     private SeasonInteractor seasonInteractor;
-    private SpoonacularDAO spoonacularDAO;
+    private SpoonacularDao spoonacularDAO;
 
     @Before
     public void setUp() {
         seasonPresenter = new TestSeasonOutputBoundary();
 
-        inMemoryDAO = new TestInMemoryDAO();
-        spoonacularDAO = new SpoonacularDAO();
+        inMemoryDAO = new TestInMemoryDao();
+        spoonacularDAO = new SpoonacularDao();
         seasonInteractor = new SeasonInteractor(seasonPresenter, inMemoryDAO, spoonacularDAO);
     }
 
@@ -104,17 +104,17 @@ public class SeasonInteractorTest {
         }
     }
 
-    private static class TestInMemoryDAO extends InMemoryDateInfoDAO {
+    private static class TestInMemoryDao extends InMemoryDateInfoDao {
         private String date;
         private String season;
 
         @Override
-        public String get_date() {
+        public String getDate() {
             return date;
         }
 
         @Override
-        public String get_season() {
+        public String getSeason() {
             return season;
         }
 

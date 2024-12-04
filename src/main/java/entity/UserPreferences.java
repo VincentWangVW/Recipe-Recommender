@@ -1,10 +1,10 @@
 package entity;
 
-public class UserPreferences implements IUserPreferences{
-    int missingIngredientsLimit;
-    boolean dairyFree;
-    boolean glutenFree;
-    String[] allergies;
+public class UserPreferences implements InterfaceUserPreferences {
+    private int missingIngredientsLimit;
+    private boolean dairyFree;
+    private boolean glutenFree;
+    private String[] allergies;
 
     public UserPreferences(int missingIngredientsLimit, boolean dairyFree, boolean glutenFree, String[] allergies) {
         this.missingIngredientsLimit = missingIngredientsLimit;
@@ -35,7 +35,7 @@ public class UserPreferences implements IUserPreferences{
 
     @Override
     public void addAllergy(String allergyName) {
-        String[] newAllergies = new String[allergies.length + 1];
+        final String[] newAllergies = new String[allergies.length + 1];
         System.arraycopy(allergies, 0, newAllergies, 0, allergies.length);
         newAllergies[allergies.length] = allergyName;
         allergies = newAllergies;
@@ -43,7 +43,7 @@ public class UserPreferences implements IUserPreferences{
 
     @Override
     public void removeAllergy(String allergyName) {
-        String[] newAllergies = new String[allergies.length - 1];
+        final String[] newAllergies = new String[allergies.length - 1];
         int index = 0;
         for (String allergy : allergies) {
             if (!allergy.equals(allergyName)) {

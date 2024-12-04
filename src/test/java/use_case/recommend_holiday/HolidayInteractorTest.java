@@ -1,7 +1,7 @@
 package use_case.recommend_holiday;
 
-import data_access.InMemoryDateInfoDAO;
-import data_access.SpoonacularDAO;
+import data_access.InMemoryDateInfoDao;
+import data_access.SpoonacularDao;
 import entity.Recipe;
 import entity.UserPreferences;
 import org.junit.Before;
@@ -14,16 +14,16 @@ import static org.junit.Assert.*;
 public class HolidayInteractorTest {
 
     private TestHolidayOutputBoundary holidayPresenter;
-    private TestInMemoryDateInfoDAO inMemoryDAO;
+    private TestInMemoryDateInfoDao inMemoryDAO;
     private HolidayInteractor holidayInteractor;
-    private SpoonacularDAO spoonacularDAO;
+    private SpoonacularDao spoonacularDAO;
 
 
     @Before
     public void setUp() {
         holidayPresenter = new TestHolidayOutputBoundary();
-        inMemoryDAO = new TestInMemoryDateInfoDAO();
-        spoonacularDAO = new SpoonacularDAO();
+        inMemoryDAO = new TestInMemoryDateInfoDao();
+        spoonacularDAO = new SpoonacularDao();
         holidayInteractor = new HolidayInteractor(holidayPresenter, inMemoryDAO, spoonacularDAO);
     }
 
@@ -84,11 +84,11 @@ public class HolidayInteractorTest {
         }
     }
 
-    private static class TestInMemoryDateInfoDAO extends InMemoryDateInfoDAO {
+    private static class TestInMemoryDateInfoDao extends InMemoryDateInfoDao {
         private String holiday;
 
         @Override
-        public String get_holiday() {
+        public String getHoliday() {
             return holiday;
         }
 

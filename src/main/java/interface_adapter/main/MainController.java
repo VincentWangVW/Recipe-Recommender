@@ -2,21 +2,47 @@ package interface_adapter.main;
 
 import use_case.mainwindow.MainInputBoundary;
 
+/**
+ * The controller for managing the main screen view transitions.
+ * This class acts as the intermediary between the user interface and the main use case logic,
+ * allowing for switching between different views such as DateView, RecipeView, IngredientsView, and UserInfoView.
+ */
 public class MainController {
     private final MainInputBoundary mainInteractor;
 
+    /**
+     * Constructs a MainController with the provided MainInputBoundary.
+     * @param mainInteractor The MainInputBoundary used for view transitions.
+     */
     public MainController(MainInputBoundary mainInteractor) {
         this.mainInteractor = mainInteractor;
     }
-    public void switch_to_DateView() {
+
+    /**
+     * Switches the view to the DateView.
+     */
+    public void switchToDateView() {
         mainInteractor.switchToDateView();
     }
 
-    public void switch_to_RecipeView() {
+    /**
+     * Switches the view to the RecipeView.
+     */
+    public void switchToRecipeView() {
         mainInteractor.switchToRecipeView();
     }
 
-    public void switch_to_IngredientsView(){mainInteractor.switchToIngredientsView(); }
+    /**
+     * Switches the view to the IngredientsView.
+     */
+    public void switchToIngredientsView() {
+        mainInteractor.switchToIngredientsView();
+    }
 
-    public void switch_to_UserInfoView(){mainInteractor.switchToUserInfoView(); }
+    /**
+     * Switches the view to the UserInfoView.
+     */
+    public void switchToUserInfoView() {
+        mainInteractor.switchToUserInfoView();
+    }
 }

@@ -1,10 +1,17 @@
 package app;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
+/**
+ * Main class to run the application.
+ */
 public class Main {
+    /**
+     * Main method to run the application.
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
-        AppBuilder appBuilder = new AppBuilder();
+        final AppBuilder appBuilder = new AppBuilder();
         appBuilder.addMainView()
                 .addDateView()
                 .addRecipeView()
@@ -17,7 +24,7 @@ public class Main {
                 .addIngredientsUseCase()
                 .addGeneratedRecipesUseCase()
                 .addUserInfoUseCase();
-        JFrame application = appBuilder.build();
+        final JFrame application = appBuilder.build();
         application.pack();
         application.setVisible(true);
     }

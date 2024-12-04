@@ -1,7 +1,7 @@
 package use_case.recommend_recipes;
 
-import data_access.InMemoryDateInfoDAO;
-import data_access.SpoonacularDAO;
+import data_access.InMemoryDateInfoDao;
+import data_access.SpoonacularDao;
 import org.junit.Before;
 import org.junit.Test;
 import use_case.recommend_holiday.HolidayInteractor;
@@ -70,7 +70,7 @@ public class RecipesInteractorTest {
     private static class TestHolidayInteractor extends HolidayInteractor {
         private String holiday;
 
-        public TestHolidayInteractor(HolidayOutputBoundary holidaypresenter, InMemoryDateInfoDAO inMemoryDateInfoDAO, SpoonacularDAO spoonacularDAO) {
+        public TestHolidayInteractor(HolidayOutputBoundary holidaypresenter, InMemoryDateInfoDao inMemoryDateInfoDAO, SpoonacularDao spoonacularDAO) {
             super(holidaypresenter, inMemoryDateInfoDAO, spoonacularDAO);
         }
 

@@ -2,8 +2,8 @@ package use_case.recommend_season;
 
 import java.util.ArrayList;
 
-import data_access.InMemoryDateInfoDAO;
-import data_access.SpoonacularDAO;
+import data_access.InMemoryDateInfoDao;
+import data_access.SpoonacularDao;
 import entity.Recipe;
 import entity.UserPreferences;
 
@@ -13,8 +13,8 @@ import entity.UserPreferences;
  */
 public class SeasonInteractor implements SeasonInputBoundary {
     private final SeasonOutputBoundary seasonpresenter;
-    private final InMemoryDateInfoDAO inMemoryDateInfoDao;
-    private final SpoonacularDAO spoonacularDao;
+    private final InMemoryDateInfoDao inMemoryDateInfoDao;
+    private final SpoonacularDao spoonacularDao;
     private final UserPreferences nullPreferences = new UserPreferences(0, false,
             false, new String[0]);
 
@@ -25,8 +25,8 @@ public class SeasonInteractor implements SeasonInputBoundary {
      * @param inMemoryDateInfoDao The DAO for retrieving date-related information.
      * @param spoonacularDao      The DAO for interacting with the recipe database.
      */
-    public SeasonInteractor(SeasonOutputBoundary seasonpresenter, InMemoryDateInfoDAO inMemoryDateInfoDao,
-                            SpoonacularDAO spoonacularDao) {
+    public SeasonInteractor(SeasonOutputBoundary seasonpresenter, InMemoryDateInfoDao inMemoryDateInfoDao,
+                            SpoonacularDao spoonacularDao) {
         this.seasonpresenter = seasonpresenter;
         this.inMemoryDateInfoDao = inMemoryDateInfoDao;
         this.spoonacularDao = spoonacularDao;
@@ -39,12 +39,12 @@ public class SeasonInteractor implements SeasonInputBoundary {
 
     @Override
     public String getDate() {
-        return seasonpresenter.getDate(inMemoryDateInfoDao.get_date());
+        return seasonpresenter.getDate(inMemoryDateInfoDao.getDate());
     }
 
     @Override
     public String getSeason() {
-        return seasonpresenter.getSeason(inMemoryDateInfoDao.get_season());
+        return seasonpresenter.getSeason(inMemoryDateInfoDao.getSeason());
     }
 
     @Override

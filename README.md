@@ -91,7 +91,7 @@ If wanting to give feedback or rating the app, please fill out this form: https:
 
 ## Known Errors
 
-Hard to run all tests at once because of API Limits. If wanting to run the test cases, make sure to run each test folder by folder, sometimes you may need to replace the api key. You can obtain one from [here](https://spoonacular.com/food-api).
+Hard to run all tests at once because of API Limits. If wanting to run the test cases, make sure to run each test folder by folder, sometimes you may need to replace the api key. You can obtain one from [here](https://spoonacular.com/food-api), make sure to replace the API key in the SpoonacularDao.Java file. You also may need to run each test individually because free API plan only has one call per second.
 
 ## Contributing
 

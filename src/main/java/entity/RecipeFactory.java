@@ -1,7 +1,5 @@
 package entity;
 
-import java.util.ArrayList;
-
 public interface RecipeFactory {
     /**
      * Creates a new Recipe.

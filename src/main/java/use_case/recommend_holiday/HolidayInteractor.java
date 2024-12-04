@@ -2,8 +2,8 @@ package use_case.recommend_holiday;
 
 import java.util.ArrayList;
 
-import data_access.InMemoryDateInfoDAO;
-import data_access.SpoonacularDAO;
+import data_access.InMemoryDateInfoDao;
+import data_access.SpoonacularDao;
 import entity.Recipe;
 import entity.UserPreferences;
 
@@ -13,8 +13,8 @@ import entity.UserPreferences;
  */
 public class HolidayInteractor implements HolidayInputBoundary {
     private final HolidayOutputBoundary holidaypresenter;
-    private final InMemoryDateInfoDAO inMemoryDateInfoDao;
-    private final SpoonacularDAO spoonacularDao;
+    private final InMemoryDateInfoDao inMemoryDateInfoDao;
+    private final SpoonacularDao spoonacularDao;
     private final UserPreferences nullPreferences = new UserPreferences(0, false, false, new String[0]);
 
     /**
@@ -24,8 +24,8 @@ public class HolidayInteractor implements HolidayInputBoundary {
      * @param inMemoryDateInfoDao  The DAO for retrieving date-related information.
      * @param spoonacularDao       The DAO for interacting with the recipe database.
      */
-    public HolidayInteractor(HolidayOutputBoundary holidaypresenter, InMemoryDateInfoDAO inMemoryDateInfoDao,
-                             SpoonacularDAO spoonacularDao) {
+    public HolidayInteractor(HolidayOutputBoundary holidaypresenter, InMemoryDateInfoDao inMemoryDateInfoDao,
+                             SpoonacularDao spoonacularDao) {
         this.holidaypresenter = holidaypresenter;
         this.inMemoryDateInfoDao = inMemoryDateInfoDao;
         this.spoonacularDao = spoonacularDao;
@@ -38,7 +38,7 @@ public class HolidayInteractor implements HolidayInputBoundary {
 
     @Override
     public String getHoliday() {
-        return holidaypresenter.getHoliday(inMemoryDateInfoDao.get_holiday());
+        return holidaypresenter.getHoliday(inMemoryDateInfoDao.getHoliday());
     }
 
     @Override

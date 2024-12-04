@@ -2,7 +2,7 @@ package use_case.recommend_custom;
 
 import java.util.ArrayList;
 
-import data_access.SpoonacularDAO;
+import data_access.SpoonacularDao;
 import entity.Recipe;
 import entity.UserPreferences;
 
@@ -11,7 +11,7 @@ import entity.UserPreferences;
  * and provides methods to retrieve recipes based on a custom query.
  */
 public class CustomSearchInteractor implements CustomSearchInputBoundary {
-    private final SpoonacularDAO spoonacularDao;
+    private final SpoonacularDao spoonacularDao;
     private final UserPreferences nullPreferences = new UserPreferences(0, false, false, new String[0]);
 
     /**
@@ -19,7 +19,7 @@ public class CustomSearchInteractor implements CustomSearchInputBoundary {
      */
     public CustomSearchInteractor() {
 
-        this.spoonacularDao = new SpoonacularDAO();
+        this.spoonacularDao = new SpoonacularDao();
     }
 
     @Override
