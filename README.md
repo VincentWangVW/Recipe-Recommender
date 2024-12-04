@@ -91,7 +91,7 @@ If wanting to give feedback or rating the app, please fill out this form: https:
 
 ## Known Errors
 
-Hard to run all tests at once because of API Limits.
+Hard to run all tests at once because of API Limits. If wanting to run the test cases, make sure to run each test folder by folder, sometimes you may need to replace the api key. You can obtain one from [here](https://spoonacular.com/food-api).
 
 ## Contributing
 

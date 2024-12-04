@@ -41,7 +41,7 @@ public class UserInfoController {
      * Returns the user to the main screen.
      */
     public void return_to_main() {
-        userInfoInputBoundary.return_to_main();
+        userInfoInputBoundary.returnTomain();
     }
 
     /**

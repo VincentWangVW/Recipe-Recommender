@@ -1,22 +1,21 @@
 package use_case.recommend_recipes;
 
 /**
- * The RecipesOutputBoundary interface defines the contract for the output boundary related to recipe recommendations.
- * It includes methods for navigating between screens and passing user-selected information regarding recipe generation.
+ * Interface defining the output boundary for recipe-related operations.
  */
 public interface RecipesOutputBoundary {
 
     /**
-     * Returns to the main screen, typically by triggering the appropriate UI update.
+     * Returns to the main menu or state.
      */
-    void return_to_main();
+    void returnTomain();
 
     /**
-     * Navigates to the generated recipes screen, passing the specified parameters.
+     * Navigates to the generated recipes view with the specified parameters.
      *
-     * @param selectedType the type of recipe generation (e.g., ingredients, season, holiday, etc.)
-     * @param userInfo a boolean flag indicating whether user-specific information should be considered
-     * @param custom a custom string parameter for personalized recipe searches
+     * @param selectedType The type of recipe generation (e.g., "Ingredients", "Season").
+     * @param userInfo     A boolean indicating if user-specific information should be considered.
+     * @param custom       Custom criteria for recipe generation.
      */
-    void go_to_generated(String selectedType, boolean userInfo, String custom);
+    void goToGenerated(String selectedType, boolean userInfo, String custom);
 }

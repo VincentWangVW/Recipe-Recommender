@@ -6,31 +6,28 @@ import entity.Recipe;
 import entity.UserPreferences;
 
 /**
- * The HolidayInputBoundary interface defines the contract for use cases related to holiday-based recipe
- * recommendations.
- * Implementations of this interface will handle operations related to retrieving holiday-specific recipes.
+ * Interface defining the input boundary for holiday recommendations.
  */
 public interface HolidayInputBoundary {
 
     /**
-     * Returns to the main screen or main menu.
+     * Returns to the main menu or state.
      */
-    void return_to_main();
+    void returnTomain();
 
     /**
-     * Retrieves the current holiday or the selected holiday.
+     * Retrieves the current holiday being used in the recommendation process.
      *
-     * @return a String representing the current or selected holiday
+     * @return The name of the holiday as a String.
      */
     String getHoliday();
 
     /**
-     * Retrieves a list of recipes based on the holiday and user preferences.
-     * If user information is provided, it customizes the recipe search according to the user's preferences.
+     * Retrieves recipes based on the specified holiday and user preferences.
      *
-     * @param userPreferences the user preferences to customize the search (if applicable)
-     * @param userInfo        a flag indicating whether user preferences should be applied
-     * @return an ArrayList of Recipe objects that match the holiday and user preferences
+     * @param userPreferences The user's preferences for recipe recommendations.
+     * @param userInfo        A boolean indicating if user-specific information should be considered.
+     * @return A list of recipes matching the holiday recommendation criteria.
      */
     ArrayList<Recipe> getRecipesFromHoliday(UserPreferences userPreferences, boolean userInfo);
 }

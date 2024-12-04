@@ -41,7 +41,7 @@ public class MainPresenter implements MainOutputBoundary {
      * Switches the view to the IngredientsView.
      */
     @Override
-    public void switch_to_IngredientsView() {
+    public void switchToIngredientsView() {
         viewManagerModel.setState(ingredientsViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
@@ -50,7 +50,7 @@ public class MainPresenter implements MainOutputBoundary {
      * Switches the view to the UserInfoView.
      */
     @Override
-    public void switch_to_UserInfoView() {
+    public void switchToUserInfoView() {
         viewManagerModel.setState(userInfoViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
@@ -59,7 +59,7 @@ public class MainPresenter implements MainOutputBoundary {
      * Switches the view to the DateView.
      */
     @Override
-    public void switch_to_DateView() {
+    public void switchToDateView() {
         viewManagerModel.setState(dateViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
@@ -68,7 +68,7 @@ public class MainPresenter implements MainOutputBoundary {
      * Switches the view to the RecipeView.
      */
     @Override
-    public void switch_to_RecipeView() {
+    public void switchToRecipeView() {
         viewManagerModel.setState(recipeViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

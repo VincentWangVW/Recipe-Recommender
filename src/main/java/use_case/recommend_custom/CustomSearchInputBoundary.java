@@ -6,20 +6,17 @@ import entity.Recipe;
 import entity.UserPreferences;
 
 /**
- * The CustomSearchInputBoundary interface defines the input boundary for the custom recipe search use case.
- * It provides a method for retrieving recipes based on custom search criteria, user preferences,
- * and whether user information should be considered.
+ * Interface defining the input boundary for the custom search recommendation use case.
  */
 public interface CustomSearchInputBoundary {
 
     /**
-     * Retrieves a list of recipes based on custom search criteria and user preferences.
+     * Retrieves recipes based on custom search parameters.
      *
-     * @param custom The custom search query or criteria provided by the user.
-     * @param userPreferences The user preferences to filter the recipes.
-     * @param userInfo A flag indicating whether user-specific information (like allergies, dietary restrictions)
-     *                 should be considered when retrieving recipes.
-     * @return A list of recipes matching the custom search criteria and preferences.
+     * @param custom          The custom search parameter provided by the user.
+     * @param userPreferences The user's preferences for the recipe search.
+     * @param userInfo        A boolean indicating if user-specific information should be considered.
+     * @return A list of recipes matching the custom search criteria.
      */
     ArrayList<Recipe> getRecipesFromCustom(String custom, UserPreferences userPreferences, boolean userInfo);
 }

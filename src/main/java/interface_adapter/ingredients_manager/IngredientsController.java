@@ -64,6 +64,6 @@ public class IngredientsController {
      * Returns to the main screen, delegating to the IngredientsInteractor.
      */
     public void return_to_main() {
-        ingredientsInteractor.return_to_main();
+        ingredientsInteractor.returnTomain();
     }
 }

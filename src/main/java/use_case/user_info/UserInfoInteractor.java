@@ -1,43 +1,38 @@
 package use_case.user_info;
 
-import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 import entity.UserPreferences;
 
 /**
- * The UserInfoInteractor class implements the UserInfoInputBoundary interface and provides
- * functionality for managing user allergies, shopping amounts, and navigating to the main screen.
- * It interacts with the UserPreferences object to update the user's preferences and the output boundary
- * to notify changes.
+ * Interactor class for managing user information such as allergies and shopping preferences.
  */
 public class UserInfoInteractor implements UserInfoInputBoundary {
-    private final HashSet<String> allergies = new HashSet<>();
+    private final Set<String> allergies = new TreeSet<>();
     private final UserInfoOutputBoundary outputBoundary;
     private final UserPreferences userPreferences;
 
     /**
-     * Constructs a new UserInfoInteractor.
+     * Constructs a UserInfoInteractor instance.
      *
-     * @param outputBoundary the output boundary used to navigate the user interface
-     * @param userPreferences the user preferences object that stores the user's allergies and shopping limits
+     * @param outputBoundary   The output boundary to interact with the user interface.
+     * @param userPreferences  The user preferences entity to manage data.
      */
     public UserInfoInteractor(UserInfoOutputBoundary outputBoundary, UserPreferences userPreferences) {
         this.outputBoundary = outputBoundary;
         this.userPreferences = userPreferences;
     }
 
-    /**
-     * Instructs the system to return to the main screen.
-     */
     @Override
-    public void return_to_main() {
-        outputBoundary.return_to_main();
+    public void returnTomain() {
+        outputBoundary.returnTomain();
     }
 
     /**
-     * Adds a new allergy to the user's profile.
+     * Adds an allergy to the user's list of allergies.
      *
-     * @param allergyName the name of the allergy to be added
+     * @param allergyName The name of the allergy to add.
      */
     public void addAllergy(String allergyName) {
         allergies.add(allergyName);
@@ -45,9 +40,9 @@ public class UserInfoInteractor implements UserInfoInputBoundary {
     }
 
     /**
-     * Deletes an allergy from the user's profile.
+     * Removes an allergy from the user's list of allergies.
      *
-     * @param allergyName the name of the allergy to be deleted
+     * @param allergyName The name of the allergy to remove.
      */
     public void deleteAllergy(String allergyName) {
         allergies.remove(allergyName);
@@ -55,21 +50,16 @@ public class UserInfoInteractor implements UserInfoInputBoundary {
     }
 
     /**
-     * Changes the user's shopping amount to the specified value.
+     * Changes the limit for missing ingredients in the user's shopping preferences.
      *
-     * @param shopAmount the new shopping amount to be set
-     * @return the updated shopping amount
+     * @param shopAmount The new limit for missing ingredients.
+     * @return The updated shop amount.
      */
     public int changeShopAmount(int shopAmount) {
         userPreferences.setMissingIngredientsLimit(shopAmount);
         return shopAmount;
     }
 
-    /**
-     * Retrieves the list of allergies stored in the user's profile.
-     *
-     * @return an array of allergy names
-     */
     @Override
     public String[] getAllergies() {
         return allergies.toArray(new String[0]);

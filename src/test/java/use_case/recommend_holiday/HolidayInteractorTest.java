@@ -29,7 +29,7 @@ public class HolidayInteractorTest {
 
     @Test
     public void testReturnToMain() {
-        holidayInteractor.return_to_main();
+        holidayInteractor.returnTomain();
         assertTrue(holidayPresenter.returnToMainCalled);
     }
 
@@ -51,16 +51,16 @@ public class HolidayInteractorTest {
         ArrayList<Recipe> actual = holidayInteractor.getRecipesFromHoliday(userPreferences,true);
         ArrayList<Recipe> empty = new ArrayList<>();
         assertNotEquals(empty, actual);
-        }
+    }
 
     @Test public void testGetRecipesFromHolidayFalse() {
 
         UserPreferences userPreferences = new UserPreferences(0, false, false,
                 new String[0]);
-        String expectedHoliday = "Halloween";
+        String expectedHoliday = "Christmas";
         inMemoryDAO.setHoliday(expectedHoliday);
         holidayPresenter.setHoliday(expectedHoliday);
-        ArrayList<Recipe> actual = holidayInteractor.getRecipesFromHoliday(userPreferences,true);
+        ArrayList<Recipe> actual = holidayInteractor.getRecipesFromHoliday(userPreferences,false);
         ArrayList<Recipe> empty = new ArrayList<>();
         assertNotEquals(empty, actual);
     }
@@ -70,7 +70,7 @@ public class HolidayInteractorTest {
         private String holiday;
 
         @Override
-        public void return_to_main() {
+        public void returnTomain() {
             returnToMainCalled = true;
         }
 
@@ -95,9 +95,5 @@ public class HolidayInteractorTest {
         public void setHoliday(String holiday) {
             this.holiday = holiday;
         }
-    }
-    private static class TestSpoonacularDAO extends SpoonacularDAO {
-        private String holiday;
-
     }
 }

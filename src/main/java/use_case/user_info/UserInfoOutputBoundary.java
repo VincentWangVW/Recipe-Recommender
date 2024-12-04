@@ -1,13 +1,12 @@
 package use_case.user_info;
 
 /**
- * The UserInfoOutputBoundary interface defines the contract for the output boundary
- * used by the UserInfoInteractor to navigate between views and return to the main screen.
+ * Output boundary interface for managing user information.
  */
 public interface UserInfoOutputBoundary {
 
     /**
-     * Instructs the system to return to the main screen.
+     * Returns to the main menu or state.
      */
-    void return_to_main();
+    void returnTomain();
 }

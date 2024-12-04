@@ -7,62 +7,60 @@ import entity.Recipe;
 import entity.UserPreferences;
 
 /**
- * The IngredientsInputBoundary interface defines the operations for managing ingredients in the application.
- * It acts as the input boundary for the IngredientsInteractor, providing methods to interact with the ingredient data.
+ * Interface defining the input boundary for managing ingredients use case.
  */
 public interface IngredientsInputBoundary {
 
     /**
-     * Returns to the main screen of the application.
+     * Returns to the main menu or state.
      */
-    void return_to_main();
+    void returnTomain();
 
     /**
-     * Adds a new ingredient with the specified name and quantity.
+     * Adds an ingredient with the specified name and quantity.
      *
-     * @param ingredientName the name of the ingredient to add.
-     * @param quantity the quantity of the ingredient to add.
+     * @param ingredientName The name of the ingredient to add.
+     * @param quantity       The quantity of the ingredient.
      */
     void addIngredient(String ingredientName, int quantity);
 
     /**
-     * Deletes the specified ingredient.
+     * Deletes an ingredient with the specified name.
      *
-     * @param ingredientName the name of the ingredient to delete.
+     * @param ingredientName The name of the ingredient to delete.
      */
     void deleteIngredient(String ingredientName);
 
     /**
      * Changes the quantity of the specified ingredient by the given delta.
      *
-     * @param ingredientName the name of the ingredient to modify.
-     * @param delta the amount by which to change the ingredient's quantity.
-     * @return the updated quantity of the ingredient.
+     * @param ingredientName The name of the ingredient to update.
+     * @param delta          The change in quantity (positive or negative).
+     * @return The updated quantity of the ingredient.
      */
     int changeIngredientAmount(String ingredientName, int delta);
 
     /**
-     * Retrieves the list of ingredients.
+     * Gets a list of ingredients as strings.
      *
-     * @return a list of ingredient names.
+     * @return A list of ingredient names.
      */
     List<String> getIngredients();
 
     /**
-     * Retrieves the ingredients as an array list of strings.
+     * Gets an array list of ingredients.
      *
-     * @return an ArrayList of ingredient names.
+     * @return An array list of ingredient names.
      */
     ArrayList<String> getIngredientsArray();
 
     /**
-     * Retrieves recipes based on the provided list of ingredients, user preferences, and whether user information is
-     * available.
+     * Generates a list of recipes based on the specified ingredients, user preferences, and user information.
      *
-     * @param ingredients the list of ingredients to search for.
-     * @param userPreferences the preferences of the user to consider when generating recipes.
-     * @param userInfo whether user-specific information should be considered in the recipe generation.
-     * @return a list of recipes matching the provided ingredients and preferences.
+     * @param ingredients     A list of ingredient names.
+     * @param userPreferences The user's preferences for recipes.
+     * @param userInfo        Whether to include user-specific information.
+     * @return A list of recipes generated based on the ingredients.
      */
     ArrayList<Recipe> getRecipesFromIngredients(ArrayList<String> ingredients, UserPreferences userPreferences,
                                                        boolean userInfo);

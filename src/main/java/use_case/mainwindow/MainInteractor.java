@@ -1,51 +1,39 @@
 package use_case.mainwindow;
 
 /**
- * The MainInteractor class is the implementation of the MainInputBoundary interface.
- * It acts as the interactor for handling the logic of switching between different views in the main window.
- * It communicates with the MainOutputBoundary (the presenter) to notify the views of state changes.
+ * The MainInteractor class implements the MainInputBoundary interface
+ * and provides methods for switching views in the main window.
  */
 public class MainInteractor implements MainInputBoundary {
-    public final MainOutputBoundary mainpresenter;
+
+    private final MainOutputBoundary mainpresenter;
 
     /**
-     * Constructs a MainInteractor with a given MainOutputBoundary (presenter).
+     * Constructs a MainInteractor instance with the specified output boundary.
      *
-     * @param mainOutputBoundary the MainOutputBoundary responsible for updating the views.
+     * @param mainOutputBoundary The output boundary used for switching views.
      */
     public MainInteractor(MainOutputBoundary mainOutputBoundary) {
         mainpresenter = mainOutputBoundary;
     }
 
-    /**
-     * Switches the current view to the Ingredients view by invoking the appropriate method on the presenter.
-     */
     @Override
-    public void switch_to_IngredientsView() {
-        mainpresenter.switch_to_IngredientsView();
+    public void switchToIngredientsView() {
+        mainpresenter.switchToIngredientsView();
     }
 
-    /**
-     * Switches the current view to the User Info view by invoking the appropriate method on the presenter.
-     */
     @Override
-    public void switch_to_UserInfoView() {
-        mainpresenter.switch_to_UserInfoView();
+    public void switchToUserInfoView() {
+        mainpresenter.switchToUserInfoView();
     }
 
-    /**
-     * Switches the current view to the Date view by invoking the appropriate method on the presenter.
-     */
     @Override
-    public void switch_to_DateView() {
-        mainpresenter.switch_to_DateView();
+    public void switchToDateView() {
+        mainpresenter.switchToDateView();
     }
 
-    /**
-     * Switches the current view to the Recipe view by invoking the appropriate method on the presenter.
-     */
     @Override
-    public void switch_to_RecipeView() {
-        mainpresenter.switch_to_RecipeView();
+    public void switchToRecipeView() {
+        mainpresenter.switchToRecipeView();
     }
 }

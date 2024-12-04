@@ -5,36 +5,32 @@ import java.util.ArrayList;
 import entity.Recipe;
 
 /**
- * The GeneratedInputBoundary interface defines the methods that are used to interact
- * with the use case logic for generating recipes. It provides methods for navigating
- * back to the main view, generating recipes, and retrieving information about the
- * generation type and holiday.
+ * Interface defining the input boundary for the generated manager use case.
  */
 public interface GeneratedInputBoundary {
-
     /**
-     * Navigates back to the main view or screen.
+     * Returns to the main menu or state.
      */
-    void return_to_main();
+    void returnTomain();
 
     /**
-     * Generates a list of recipes based on the input data.
+     * Generates recipes based on the input criteria.
      *
-     * @return a list of generated recipes
+     * @return A list of {@link Recipe} objects generated.
      */
     ArrayList<Recipe> generateRecipes();
 
     /**
-     * Gets the type of recipe generation (e.g., random, based on ingredients, etc.).
+     * Gets the generation type (e.g., ingredients, season, holiday, etc.).
      *
-     * @return the generation type
+     * @return The generation type as a string.
      */
     String getGenerationType();
 
     /**
-     * Gets the holiday associated with the recipe generation, if any.
+     * Gets the current holiday associated with the generated recipes.
      *
-     * @return the holiday string (could be empty if no holiday is associated)
+     * @return The holiday name as a string, or {@code null} if no holiday is set.
      */
     String getHoliday();
 }

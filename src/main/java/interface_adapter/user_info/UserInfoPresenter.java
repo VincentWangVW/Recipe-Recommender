@@ -29,7 +29,7 @@ public class UserInfoPresenter implements UserInfoOutputBoundary {
      * of the ViewManagerModel.
      */
     @Override
-    public void return_to_main() {
+    public void returnTomain() {
         viewManagerModel.setState("MAIN_SCREEN");
         viewManagerModel.firePropertyChanged();
     }

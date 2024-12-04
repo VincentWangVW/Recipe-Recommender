@@ -1,29 +1,27 @@
 package use_case.mainwindow;
 
 /**
- * The MainOutputBoundary interface defines the methods for switching between different views in the main window.
- * It acts as the output boundary for the MainInteractor, allowing it to communicate with the presenter
- * to update the view based on user interactions or application logic.
+ * Interface defining the output boundary for the main window use case.
  */
 public interface MainOutputBoundary {
 
     /**
-     * Switches the current view to the Ingredients view.
+     * Switches the view to the ingredients view.
      */
-    void switch_to_IngredientsView();
+    void switchToIngredientsView();
 
     /**
-     * Switches the current view to the User Info view.
+     * Switches the view to the user info view.
      */
-    void switch_to_UserInfoView();
+    void switchToUserInfoView();
 
     /**
-     * Switches the current view to the Date view.
+     * Switches the view to the date view.
      */
-    void switch_to_DateView();
+    void switchToDateView();
 
     /**
-     * Switches the current view to the Recipe view.
+     * Switches the view to the recipe view.
      */
-    void switch_to_RecipeView();
+    void switchToRecipeView();
 }

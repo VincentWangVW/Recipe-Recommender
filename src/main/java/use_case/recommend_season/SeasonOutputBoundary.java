@@ -1,31 +1,28 @@
 package use_case.recommend_season;
 
 /**
- * The SeasonOutputBoundary interface defines the contract for the output boundary
- * used in the season recommendation use case. It provides methods for presenting
- * information about the current date and season, as well as allowing navigation
- * back to the main screen.
+ * Interface defining the output boundary for presenting season-related information.
  */
 public interface SeasonOutputBoundary {
 
     /**
-     * Instructs the presenter to return to the main screen.
+     * Returns to the main menu or state.
      */
-    void return_to_main();
+    void returnTomain();
 
     /**
-     * Presents the current date to the user interface.
+     * Formats and retrieves the date to be presented.
      *
-     * @param date the current date to be displayed
-     * @return a string representing the date to be shown in the user interface
+     * @param date The date to be formatted and presented.
+     * @return The formatted date as a String.
      */
     String getDate(String date);
 
     /**
-     * Presents the current season to the user interface.
+     * Formats and retrieves the season to be presented.
      *
-     * @param season the current season (e.g., "Winter", "Spring") to be displayed
-     * @return a string representing the season to be shown in the user interface
+     * @param season The season to be formatted and presented.
+     * @return The formatted season as a String.
      */
     String getSeason(String season);
 }

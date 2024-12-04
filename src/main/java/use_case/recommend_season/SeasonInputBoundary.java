@@ -6,38 +6,35 @@ import entity.Recipe;
 import entity.UserPreferences;
 
 /**
- * The SeasonInputBoundary interface defines the contract for managing the input related to seasonal recipe
- * recommendations.
- * It includes methods for retrieving seasonal recipes based on user preferences and interacting with the
- * system's date and season data.
+ * Interface defining the input boundary for season-based recipe recommendations.
  */
 public interface SeasonInputBoundary {
 
     /**
-     * Returns to the main screen, typically by triggering the appropriate UI update.
+     * Returns to the main menu or state.
      */
-    void return_to_main();
+    void returnTomain();
 
     /**
      * Retrieves the current date.
      *
-     * @return a string representing the current date
+     * @return The current date as a String.
      */
     String getDate();
 
     /**
-     * Retrieves the current season based on the system's date.
+     * Retrieves the current season based on the date.
      *
-     * @return a string representing the current season (e.g., "Winter", "Spring")
+     * @return The current season as a String.
      */
     String getSeason();
 
     /**
-     * Retrieves a list of recipes for the current season based on the provided user preferences.
+     * Retrieves recipes based on the season and user preferences.
      *
-     * @param userPreferences the user preferences to personalize the recipe suggestions
-     * @param userInfo a flag indicating whether to consider user-specific information
-     * @return a list of recipes suitable for the current season
+     * @param userPreferences The user's preferences for recipe recommendations.
+     * @param userInfo        A boolean indicating if user-specific information should be considered.
+     * @return A list of recipes matching the season and user preferences.
      */
     ArrayList<Recipe> getRecipesFromSeason(UserPreferences userPreferences, boolean userInfo);
 }

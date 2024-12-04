@@ -23,7 +23,7 @@ public class RecipesController {
      * This method delegates the action to the RecipesInputBoundary.
      */
     public void return_to_main() {
-        recipesInputBoundary.return_to_main();
+        recipesInputBoundary.returnTomain();
     }
 
     /**
@@ -34,7 +34,7 @@ public class RecipesController {
      * @param custom Custom information related to recipe generation.
      */
     public void go_to_generated(String selectedType, boolean userInfo, String custom) {
-        recipesInputBoundary.go_to_generated(selectedType, userInfo, custom);
+        recipesInputBoundary.goToGenerated(selectedType, userInfo, custom);
     }
 
     /**
