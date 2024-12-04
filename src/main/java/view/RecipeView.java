@@ -83,10 +83,10 @@ public class RecipeView extends JPanel implements ActionListener, ItemListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(returnButton)) {
-            recipesController.return_to_main();
+            recipesController.returnTomain();
         } else if (evt.getSource().equals(generateButton)) {
             String selectedType = (String) generationType.getSelectedItem();
-            recipesController.go_to_generated(selectedType, userInfo.isSelected(), customQueryField.getText());
+            recipesController.goToGenerated(selectedType, userInfo.isSelected(), customQueryField.getText());
         }
     }
 

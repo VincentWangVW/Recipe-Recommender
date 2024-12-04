@@ -46,16 +46,16 @@ public class MainView extends JPanel implements ActionListener {
      */
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(ingredients)) {
-            mainController.switch_to_IngredientsView();
+            mainController.switchToIngredientsView();
         }
         else if (evt.getSource().equals(user_info)) {
-            mainController.switch_to_UserInfoView();
+            mainController.switchToUserInfoView();
         }
         else if (evt.getSource().equals(date)) {
-            mainController.switch_to_DateView();
+            mainController.switchToDateView();
         }
         else if (evt.getSource().equals(generate_recipe)) {
-            mainController.switch_to_RecipeView();
+            mainController.switchToRecipeView();
         }
     }
     private void customizeButton(JButton button) {

@@ -116,7 +116,7 @@ public class UserInfoView extends JPanel implements ActionListener {
                 }
                 userInfoController.changeShopAmount(Integer.parseInt(shopAmountText));
             }
-            userInfoController.return_to_main();
+            userInfoController.returnTomain();
         }
     }
 }
