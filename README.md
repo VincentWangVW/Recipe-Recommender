@@ -68,22 +68,22 @@ Ensure the following are installed on your system:
 ## Instructions on App Usage
 
 After running the program you are met with the screen below. There are four sections: Ingredients Manager, User Info Manager, Date Information, and Generation Manager. <br/>
-< img width="357" alt="image" src="https://github.com/user-attachments/assets/4d327607-1386-42e3-b534-7f43974c9c5f"> <br/>
+![image](https://imgur.com/PHlMZKT) <br/>
 
 From pressing the "Ingredients" button, you will enter the Ingredients Manager where you can add, remove, +/- ingredients, and also return to the main menu. <br/>
-< img width="357" alt="image" src="https://github.com/user-attachments/assets/36a1ef9d-d92b-41ce-b929-61e82ad174b4"> <br/>
+![image](https://imgur.com/4g6vQ4A) <br/>
 
 From pressing the "User Info" button, you will enter the User Info Manager where you can check off some dietary restrictions, add and remove allergies, and input how many items you're willing to buy. <br/>
-![image](https://github.com/user-attachments/assets/40586a5e-b23a-47ed-bb71-12fdf947c71f) <br/>
+![image](https://imgur.com/XH5eulv) <br/>
 
 From pressing the "Date Information" button, you will enter the Date Information Screen where you can see the date, the holiday if there is any holiday, and the current season. <br/>
-![image](https://github.com/user-attachments/assets/df1129c9-f647-40d0-a361-0a6a22e94272) <br/>
+![image](https://imgur.com/XH5eulv) <br/>
 
 From pressing the "Generate Recipe" button, you will enter the Recipe Generation setting screen where you can edit settings for your recipe generation. You can choose whether you want it to follow user info, whether to generate it based off ingredients, holiday, season, or custom search. <br/>
-< img width="326" alt="image" src="https://github.com/user-attachments/assets/3de43250-0cb6-46aa-9619-ef66321ede0a"> <br/>
+![image](https://imgur.com/XH5eulv) <br/>
 
 From pressing the "Generate Recipes" button, you will then be brought to the last screen, the Generated Recipes Manager, where the generate button will then generate all the recipes based off your selections and display them with the information of recipe name, url, and how many missing ingredients. The missing ingredients will default to 0 for any option that is not "ingredients". <br/>
-< img width="329" alt="image" src="https://github.com/user-attachments/assets/e2e6c0d9-dd53-443a-b1d0-01fc4ac39c14"> <br/>
+![image](https://imgur.com/XH5eulv) <br/>
 
 ## Feedback
 
