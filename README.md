@@ -1,5 +1,7 @@
 # Recipe Recommender - CSC207 Group 166
 
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&width=435&lines=Recipe+Recommender;Based+on+season;Based+on+ingredient;Based+on+your+preference)](https://git.io/typing-svg)
+
 ## Table of Contents
 
 1. [Authors](#authors)
@@ -77,13 +79,13 @@ From pressing the "User Info" button, you will enter the User Info Manager where
 ![image](https://imgur.com/XH5eulv.png) <br/>
 
 From pressing the "Date Information" button, you will enter the Date Information Screen where you can see the date, the holiday if there is any holiday, and the current season. <br/>
-![image](https://imgur.com/XH5eulv.png) <br/>
+![image](https://imgur.com/IEoWfwQ.png) <br/>
 
 From pressing the "Generate Recipe" button, you will enter the Recipe Generation setting screen where you can edit settings for your recipe generation. You can choose whether you want it to follow user info, whether to generate it based off ingredients, holiday, season, or custom search. <br/>
-![image](https://imgur.com/XH5eulv.png) <br/>
+![image](https://imgur.com/cMt8l5h.png) <br/>
 
 From pressing the "Generate Recipes" button, you will then be brought to the last screen, the Generated Recipes Manager, where the generate button will then generate all the recipes based off your selections and display them with the information of recipe name, url, and how many missing ingredients. The missing ingredients will default to 0 for any option that is not "ingredients". <br/>
-![image](https://imgur.com/XH5eulv.png) <br/>
+![image](https://imgur.com/waUyjzP.png) <br/>
 
 ## Feedback
 
