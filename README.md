@@ -50,14 +50,14 @@ Ensure the following are installed on your system:
 1. Open a terminal or command prompt.
 2. Run the following command to clone the project:
    ```bash
-   git clone https://github.com/VincentWangVW/csc207_project_group_166.git
+   git clone https://github.com/VincentWangVW/Recipe-Recommender.git
    ```
 
 ---
 
 ### Running the Application
 1. Navigate to the following folder in the cloned repository:  
-   **`csc207_project_group_166/src/main/java/app/`**
+   **`Recipe-Recommender/src/main/java/app/`**
 2. Locate and run the main file to start the application.
 3. The main screen of the program will display.
 
@@ -102,17 +102,17 @@ We welcome contributions to the **Recipe Recommender** project! Whether it's fix
 ### How to Contribute
 
 1. **Check the Issues Tab**  
-   Visit the [GitHub Issues tab](https://github.com/VincentWangVW/csc207_project_group_166/issues) to see a list of open issues or feature requests. You can also create a new issue if none match your idea.
+   Visit the [GitHub Issues tab](https://github.com/VincentWangVW/Recipe-Recommender/issues) to see a list of open issues or feature requests. You can also create a new issue if none match your idea.
 
 2. **Fork the Repository**
     - Click the "Fork" button in the top-right corner of the repository.
     - Clone your forked repository to your local machine:
       ```bash
-      git clone https://github.com/YOUR_USERNAME/csc207_project_group_166.git
+      git clone https://github.com/YOUR_USERNAME/https://github.com/VincentWangVW/Recipe-Recommender.git
       ```  
     - Set up the upstream repository:
       ```bash
-      git remote add upstream https://github.com/VincentWangVW/csc207_project_group_166.git
+      git remote add upstream https://github.com/VincentWangVW/https://github.com/VincentWangVW/Recipe-Recommender.git
       ```
 
 3. **Create a Branch**
